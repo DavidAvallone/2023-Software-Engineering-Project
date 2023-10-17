@@ -1,4 +1,4 @@
-package com.futuretechpoker.futuretechpoker;
+package controller.servlet;
 
 import java.io.*;
 import jakarta.servlet.http.*;
