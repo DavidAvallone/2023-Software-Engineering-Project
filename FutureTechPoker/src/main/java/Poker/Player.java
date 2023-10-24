@@ -101,7 +101,7 @@ public class Player {
     }
 
     public void addCardToHand(Card newCard){
-        this.hand.getCards().add(newCard);
+        this.hand.getTotalCards().add(newCard);
     }
 
     /**

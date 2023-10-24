@@ -11,7 +11,7 @@ public class Deck {
     {
         deck = new ArrayList<>();
         for (int suit = 0; suit < 4; suit++){
-            for (int rank = 1; rank < 14; rank++){
+            for (int rank = 2; rank <= 14; rank++){
                 deck.add(new Card(suit, rank));
             }
         }
@@ -25,7 +25,7 @@ public class Deck {
     public boolean isEmpty(){
         return size <= 0;
     }
-    private ArrayList<Card> shuffle(){
+    public ArrayList<Card> shuffle(){
         Collections.shuffle(this.deck);
         return this.deck;
     }
