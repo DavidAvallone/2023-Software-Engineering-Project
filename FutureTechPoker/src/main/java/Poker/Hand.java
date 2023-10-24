@@ -13,6 +13,10 @@ public class Hand implements Comparable<Hand>{
         this.cardsAndRiver = new ArrayList<>(cards);
     }
 
+    public Hand(){
+        // nothing ?
+    }
+
     public List<Card> getCards(){
         return this.cards;
     }
