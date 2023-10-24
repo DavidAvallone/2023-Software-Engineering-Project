@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private int id;
-    private String name;
-    private double currency;
+    private int id;// from database
+    private String name; // from database
+    private double currency;// from data
     private Hand hand;
     private int turnOrder;
     private boolean fold = false;
@@ -101,7 +101,7 @@ public class Player {
     }
 
     public void addCardToHand(Card newCard){
-        this.hand.setTotalCards().add(newCard);
+        this.hand.getTotalCards().add(newCard);
     }
 
     /**
