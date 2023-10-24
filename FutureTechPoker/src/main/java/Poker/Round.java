@@ -7,12 +7,15 @@ import java.util.Scanner;
 public class Round {
     private ArrayList<Player> players;
     private ArrayList<Card> river;
+    private Deck deck;
 
     int current_pot = 0;
     int starting_bet;
     public Round(ArrayList<Player> players, int starting_bet) {
         this.players = players;
         this.starting_bet = starting_bet;
+        deck = new Deck();
+        deck = deck.shuffle();
     }
 
     public void sort_players(){
@@ -35,14 +38,13 @@ public class Round {
     }
 
     public void deal_out(){
-        //get the deck
-        //shuffle the deck
-        //sort the players base on their turn order// first person will become the small blind and the second will become the big blind
         sort_players();
         update_blinds();
         int all_drew = 0
         for(int i = 0; i < players.size();i++){
             //add a card to players hand
+            Player temp = players.get(i);
+            temp.hand.add(deck.draw());
             if(i + 1 == players.size() && all_drew == 0){
                 i = 0;
                 all_drew++;
@@ -50,19 +52,13 @@ public class Round {
         }
     }
 
-    public int get_player_choice(Player p, int call){//returns an int incase the user wants to raise
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Your current funds: " + p.current_total);
-        System.out.println("Current Pot Total: " + current_pot);
-        System.out.println("Current Call: " + call);
-
-        System.out.print("Enter your name: ");
-
-        String name = scanner.nextLine();
-
-        System.out.println("Hello, " + name + "!");
-
-        scanner.close();
+    public int get_player_choice(Player p, int call, string choice){//returns an int incase the user wants to raise
+        if choice == "fold"{
+            p.setFold(true);
+        }
+        if choice == "call"{
+            
+        }
     }
 
     public void take_round_bets(int round){
