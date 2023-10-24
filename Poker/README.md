@@ -27,6 +27,7 @@ Hand Class:
 
 Player Class:
 
+    int total_currency;
     int turn_order;
     boolean fold;
     int current_bet;
