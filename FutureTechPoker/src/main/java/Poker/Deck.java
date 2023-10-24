@@ -25,6 +25,7 @@ public class Deck {
     public boolean isEmpty(){
         return size <= 0;
     }
+
     public ArrayList<Card> shuffle(){
         Collections.shuffle(this.deck);
         return this.deck;
