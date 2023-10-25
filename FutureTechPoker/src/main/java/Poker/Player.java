@@ -121,6 +121,6 @@ public class Player {
     public String toString(){
 
         return "Player: " + this.name + ", Current Bet: " + this.currentBet + ", Currency: " + this.currency
-                + " Folded? " + fold;
+                + ", Folded? " + fold;
     }
 }
