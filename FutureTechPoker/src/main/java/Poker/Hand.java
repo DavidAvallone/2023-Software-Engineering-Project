@@ -14,9 +14,12 @@ public class Hand implements Comparable<Hand>{
     }
 
     public Hand(){
-        // nothing ?
+        cards = new ArrayList<Card>();
     }
 
+    public void add(Card c){
+        cards.add(c);
+    }
     public List<Card> getCards(){
         return this.cards;
     }
