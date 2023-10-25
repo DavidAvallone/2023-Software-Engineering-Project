@@ -2,11 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>JSP - Hello World</title>
+  <title>FutureTechPoker</title>
 </head>
 <body>
-<h1><%= "Hello World!" %></h1>
+<h1><%= "FutureTechPoker" %></h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="register.jsp">Register Page</a>
+<a href="login.jsp">Login Page</a>
 </body>
 </html>
