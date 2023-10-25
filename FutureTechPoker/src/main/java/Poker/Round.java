@@ -35,6 +35,7 @@ public class Round {
         deck.shuffle();
         deal_out();
         current_pot += small_blind + big_blind;
+        this.river = new ArrayList<Card>();
     }
 
     public void sort_players() {
@@ -84,6 +85,9 @@ public class Round {
     public void player_turn(int p, String choice, double bet) {
         Player current_player = players.get(p);
         this.current_player_turn = p;
+        if(player_status[p].equals("fold") || player_status[p].equals("all in")){
+            return;//effectively skipping
+        }
         switch (choice) {
             case "check":
                 player_status[p] = "check";
@@ -96,7 +100,8 @@ public class Round {
                 player_status[p] = "raise";
             case "all in":
                 players.get(p).setAllIn(true);
-                this.current_bet.addtoCurrentBet(current_player.getCurrency());
+                current_bet += current_player.getCurrency();
+                current_player.addtoCurrentBet(current_player.getCurrency());
                 current_pot += current_player.getCurrency();
                 player_status[p] = "all in";
             case "call":
@@ -160,6 +165,21 @@ public class Round {
             gameover = true;
             // hand evaluations and make a function to update all of the players information in the database
         }
+    }
+
+    public String toString(){
+        String result = "Current Players: ";
+        for (Player player : players) {
+            result += player + "\n";
+        }
+        result += "Round Info \n";
+        result += "Current Pot: " + current_pot + "\n";
+        result += "Current Bet: " + current_bet + "\n";
+        result += "Current River: ";
+        for(Card card : river){
+            result += card + "\n";
+        }
+        return result;
     }
 
 }
