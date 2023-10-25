@@ -20,6 +20,7 @@ public class Player {
         this.id = id;
         this.name = name;
         this.currency = currency;
+        this.hand = new Hand();
     }
 
     public Hand getHand() {
@@ -78,6 +79,9 @@ public class Player {
         return bigBlind;
     }
 
+    public void addtoCurrentBet(double bet){
+        this.currentBet += bet;
+    }
     public void setBigBlind(boolean bigBlind) {
         this.bigBlind = bigBlind;
     }
@@ -101,7 +105,7 @@ public class Player {
     }
 
     public void addCardToHand(Card newCard){
-        this.hand.getTotalCards().add(newCard);
+        this.hand.add(newCard);
     }
 
     /**
@@ -115,6 +119,8 @@ public class Player {
     }
 
     public String toString(){
-        return "Player: " + this.name;
+
+        return "Player: " + this.name + ", Current Bet: " + this.currentBet + ", Currency: " + this.currency
+                + ", Folded? " + fold;
     }
 }
