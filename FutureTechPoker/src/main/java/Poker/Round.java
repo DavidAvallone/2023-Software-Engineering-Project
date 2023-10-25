@@ -127,11 +127,11 @@ public class Round {
                     player_status[p] = "raise";
                     current_player.setCurrency(current_player.getCurrency() - bet);
                 }
-                current_player.addtoCurrentBet(bet);
 
                 this.current_pot += bet;
-                this.current_bet = bet;
-                player_bets[p] = bet;
+                this.current_bet += bet;
+                current_player.setCurrentBet(current_bet);
+                player_bets[p] = current_bet;
                 last_raise = p;
                 if(p < players.size()-1)
                     current_player_turn++;
@@ -234,6 +234,7 @@ public class Round {
             gameover = true;
         }
         if(isRoundOver() && round_num == 1){// first round is over add 3 to the river
+
             this.round_num++;
             for(int i = 0; i < players.size(); i++){
                 if(!(player_status[i].equals("fold") || player_status[i].equals("all in"))){
@@ -292,9 +293,9 @@ public class Round {
         result += "Round Info: \n";
         result += "Current Pot: " + current_pot + "\n";
         result += "Current Bet: " + current_bet + "\n";
-        result += "Current River: ";
+        result += "Current River: \n";
         for(Card card : river){
-            result += card + "\n";
+            result += "" + card + "\n";
         }
         result += "Current Player Turn: " + (current_player_turn+1) + "\n";
         return result;
