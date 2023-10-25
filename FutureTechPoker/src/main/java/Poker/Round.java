@@ -17,6 +17,7 @@ public class Round {
     private double current_pot = 0;
     private int current_player_turn;
 
+    private int last_raise;
     private boolean gameover = false;
     private String[] player_status;
     private double[] player_bets;
@@ -39,6 +40,7 @@ public class Round {
         this.river = new ArrayList<Card>();
         current_player_turn = 0;
         this.current_bet = starting_bet;
+        last_raise = 1;
     }
 
     public void sort_players() {
@@ -93,6 +95,7 @@ public class Round {
     public void player_turn(int p, String choice, double bet) {
         Player current_player = players.get(p);
         if(current_player_turn != p){
+            System.out.println("Not that players turn!");
             return;
         }
         if(player_status[p].equals("fold") || player_status[p].equals("all in")){
@@ -101,70 +104,130 @@ public class Round {
         switch (choice) {
             case "check":
                 player_status[p] = "check";
-                current_player_turn++;
+                if(p < players.size()-1)
+                    current_player_turn++;
+                else if(p == players.size()-1)
+                    current_player_turn = 0;
                 return;
             case "fold":
                 current_player.setFold(true);
                 player_status[p] = "fold";
-                current_player_turn++;
+                if(p < players.size()-1)
+                    current_player_turn++;
+                else if(p == players.size()-1)
+                    current_player_turn = 0;
                 return;
             case "raise":
+                if(bet > current_player.getCurrency()){
+                    bet = current_player.getCurrency();
+                    player_status[p] = "all in";
+                    current_player.setCurrency(0.0);
+                }
+                else{
+                    player_status[p] = "raise";
+                    current_player.setCurrency(current_player.getCurrency() - bet);
+                }
                 current_player.addtoCurrentBet(bet);
-                this.current_bet += bet;
-                player_status[p] = "raise";
-                current_player_turn++;
+
+                this.current_pot += bet;
+                this.current_bet = bet;
+                player_bets[p] = bet;
+                last_raise = p;
+                if(p < players.size()-1)
+                    current_player_turn++;
+                else if(p == players.size()-1)
+                    current_player_turn = 0;
                 return;
             case "all in":
                 players.get(p).setAllIn(true);
-                current_bet += current_player.getCurrency();
-                current_player.addtoCurrentBet(current_player.getCurrency());
+                current_bet = current_player.getCurrency();
+                current_player.setCurrentBet(current_player.getCurrency());
                 current_pot += current_player.getCurrency();
                 current_player.setCurrency(0.0);
                 player_status[p] = "all in";
-                current_player_turn++;
+                player_bets[p] = current_player.getCurrentBet();
+                if(p < players.size()-1)
+                    current_player_turn++;
+                else if(p == players.size()-1)
+                    current_player_turn = 0;
                 return;
             case "call":
                 double call = current_bet - current_player.getCurrentBet();
+                if(call > current_player.getCurrency()){
+                    call = current_player.getCurrency();
+                    player_status[p] = "all in";
+                }
+                else{
+                    player_status[p] = "call";
+                }
                 current_player.setCurrency(current_player.getCurrency() - call);
                 current_player.addtoCurrentBet(call);
                 current_pot += call;
+                player_bets[p] = current_bet;
                 // current bet stays the same
-                player_status[p] = "call";
-                current_player_turn++;
+                if(p < players.size()-1)
+                    current_player_turn++;
+                else if(p == players.size()-1)
+                    current_player_turn = 0;
                 return;
             default:
                 throw new IllegalStateException("Unexpected value: " + choice);
         }
     }
 
-//    public boolean isRoundOver () {
-//        // Count the number of active players and the number of players who have finished their actions.
-//        int activePlayers = 0;
-//        int finishedPlayers = 0;
-//
-//        for (int i = 0; i < player_status.length; i++) {
-//            if (!player_status[i].equals("fold")) {
-//                activePlayers++;
-//
-//                // If a player has called, checked, or gone all-in and their bet is equal to or greater than the current bet, they have finished their action.
-//                if (player_status[i].equals("call") || player_status[i].equals("check") || player_status[i].equals("all in")) {
-//                    if (player_bets[i] >= current_bet) {
-//                        finishedPlayers++;
-//                    }
-//                }
-//            }
-//        }
-//        // The round is over if all active players have finished their actions.
-//        return activePlayers > 0 && activePlayers == finishedPlayers;
-//    }
-
     public boolean isRoundOver(){
         if(everyone_folded()){
             return true;
         }
+        int active_players = 0;
+        int folded_players = 0;
+        // find folded players
+        for(int i = 0; i < players.size();i++){
+            if(player_status[i].equals("fold")){
+                folded_players++;
+            }
+        }
+        active_players = players.size() - folded_players;
+        int i = last_raise + 1;
 
+        if(i == players.size()){// last raise was the last person in the array
+            i = 0;
+        }
+        int called = 1;
+        //everyone checks or calls after a raise
+        while(i != last_raise){
+            //System.out.println("Top of the list i " + i);
+            if(i == players.size()){
+                break;
+            }
+            if(player_status[i].equals("fold") || player_status[i].equals("all in")){
+                if(i + 1 == players.size()){
+                    i = 0;
+                }
+                else{
+                    i++;// we skip these
+                }
+            }
+            else if(player_status[i].equals("call") && player_bets[i] == player_bets[last_raise]){
+                called++;
+                if(i + 1 == players.size()){
+                    i = 0;
+
+                }
+                else{
+                    i++;// we skip these
+                }
+            }
+        }
+        if(active_players == called){
+            return true;
+        }
         return false;
     }
+
+    //public int determine_first_player(){
+
+    //}
 
     public void update_round(){
         if(everyone_folded()){
@@ -183,6 +246,7 @@ public class Round {
             river.add(deck.draw());
             this.deck.draw();
             river.add(deck.draw());
+
         }
         else if(isRoundOver() && (round_num > 1 && round_num < 4)){ // round 2 and 3 add one to river
             this.round_num++;
