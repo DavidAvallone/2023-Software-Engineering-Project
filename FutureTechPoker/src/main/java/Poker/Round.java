@@ -280,6 +280,7 @@ public class Round {
         current_player.setCurrency(0.0);
         player_status[p] = "all in";
         player_bets[p] = current_player.getCurrentBet();
+        last_raise = p;
         if(p < players.size()-1)
             current_player_turn++;
         else if(p == players.size()-1)
@@ -321,11 +322,16 @@ public class Round {
     public void player_turn(int p, String choice, double bet) {
         Player current_player = players.get(p);
         if(current_player_turn != p){
-            System.out.println("Not that players turn!");
-            return;
+            throw new IllegalStateException("Wrong Player! Current Turn is : " + current_player_turn);
         }
         if(player_status[p].equals("fold") || player_status[p].equals("all in")){
-            return;//effectively skipping
+            if(current_player_turn + 1 == players.size()){
+                current_player_turn = 0;
+            }
+            else{
+                current_player_turn++;
+            }
+            throw new IllegalStateException("Player Has Folded! Current Turn is : " + current_player_turn);
         }
         switch (choice) {
             case "check":
