@@ -28,7 +28,7 @@ public class Round {
      * @param players An arraylist of player objects to be played in this round of poker
      * @param starting_bet the starting bet for the big blind and small blind
      */
-    public Round(ArrayList<Player> players, double starting_bet) {
+    public Round(ArrayList<Player> players, double starting_bet, Long seed) {
         this.players = players;
         this.player_status = new String[players.size()];
         this.player_bets = new double[players.size()];
@@ -39,7 +39,7 @@ public class Round {
         this.starting_bet = starting_bet;
         this.small_blind = starting_bet / 2;
         this.big_blind = starting_bet;
-        deck = new Deck();
+        deck = new Deck(seed);
         deck.shuffle();
         deal_out();
         current_pot += small_blind + big_blind;
@@ -542,7 +542,7 @@ public class Round {
                 Hand hand2 = player2.getHand();
 
                 // You need to implement a compareHands method in your Hand class
-                int result = hand1.compareTo(hand2);
+                int result = hand1.compareTo(hand2, river);
 
                 if (result > 0) {
                     winning_player = player1;

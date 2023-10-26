@@ -2,13 +2,17 @@ package Poker;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
+
 
 public class Deck {
     private ArrayList<Card> deck;
     private int size;
+    private Long seed;
 
-    public Deck()
+    public Deck(Long seed)
     {
+        this.seed = seed;
         deck = new ArrayList<>();
         for (int suit = 0; suit < 4; suit++){
             for (int rank = 2; rank <= 14; rank++){
@@ -27,7 +31,13 @@ public class Deck {
     }
 
     public ArrayList<Card> shuffle(){
-        Collections.shuffle(this.deck);
+        if(seed == null){
+            Collections.shuffle(this.deck);
+        }
+        else{
+            Random r = new Random(seed);
+            Collections.shuffle(this.deck,r);
+        }
         return this.deck;
     }
 
