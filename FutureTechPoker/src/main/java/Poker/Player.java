@@ -114,9 +114,18 @@ public class Player {
      * @return int this player has a better hand if positive.
      * Other player has a better hand if negative. 0 if equal hands.
      */
-    public int compareHand(Player otherPlayer){
-        return this.hand.compareTo(otherPlayer.hand);
+
+    public int compareHandTo(Player otherPlayer, ArrayList<Card> river){
+        List<Card> totalCardsPlayer1 = new ArrayList<>();
+        List<Card> totalCardsPlayer2 = new ArrayList<>();
+        totalCardsPlayer1.addAll(this.hand.getCards());
+        totalCardsPlayer1.addAll(river);
+        totalCardsPlayer2.addAll(otherPlayer.hand.getCards());
+        totalCardsPlayer2.addAll(river);
+
+        return HandEvaluator.evaluate(totalCardsPlayer1) - HandEvaluator.evaluate(totalCardsPlayer2);
     }
+
 
     public String toString(){
 
