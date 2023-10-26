@@ -143,6 +143,7 @@ public class RoundHelperTest {
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
+
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
@@ -152,6 +153,7 @@ public class RoundHelperTest {
         players.add(p2);
         players.add(p3);
         players.add(p4);
+
         Round round = new Round(players, 50);
         boolean two_cards_per_player = true;
         ArrayList<Player> dealt_cards = round.getPlayers();
@@ -162,4 +164,374 @@ public class RoundHelperTest {
         }
         assertEquals(true, two_cards_per_player);
     }
+
+    @Test
+    public void player_fold(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "fold",0);
+        boolean actual = round.getPlayers().get(0).isFold();
+        assertEquals(true,actual);
+    }
+    @Test
+    public void player_check(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "fold",0);
+        round.player_turn(1, "check",0);
+        boolean actual = round.getPlayer_status()[1].equals("check");
+        assertEquals(true,actual);
+    }
+
+    @Test
+    public void player_raise(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "raise",10);
+        boolean actual = round.getPlayer_status()[0].equals("raise");
+        assertEquals(true,actual);
+    }
+
+    @Test
+    public void player_allin(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "all in",10);
+        boolean actual = round.getPlayer_status()[0].equals("all in");
+        assertEquals(true,actual);
+    }
+
+    @Test
+    public void player_allin_currency(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "all in",10);
+        assertEquals(0,round.getPlayers().get(0).getCurrency());
+    }
+
+    @Test
+    public void player_call(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "call",10);
+        boolean actual = round.getPlayer_status()[0].equals("call");
+        assertEquals(true,actual);
+    }
+
+    @Test
+    public void player_turn_exception_test(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        String choice = "hello";
+
+        // Use assertThrows to check for the expected exception
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+            round.player_turn(0, choice, 10);
+        });
+
+        // Check if the exception message is as expected
+        assertEquals("Unexpected value: " + choice, exception.getMessage());
+    }
+
+    @Test
+    public void is_roundover_false(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "call",0);
+        round.player_turn(1, "check",0);
+        round.player_turn(2, "call",0);
+        round.player_turn(3, "raise",10);
+
+        boolean actual = round.isRoundOver();
+        assertEquals(false,actual);
+    }
+
+    @Test
+    public void is_roundover_true(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "call",0);
+        round.player_turn(1, "check",0);
+        round.player_turn(2, "call",0);
+        round.player_turn(3, "call",10);
+
+        boolean actual = round.isRoundOver();
+        assertEquals(true,actual);
+    }
+
+    @Test
+    public void is_roundover_everyoneFolded(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "fold",0);
+        round.player_turn(1, "check",0);
+        round.player_turn(2, "fold",0);
+        round.player_turn(3, "fold",10);
+
+        boolean actual = round.isRoundOver();
+        assertEquals(true,actual);
+    }
+
+    @Test
+    public void whos_first_true(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "call",0);
+        round.player_turn(1, "check",0);
+        round.player_turn(2, "call",0);
+        round.player_turn(3, "call",10);
+
+
+        assertEquals(0,round.determine_first_player());
+    }
+
+    @Test
+    public void whos_first_false(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "call",0);
+        round.player_turn(1, "check",0);
+        round.player_turn(2, "call",0);
+        round.player_turn(3, "call",10);
+
+        assertNotEquals(1,round.determine_first_player());
+    }
+
+    @Test
+    public void last_player(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "fold",0);
+        round.player_turn(1, "check",0);
+        round.player_turn(2, "fold",0);
+        round.player_turn(3, "fold",10);
+
+
+        assertEquals(p2,round.last_player_standing());
+    }
+
+    @Test
+    public void last_player_null(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        Round round = new Round(players, 50);
+
+        round.player_turn(0, "call",0);
+        round.player_turn(1, "check",0);
+        round.player_turn(2, "fold",0);
+        round.player_turn(3, "fold",10);
+
+
+        assertEquals(null,round.last_player_standing());
+    }
+
+
 }

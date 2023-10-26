@@ -145,6 +145,22 @@ public class Round {
     }
 
     /**
+     * this is a getter for the string array for the players status
+     * @return string array of statuses
+     */
+    public String[] getPlayer_status(){
+        return this.player_status;
+    }
+
+    /**
+     * Getter for the double array of player bets
+     * @return double array of bets
+     */
+    public double[] getPlayer_bets(){
+        return this.player_bets;
+    }
+
+    /**
      * This function handles the logic for when a player folds
      * @param p index in player arrays
      * @param current_player the player object
@@ -348,6 +364,15 @@ public class Round {
                     i++;// we skip these
                 }
             }
+            else{
+                if(i + 1 == players.size()){
+                    i = 0;
+
+                }
+                else{
+                    i++;// we skip these
+                }
+            }
         }
         if(active_players == called){
             return true;
@@ -495,7 +520,6 @@ public class Round {
                 }
             }
         }
-
         return winning_player;
     }
 
@@ -523,5 +547,4 @@ public class Round {
         }
         return result;
     }
-
 }
