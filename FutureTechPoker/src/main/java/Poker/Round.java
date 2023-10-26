@@ -60,6 +60,14 @@ public class Round {
     }
 
     /**
+     * this the getter for the players list in the round
+     * @return arraylist of the players in the round
+     */
+    public ArrayList<Player> getPlayers(){
+        return this.players;
+    }
+
+    /**
      * This updates the blinds depending on the turn order.
      */
     public void update_blinds() {
@@ -88,6 +96,7 @@ public class Round {
         sort_players();
         update_blinds();
         int all_drew = 0;
+        players.get(0).addCardToHand(deck.draw());
         for (int i = 0; i < players.size(); i++) {
             //add a card to players hand
             Player temp = players.get(i);
@@ -97,6 +106,18 @@ public class Round {
                 all_drew++;
             }
         }
+    }
+
+    /**
+     * This function returns each players hand in a string
+     * @return a human-readable way to print all hands
+     */
+    public String player_hands_toString(){
+        String result = "Player Hands: \n";
+        for(Player p : players){
+            result += p.getName() + ": " + p.getHand() + "\n";
+        }
+        return result;
     }
 
     /**
