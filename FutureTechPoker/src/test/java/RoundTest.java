@@ -103,7 +103,7 @@ public class RoundTest {
         round.player_turn(p3.getTurnOrder(), "fold", 0);
         round.player_turn(p4.getTurnOrder(),"fold", 0);
         round.update_round();
-        //System.out.println(round);
+        System.out.println(round);
         assertEquals(true, round.getGameOver());
     }
 
@@ -299,7 +299,7 @@ public class RoundTest {
         round.player_turn(p3.getTurnOrder(), "call", 0);
         round.player_turn(p4.getTurnOrder(),"call", 10);
         round.update_round(); // pot = 240
-        System.out.println(round);// error is in the raise still
+        //System.out.println(round);// error is in the raise still
 
         round.player_turn(p1.getTurnOrder(),"raise",10);
         round.player_turn(p2.getTurnOrder(),"call",0);

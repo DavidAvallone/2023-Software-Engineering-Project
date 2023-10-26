@@ -1,5 +1,6 @@
 package Poker;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,6 +22,7 @@ public class Round {
     private boolean gameover = false;
     private String[] player_status;
     private double[] player_bets;
+    private Player winning_player = null;
 
     /**
      * This is the constructor for the round class: a round is the entire game of poker
@@ -354,6 +356,8 @@ public class Round {
     public void update_round(){
         if(everyone_folded()){
             gameover = true;
+            winning_player = last_player_standing();
+
         }
         if(isRoundOver() && round_num == 1){// first round is over add 3 to the river
             current_player_turn = determine_first_player();
@@ -384,6 +388,7 @@ public class Round {
         }
         else if(isRoundOver() && round_num == 4){ // end of game
             gameover = true;
+            winning_player = who_won();
             // hand evaluations and make a function to update all of the players information in the database
         }
     }
@@ -409,11 +414,68 @@ public class Round {
     }
 
     /**
+     * this function finds the last player to not fold incase everyone except one folded
+     * @return the last standing player
+     */
+    public Player last_player_standing(){
+        if(everyone_folded()){
+            for(Player p : players){
+                if(!p.isFold()){
+                    return p;
+                }
+            }
+        }
+        else {
+            return null;
+        }
+        return null;
+    }
+
+    /**
      * a getter for the round number 1-4
      * @return this rounds number
      */
     public int getRound_num(){
         return this.round_num;
+    }
+
+    /**
+     * This function determines who won the game
+     * @return the winning player object
+     */
+    public Player who_won(){
+        Player winning_player = null;
+
+        for (int i = 0; i < players.size(); i++) {
+            Player player1 = players.get(i);
+
+            if (player1.isFold()) {
+                continue; // Skip folded players
+            }
+
+            Hand hand1 = player1.getHand();
+
+            for (int j = i + 1; j < players.size(); j++) {
+                Player player2 = players.get(j);
+
+                if (player2.isFold()) {
+                    continue; // Skip folded players
+                }
+
+                Hand hand2 = player2.getHand();
+
+                // You need to implement a compareHands method in your Hand class
+                int result = hand1.compareTo(hand2);
+
+                if (result > 0) {
+                    winning_player = player1;
+                } else if (result < 0) {
+                    winning_player = player2;
+                }
+            }
+        }
+
+        return winning_player;
     }
 
     /**
@@ -434,6 +496,10 @@ public class Round {
             result += "" + card + "\n";
         }
         result += "Current Player Turn: " + (current_player_turn+1) + "\n";
+        if(winning_player != null){
+            result += "GAME OVER \n";
+            result += "Winning Player: " + winning_player + "\n";
+        }
         return result;
     }
 
