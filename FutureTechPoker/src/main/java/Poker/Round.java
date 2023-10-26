@@ -22,6 +22,11 @@ public class Round {
     private String[] player_status;
     private double[] player_bets;
 
+    /**
+     * This is the constructor for the round class: a round is the entire game of poker
+     * @param players An arraylist of player objects to be played in this round of poker
+     * @param starting_bet the starting bet for the big blind and small blind
+     */
     public Round(ArrayList<Player> players, double starting_bet) {
         this.players = players;
         this.player_status = new String[players.size()];
@@ -43,12 +48,18 @@ public class Round {
         last_raise = 1;
     }
 
+    /**
+     * This function sorts the players by the turn order
+     */
     public void sort_players() {
         Comparator<Player> byTurnOrder = Comparator.comparing(Player::getTurnOrder);// get turn order function of player
         // Sort the list of players using the custom comparator
         Collections.sort(players, byTurnOrder);
     }
 
+    /**
+     * This updates the blinds depending on the turn order.
+     */
     public void update_blinds() {
         Player p1 = players.get(0);
         p1.setSmallBlind(true);
@@ -67,6 +78,10 @@ public class Round {
         }
     }
 
+    /**
+     * this simulates the beginning of a poker match and sorts players
+     * deals out the cards to each players hands
+     */
     public void deal_out() {
         sort_players();
         update_blinds();
@@ -82,16 +97,36 @@ public class Round {
         }
     }
 
+    /**
+     * a getter for the current pot
+     * @return the current pot
+     */
     public double getCurrent_pot(){
         return this.current_pot;
     }
+
+    /**
+     * This is a getter for the game over boolean
+     * @return a boolean if the game is over
+     */
     public boolean getGameOver(){
         return gameover;
     }
 
+    /**
+     * A setter to set the game to over
+     * @param b the boolean to set the game to over or still in play
+     */
     public void setGameover(boolean b){
         this.gameover = b;
     }
+
+    /**
+     * This function handles the logic for a players turn
+     * @param p the player to play their turn
+     * @param choice a string to determine what they will do on their turn
+     * @param bet if they decide to raise this will be there bet
+     */
     public void player_turn(int p, String choice, double bet) {
         Player current_player = players.get(p);
         if(current_player_turn != p){
@@ -175,6 +210,10 @@ public class Round {
         }
     }
 
+    /**
+     * this function checks to see if the round is over
+     * @return a boolean for whether or not the round is over
+     */
     public boolean isRoundOver(){
         if(everyone_folded()){
             return true;
@@ -196,7 +235,6 @@ public class Round {
         int called = 1;
         //everyone checks or calls after a raise
         while(i != last_raise){
-            //System.out.println("Top of the list i " + i);
             if(i == players.size()){
                 break;
             }
@@ -225,16 +263,31 @@ public class Round {
         return false;
     }
 
-    //public int determine_first_player(){
+    /**
+     * This function determines who will be the first person to play in the next round
+     * @return an integer to signify whos turn it is
+     */
+    public int determine_first_player(){
+        int player = 0;
+        for(int i = 0; i < players.size();i++){
+            if(!(player_status[i].equals("fold") || player_status[i].equals("all in"))){
+                player = i;
+                break;
+            }
+        }
+        return player;
+    }
 
-    //}
-
+    /**
+     * This function updates the round to the next if the conditions are met.
+     * round 1 to round 2 etc. until the game is over at round 4 or if the game ends prior
+     */
     public void update_round(){
         if(everyone_folded()){
             gameover = true;
         }
         if(isRoundOver() && round_num == 1){// first round is over add 3 to the river
-
+            current_player_turn = determine_first_player();
             this.round_num++;
             for(int i = 0; i < players.size(); i++){
                 if(!(player_status[i].equals("fold") || player_status[i].equals("all in"))){
@@ -250,6 +303,7 @@ public class Round {
 
         }
         else if(isRoundOver() && (round_num > 1 && round_num < 4)){ // round 2 and 3 add one to river
+            current_player_turn = determine_first_player();
             this.round_num++;
             for(int i = 0; i < players.size(); i++){
                 if(!(player_status[i].equals("fold") || player_status[i].equals("all in"))){
@@ -265,6 +319,10 @@ public class Round {
         }
     }
 
+    /**
+     * This function checks to see if everyone folded except one player
+     * @return a boolean to see if the game is over or not
+     */
     public boolean everyone_folded(){
         int num_players = players.size();
         int folded = 0;
@@ -281,16 +339,25 @@ public class Round {
         }
     }
 
+    /**
+     * a getter for the round number 1-4
+     * @return this rounds number
+     */
     public int getRound_num(){
         return this.round_num;
     }
 
+    /**
+     * the tostring method for a round in a human-readable way
+     * @return humanreadable string of this round
+     */
     public String toString(){
         String result = "Current Players: \n";
         for (Player player : players) {
             result += player + "\n";
         }
         result += "Round Info: \n";
+        result += "Current Round: " + round_num + "\n";
         result += "Current Pot: " + current_pot + "\n";
         result += "Current Bet: " + current_bet + "\n";
         result += "Current River: \n";
