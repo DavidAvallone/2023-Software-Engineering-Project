@@ -1,8 +1,11 @@
 package Poker;
 
+
 import java.util.ArrayList;
+import org.checkerframework.checker.units.qual.A;
 
 public class HandEvaluator {
+
     private static final int NUM_SUITS = 4;
 
     public static ArrayList<Card> sortByRank(ArrayList<Card> cards){
@@ -26,6 +29,7 @@ public class HandEvaluator {
         }
         return cards;
     }
+
 
     public static ArrayList<Card> findHighestStraight(ArrayList<Card> cards){
         ArrayList<Card> straightCards = new ArrayList<>();
@@ -56,6 +60,7 @@ public class HandEvaluator {
         return null;
     }
 
+
     public static int obtainMostCommonSuit(ArrayList<Card> cards){
         int[] suitCounts = new int[NUM_SUITS];
         int mostCommonSuit = 0;
@@ -80,10 +85,13 @@ public class HandEvaluator {
         for(int i = 0; )
     }
 
+
     public static ArrayList<Card> findFlush(ArrayList<Card> cards)
     {
         ArrayList<Card> flushCards = new ArrayList<>();
+
         ArrayList<Card> sortedCards = HandEvaluator.sortByRank(cards);
+
         for(int i = 0; i < NUM_SUITS; i++){
             if(flushCards.size() >= 5){
                 return flushCards;
