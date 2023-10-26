@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>FutureTechPoker</title>
+  <title>FutureTech Poker</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
