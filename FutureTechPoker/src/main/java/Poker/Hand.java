@@ -28,13 +28,11 @@ public class Hand{
     }
 
 
-
-/*
-    @Override public int compareTo(Hand otherHand, List<Card> card){
-        return HandEvaluator.evaluate() - HandEvaluator.evaluate();
+    public int compareTo(Hand otherHand){
+        return HandEvaluator.evaluate(this.cards) - HandEvaluator.evaluate(otherHand.getCards());
     }
 
- */
+
     public String toString(){
         String totalString = "";
         for(int i = 0; i < this.cards.size(); i++){
