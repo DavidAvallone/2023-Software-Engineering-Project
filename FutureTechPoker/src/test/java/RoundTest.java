@@ -23,7 +23,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
         //System.out.println(round);
         assertEquals(50, starting_bet);
     }
@@ -45,7 +48,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
 
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"check",0);
@@ -71,7 +77,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
 
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"fold",0);
@@ -98,7 +107,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
 
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"fold",0);
@@ -127,7 +139,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
 
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"check",0);
@@ -155,7 +170,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"check",0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -185,7 +203,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"check",0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -216,7 +237,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"check",0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -250,7 +274,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"check",0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -289,7 +316,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"check",0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -328,7 +358,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
         round.player_turn(p1.getTurnOrder(),"call",0); // 50
         round.player_turn(p2.getTurnOrder(),"check",0); //50
         round.player_turn(p3.getTurnOrder(), "call", 0); // 50
@@ -362,7 +395,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
         round.player_turn(p1.getTurnOrder(),"call",0); // 50
         round.player_turn(p2.getTurnOrder(),"check",0); //50
         round.player_turn(p3.getTurnOrder(), "call", 0); // 50
@@ -397,7 +433,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
         //round 1
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"check",0);
@@ -423,6 +462,7 @@ public class RoundTest {
         round.player_turn(p4.getTurnOrder(),"call", 0);
         round.update_round(); // pot = 320
 
+        System.out.println(round);
         assertEquals(5,round.getRiver().size());
     }
     @Test
@@ -442,7 +482,10 @@ public class RoundTest {
         players.add(p4);
 
         int starting_bet = 50;
-        Round round = new Round(players,starting_bet);
+        long seed = 42;
+        Round round = new Round(players, starting_bet, seed);
+
+
         //round 1
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"check",0);
@@ -462,6 +505,7 @@ public class RoundTest {
         round.player_turn(p4.getTurnOrder(),"call", 0);
         round.update_round(); // pot = 280
 
+        System.out.println(round);
         assertEquals(9930,round.getPlayers().get(0).getCurrency());
     }
 }
