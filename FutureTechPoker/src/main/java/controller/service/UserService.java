@@ -44,45 +44,13 @@ public class UserService {
      */
     public static User loginUser(String login, String unhashedPassword){
         User found = dao.findUserByLogin(login);
-        if(found!=null){ //Found user by login
-            //We must certify the passwords match
-            if(PasswordUtil.compare(unhashedPassword,found.getPassword())){
-                return found;
-            }
-            //I know I could combine both IFs in the same one,
-            // I separated them to make it easier to explain the logic for some students
+        if(found!=null && PasswordUtil.compare(unhashedPassword,found.getPassword())){ // Found user by login
+            return found;
         }
-        return null; //Login or Password incorrect
-    }
-
-    /***
-     * Returns a list of all Users in the DB
-     * Usually for an Admin CRUD needs to see all data
-     * @param Order Which field to order the results
-     * @return User list
-     */
-    public static List<User> listUsers(String Order){
-        List<User> lstUser = dao.list(Order);
-        return lstUser;
+        return null; // Login or Password incorrect
     }
 
     public static void deleteUser(int id){
         dao.delete(id);
-    }
-
-    public static User editUser(User u){
-
-        if(u.getPassword()==null || u.getPassword().trim().length()==0){
-            //No Password was given, we need to fetch it from DB
-            User original = dao.read(u.getID());
-            u.setPassword(original.getPassword()); //original pass is already hashed (it is supposed to be!)
-        }
-        else{
-            //Password was typed, we need to hash it
-            String hashed = PasswordUtil.hash( u.getPassword() );
-            u.setPassword(hashed);
-        }
-
-        return dao.update(u);
     }
 }
