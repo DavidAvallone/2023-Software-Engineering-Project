@@ -17,6 +17,8 @@
 </head>
 <h1>Welcome, <%=((User) session.getAttribute("User")).getLogin()%></h1>
 <body>
+<h1><%= "FutureTech Poker" %></h1>
+<br/>
 <form action="logoutServlet" method="post">
     <button type="submit" class="btn btn-success me-2">Log Out</button>
 </form>
