@@ -23,7 +23,7 @@
 %>
 <html>
 <head>
-  <title>FutureTech Poker</title>
+  <title>FutureTech Poker Login</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>

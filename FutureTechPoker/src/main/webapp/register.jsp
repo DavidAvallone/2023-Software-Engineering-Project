@@ -23,14 +23,12 @@
 %>
 <html>
 <head>
-    <title>FutureTech Poker</title>
+    <title>FutureTech Poker Registration</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 <h1><%= "FutureTech Poker" %></h1>
 <br/>
-<%-- Here you put the content for this page --%>
-
 <div class="container mt-2">
     <h3 class="center text-primary"> Register New User </h3>
     <form method="post" action="registerUserServlet">
