@@ -22,7 +22,13 @@
 
 %>
 <html>
+<head>
+  <title>FutureTech Poker</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
 <body>
+<h1><%= "FutureTech Poker" %></h1>
+<br/>
 <div class="container mt-2">
   <h3 class="center text-primary"> Login </h3>
   <form method="post" action="loginServlet">

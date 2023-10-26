@@ -11,5 +11,7 @@
 <a href="register.jsp">Register Page</a>
 <br/>
 <a href="login.jsp">Login Page</a>
+<br/>
+<a href="home.jsp">Home Page</a>
 </body>
 </html>
