@@ -31,8 +31,19 @@ public class Hand{
     }
 
 
-    public int compareTo(Hand otherHand){
-        return HandEvaluator.evaluate(this.cards) - HandEvaluator.evaluate(otherHand.getCards());
+
+    public int compareTo(Hand otherHand, List<Card> river){
+        List<Card> totalCardsPlayer1 = new ArrayList<>();
+        totalCardsPlayer1.addAll(this.getCards());
+        totalCardsPlayer1.addAll(river);
+        List<Card> totalCardsPlayer2 = new ArrayList<>();
+        totalCardsPlayer2.addAll(otherHand.getCards());
+        totalCardsPlayer2.addAll(river);
+        int comparison = HandEvaluator.evaluate(totalCardsPlayer1) - HandEvaluator.evaluate(totalCardsPlayer2);
+        if(comparison == 0){
+            return HandEvaluator.tieBreaker(totalCardsPlayer1, totalCardsPlayer2);
+        }
+        return comparison;
     }
 
 
