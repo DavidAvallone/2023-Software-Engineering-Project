@@ -23,6 +23,18 @@ public class Player {
         this.hand = new Hand();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Player otherPlayer = (Player) obj;
+        return id == otherPlayer.id;
+    }
+
     public Hand getHand() {
         return hand;
     }

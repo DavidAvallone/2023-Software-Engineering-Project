@@ -12,6 +12,9 @@ public class Hand{
         this.cards = cards;
     }
 
+    public int getHandSize(){
+        return this.cards.size();
+    }
     public Hand(){
         cards = new ArrayList<Card>();
     }
@@ -36,7 +39,7 @@ public class Hand{
     public String toString(){
         String totalString = "";
         for(int i = 0; i < this.cards.size(); i++){
-            totalString = totalString + this.cards.get(i).toString();
+            totalString += this.cards.get(i).toString() + " | ";
         }
         return totalString;
     }
