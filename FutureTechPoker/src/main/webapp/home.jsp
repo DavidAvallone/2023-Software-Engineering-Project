@@ -13,6 +13,7 @@
 <html>
 <head>
     <title>User Home</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <h1>Welcome, <%=((User) session.getAttribute("User")).getLogin()%></h1>
 <body>
