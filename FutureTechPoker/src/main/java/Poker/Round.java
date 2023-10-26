@@ -1,6 +1,5 @@
 package Poker;
 
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -50,6 +49,13 @@ public class Round {
         last_raise = 1;
     }
 
+    /**
+     * this function is the getter for the river
+     * @return the array list of cards
+     */
+    public ArrayList<Card> getRiver(){
+        return river;
+    }
     /**
      * This function sorts the players by the turn order
      */
@@ -195,6 +201,8 @@ public class Round {
      */
     public void raise(int p, Player current_player, double bet){
         boolean after_raise = false;
+        boolean after_call = false;
+        boolean beginning = false;
         double call = 0;
         int last_player;
         if(p == players.size() - 1){
@@ -204,11 +212,18 @@ public class Round {
             last_player = players.size() - 1;
         }
         else{
-            last_player= p -1;
+            last_player = p -1;
         }
+
         if(player_status[last_player].equals("raise")){
             call = current_bet - current_player.getCurrentBet();
             after_raise = true;
+        }
+        if(player_status[last_player].equals("call")){
+            after_call = true;
+        }
+        if(player_status[last_player].equals("not played")){
+            beginning = true;
         }
         if(bet > current_player.getCurrency()){
             bet = current_player.getCurrency();
@@ -219,12 +234,15 @@ public class Round {
             player_status[p] = "raise";
             if(after_raise){
                 current_player.setCurrency(current_player.getCurrency() - (call + bet));
-                this.current_pot += call + bet;
-
+            }
+            else if(after_call){
+                current_player.setCurrency(current_player.getCurrency() - bet);
+            }
+            else if(beginning){
+                current_player.setCurrency(current_player.getCurrency() - bet);
             }
             else{
                 current_player.setCurrency(current_player.getCurrency() - (current_bet + bet));
-                this.current_pot += current_bet +bet;
             }
         }
 
@@ -236,6 +254,18 @@ public class Round {
             current_player_turn++;
         else if(p == players.size()-1)
             current_player_turn = 0;
+        updatePot();
+    }
+
+    /**
+     * This function updates the pot after each player turn
+     */
+    public void updatePot(){
+        double pot = 0;
+        for(int i = 0; i < players.size(); i++){
+            pot += player_bets[i];
+        }
+        current_pot = pot;
     }
 
     /**
@@ -247,7 +277,6 @@ public class Round {
         players.get(p).setAllIn(true);
         current_bet = current_player.getCurrency();
         current_player.setCurrentBet(current_player.getCurrency());
-        current_pot += current_player.getCurrency();
         current_player.setCurrency(0.0);
         player_status[p] = "all in";
         player_bets[p] = current_player.getCurrentBet();
@@ -255,6 +284,7 @@ public class Round {
             current_player_turn++;
         else if(p == players.size()-1)
             current_player_turn = 0;
+        updatePot();
     }
 
     /**
@@ -273,13 +303,13 @@ public class Round {
         }
         current_player.setCurrency(current_player.getCurrency() - call);
         current_player.addtoCurrentBet(call);
-        current_pot += call;
         player_bets[p] = current_bet;
         // current bet stays the same
         if(p < players.size()-1)
             current_player_turn++;
         else if(p == players.size()-1)
             current_player_turn = 0;
+        updatePot();
     }
 
     /**
@@ -410,7 +440,7 @@ public class Round {
             this.round_num++;
             for(int i = 0; i < players.size(); i++){
                 if(!(player_status[i].equals("fold") || player_status[i].equals("all in"))){
-                    player_status[i] = "";
+                    player_status[i] = "not played";
                 }
             }
             this.deck.draw();
@@ -426,7 +456,7 @@ public class Round {
             this.round_num++;
             for(int i = 0; i < players.size(); i++){
                 if(!(player_status[i].equals("fold") || player_status[i].equals("all in"))){
-                    player_status[i] = "";
+                    player_status[i] = "not played";
                 }
             }
             this.deck.draw();
@@ -438,6 +468,7 @@ public class Round {
             // hand evaluations and make a function to update all of the players information in the database
         }
     }
+
 
     /**
      * This function checks to see if everyone folded except one player
