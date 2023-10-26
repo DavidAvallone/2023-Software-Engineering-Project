@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: neilkeohane
-  Date: 10/23/23
-  Time: 7:04 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%  String code = request.getParameter("msg");
   String message = "";
@@ -71,8 +64,7 @@
 <br/><br/>
 <br/><br/>
 
-<%-- =================================== --%>
-<script type="text/javascript"> <%-- Any custom JS goes in the bottom --%>
+<script type="text/javascript">
 </script>
 </body>
 </html>
