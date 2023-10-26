@@ -542,7 +542,7 @@ public class Round {
                 Hand hand2 = player2.getHand();
 
                 // You need to implement a compareHands method in your Hand class
-                int result = hand1.compareTo(hand2);
+                int result = hand1.compareTo(hand2, river);
 
                 if (result > 0) {
                     winning_player = player1;
