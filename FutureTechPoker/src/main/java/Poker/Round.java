@@ -471,6 +471,7 @@ public class Round {
         else if(isRoundOver() && round_num == 4){ // end of game
             gameover = true;
             winning_player = who_won();
+            winning_player.setCurrency(winning_player.getCurrency() + current_pot);
             // hand evaluations and make a function to update all of the players information in the database
         }
     }
@@ -581,6 +582,9 @@ public class Round {
         if(winning_player != null){
             result += "GAME OVER \n";
             result += "Winning Player: " + winning_player + "\n";
+            result += winning_player.getHand() + "\n";
+            result += "Other Player Hands: \n";
+            result += player_hands_toString();
         }
         return result;
     }
