@@ -122,6 +122,128 @@ public class Round {
     }
 
     /**
+     * This function handles the logic for when a player folds
+     * @param p index in player arrays
+     * @param current_player the player object
+     */
+    public void fold(int p, Player current_player){
+        current_player.setFold(true);
+        player_status[p] = "fold";
+        if(p < players.size()-1)
+            current_player_turn++;
+        else if(p == players.size()-1)
+            current_player_turn = 0;
+    }
+
+    /**
+     * This function handles the logic for when a player checks
+     * @param p index in player arrays
+     * @param current_player the player object
+     */
+    public void check(int p, Player current_player){
+        player_status[p] = "check";
+        if(p < players.size()-1)
+            current_player_turn++;
+        else if(p == players.size()-1)
+            current_player_turn = 0;
+    }
+
+    /**
+     * This function handles the logic for when a player raise
+     * @param p index in player arrays
+     * @param current_player the player object
+     * @param bet this is how much they want to raise by
+     */
+    public void raise(int p, Player current_player, double bet){
+        boolean after_raise = false;
+        double call = 0;
+        int last_player;
+        if(p == players.size() - 1){
+            last_player = 0;
+        }
+        else if(p == 0){
+            last_player = players.size() - 1;
+        }
+        else{
+            last_player= p -1;
+        }
+        if(player_status[last_player].equals("raise")){
+            call = current_bet - current_player.getCurrentBet();
+            after_raise = true;
+        }
+        if(bet > current_player.getCurrency()){
+            bet = current_player.getCurrency();
+            player_status[p] = "all in";
+            current_player.setCurrency(0.0);
+        }
+        else{
+            player_status[p] = "raise";
+            if(after_raise){
+                current_player.setCurrency(current_player.getCurrency() - (call + bet));
+                this.current_pot += call + bet;
+
+            }
+            else{
+                current_player.setCurrency(current_player.getCurrency() - (current_bet + bet));
+                this.current_pot += current_bet +bet;
+            }
+        }
+
+        this.current_bet += bet;
+        current_player.setCurrentBet(current_bet);
+        player_bets[p] = current_bet;
+        last_raise = p;
+        if(p < players.size()-1)
+            current_player_turn++;
+        else if(p == players.size()-1)
+            current_player_turn = 0;
+    }
+
+    /**
+     * This function handles the logic for when a player goes allin
+     * @param p index in player arrays
+     * @param current_player the player object
+     */
+    public void all_in(int p, Player current_player){
+        players.get(p).setAllIn(true);
+        current_bet = current_player.getCurrency();
+        current_player.setCurrentBet(current_player.getCurrency());
+        current_pot += current_player.getCurrency();
+        current_player.setCurrency(0.0);
+        player_status[p] = "all in";
+        player_bets[p] = current_player.getCurrentBet();
+        if(p < players.size()-1)
+            current_player_turn++;
+        else if(p == players.size()-1)
+            current_player_turn = 0;
+    }
+
+    /**
+     * This function handles the logic for when a player calls the raise
+     * @param p index in player arrays
+     * @param current_player the player object
+     */
+    public void call(int p, Player current_player){
+        double call = current_bet - current_player.getCurrentBet();
+        if(call > current_player.getCurrency()){
+            call = current_player.getCurrency();
+            player_status[p] = "all in";
+        }
+        else{
+            player_status[p] = "call";
+        }
+        current_player.setCurrency(current_player.getCurrency() - call);
+        current_player.addtoCurrentBet(call);
+        current_pot += call;
+        player_bets[p] = current_bet;
+        // current bet stays the same
+        if(p < players.size()-1)
+            current_player_turn++;
+        else if(p == players.size()-1)
+            current_player_turn = 0;
+    }
+
+    /**
      * This function handles the logic for a players turn
      * @param p the player to play their turn
      * @param choice a string to determine what they will do on their turn
@@ -138,72 +260,19 @@ public class Round {
         }
         switch (choice) {
             case "check":
-                player_status[p] = "check";
-                if(p < players.size()-1)
-                    current_player_turn++;
-                else if(p == players.size()-1)
-                    current_player_turn = 0;
+                check(p, current_player);
                 return;
             case "fold":
-                current_player.setFold(true);
-                player_status[p] = "fold";
-                if(p < players.size()-1)
-                    current_player_turn++;
-                else if(p == players.size()-1)
-                    current_player_turn = 0;
+                fold(p, current_player);
                 return;
             case "raise":
-                if(bet > current_player.getCurrency()){
-                    bet = current_player.getCurrency();
-                    player_status[p] = "all in";
-                    current_player.setCurrency(0.0);
-                }
-                else{
-                    player_status[p] = "raise";
-                    current_player.setCurrency(current_player.getCurrency() - bet);
-                }
-
-                this.current_pot += bet;
-                this.current_bet += bet;
-                current_player.setCurrentBet(current_bet);
-                player_bets[p] = current_bet;
-                last_raise = p;
-                if(p < players.size()-1)
-                    current_player_turn++;
-                else if(p == players.size()-1)
-                    current_player_turn = 0;
+                raise(p, current_player, bet);
                 return;
             case "all in":
-                players.get(p).setAllIn(true);
-                current_bet = current_player.getCurrency();
-                current_player.setCurrentBet(current_player.getCurrency());
-                current_pot += current_player.getCurrency();
-                current_player.setCurrency(0.0);
-                player_status[p] = "all in";
-                player_bets[p] = current_player.getCurrentBet();
-                if(p < players.size()-1)
-                    current_player_turn++;
-                else if(p == players.size()-1)
-                    current_player_turn = 0;
+                all_in(p, current_player);
                 return;
             case "call":
-                double call = current_bet - current_player.getCurrentBet();
-                if(call > current_player.getCurrency()){
-                    call = current_player.getCurrency();
-                    player_status[p] = "all in";
-                }
-                else{
-                    player_status[p] = "call";
-                }
-                current_player.setCurrency(current_player.getCurrency() - call);
-                current_player.addtoCurrentBet(call);
-                current_pot += call;
-                player_bets[p] = current_bet;
-                // current bet stays the same
-                if(p < players.size()-1)
-                    current_player_turn++;
-                else if(p == players.size()-1)
-                    current_player_turn = 0;
+                call(p, current_player);
                 return;
             default:
                 throw new IllegalStateException("Unexpected value: " + choice);
