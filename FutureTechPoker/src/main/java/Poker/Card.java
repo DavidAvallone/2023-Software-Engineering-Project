@@ -27,8 +27,8 @@ public class Card implements Comparable<Card> {
     }
 
     public String toString() {
-        String suitName = "";
-        String rankName = "";
+        String suitName;
+        String rankName;
 
         if (this.suit == 0) {
             suitName = "Clubs";
@@ -42,7 +42,7 @@ public class Card implements Comparable<Card> {
             suitName = "Unknown Suit";
         }
 
-        if (this.rank >= 11) {
+        if (this.rank <= 14 && this.rank >=2) {
             if (this.rank == 14) {
                 rankName = "Ace";
             } else if (this.rank == 13) {
@@ -51,13 +51,13 @@ public class Card implements Comparable<Card> {
                 rankName = "Queen";
             } else if (this.rank == 11) {
                 rankName = "Jack";
-            } else if (this.rank > 1 && this.rank < 11) {
-                rankName = String.valueOf(this.rank);
             } else {
+                rankName = String.valueOf(this.rank);
+            }
+        }else {
                 rankName = "Unknown Rank";
             }
 
-        }
         return rankName + " of " + suitName;
     }
 }

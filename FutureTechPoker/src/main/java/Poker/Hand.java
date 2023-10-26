@@ -75,11 +75,8 @@ public class Hand implements Comparable<Hand>{
                     straightCards.add(sortedCards.get(j+1));
                     inOrderCount ++;
                 }
-                else if(sortedCards.get(j).getRank() - sortedCards.get(j+1).getRank() == 0){
-                   //skip this card
-                }
-                else{
-                    break;
+                else if(sortedCards.get(j).getRank() - sortedCards.get(j+1).getRank() != 0){
+                   break;
                 }
                 if(inOrderCount == 5){
                     return straightCards;

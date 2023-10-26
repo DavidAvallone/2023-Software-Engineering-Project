@@ -1,11 +1,8 @@
 package Poker;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.ArrayList;
 
-public class HandUtil {
-
+public class HandEvaluator {
     private static final int NUM_SUITS = 4;
 
     public static ArrayList<Card> sortByRank(ArrayList<Card> cards){
@@ -30,9 +27,9 @@ public class HandUtil {
         return cards;
     }
 
-    public static ArrayList<Card> findStraight(ArrayList<Card> cards){
+    public static ArrayList<Card> findHighestStraight(ArrayList<Card> cards){
         ArrayList<Card> straightCards = new ArrayList<>();
-        ArrayList<Card> sortedCards = HandUtil.sortByRank(cards);
+        ArrayList<Card> sortedCards = HandEvaluator.sortByRank(cards);
         int inOrderCount;
         for(int i = 0; i < sortedCards.size(); i++){
             straightCards.clear();
@@ -59,13 +56,34 @@ public class HandUtil {
         return null;
     }
 
+    public static int obtainMostCommonSuit(ArrayList<Card> cards){
+        int[] suitCounts = new int[NUM_SUITS];
+        int mostCommonSuit = 0;
+        for (int i = 0; i < cards.size(); i++)
+        {
+            suitCounts[i] += 1;
+            for(int j = 0; j < NUM_SUITS; j++){
+                if(cards.get(i).getSuit() == j){
+                }
+            }
+        }
+        for(int j = 1; j < suitCounts.length; j++){
+            if(suitCounts[mostCommonSuit] < suitCounts[j]){
+                mostCommonSuit = j;
+            }
+        }
+        return mostCommonSuit;
+    }
 
-    public static ArrayList<Card> find
+    public static ArrayList<Card> findCardsOfSameSuit(ArrayList<Card> cards, int suit){
+
+        for(int i = 0; )
+    }
 
     public static ArrayList<Card> findFlush(ArrayList<Card> cards)
     {
         ArrayList<Card> flushCards = new ArrayList<>();
-        ArrayList<Card> sortedCards = HandUtil.sortByRank(cards);
+        ArrayList<Card> sortedCards = HandEvaluator.sortByRank(cards);
         for(int i = 0; i < NUM_SUITS; i++){
             if(flushCards.size() >= 5){
                 return flushCards;
