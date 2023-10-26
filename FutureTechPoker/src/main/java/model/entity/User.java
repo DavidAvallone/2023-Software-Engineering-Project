@@ -1,18 +1,29 @@
 package model.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User extends BaseEntity {
     @Id @Column(name="id_user") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID = null;
-    @Column(unique=true) //Login must be unique for each record in DB
+    @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Login;
     private String Password;
     private int Permission;
 
+    // Other fields: Balance, wins-losses, friends list, net profit?
+    /*
+    private Double Balance;
+    private Integer Wins;
+    private Integer Losses;
+    private Integer NetProfit;
+    private List<String> Friends;
+    */
+
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
+    public transient static final int GUEST_PERMISSION = 3; // Correct/best way to make a guest profile?
 
     public User(){
         this.Permission = NORMAL_PERMISSION;
@@ -73,6 +84,7 @@ public class User extends BaseEntity {
     public String getPermissionAsString(){
         if(Permission==NORMAL_PERMISSION) return "Normal";
         else if(Permission==ADMIN_PERMISSION) return "Admin";
+        else if(Permission==GUEST_PERMISSION) return "Guest";
         else return "Unknown";
     }
 }
