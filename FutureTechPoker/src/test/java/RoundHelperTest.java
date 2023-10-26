@@ -532,6 +532,4 @@ public class RoundHelperTest {
 
         assertEquals(null,round.last_player_standing());
     }
-
-
 }
