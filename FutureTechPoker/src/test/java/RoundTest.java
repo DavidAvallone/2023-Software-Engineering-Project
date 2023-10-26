@@ -252,22 +252,63 @@ public class RoundTest {
         round.player_turn(p1.getTurnOrder(),"call",0);
         round.player_turn(p2.getTurnOrder(),"check",0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
-        round.player_turn(p4.getTurnOrder(),"call", 10);
+        round.player_turn(p4.getTurnOrder(),"call", 0);
         // continue betting
         round.update_round();
         round.player_turn(p1.getTurnOrder(),"raise",10);
         round.player_turn(p2.getTurnOrder(),"call",0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
-        round.player_turn(p4.getTurnOrder(),"call", 10);
+        round.player_turn(p4.getTurnOrder(),"call", 0);
         round.update_round();
         round.player_turn(p1.getTurnOrder(),"raise",10);
         round.player_turn(p2.getTurnOrder(),"call",0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
-        round.player_turn(p4.getTurnOrder(),"call", 10);
+        round.player_turn(p4.getTurnOrder(),"call", 0);
         round.update_round();
 
-        //System.out.println(round);
+//        System.out.println(round);
         assertEquals(4,round.getRound_num());
+    }
+
+    @Test
+    public void end_of_round3_pot(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        int starting_bet = 50;
+        Round round = new Round(players,starting_bet);
+        round.player_turn(p1.getTurnOrder(),"call",0);
+        round.player_turn(p2.getTurnOrder(),"check",0);
+        round.player_turn(p3.getTurnOrder(), "call", 0);
+        round.player_turn(p4.getTurnOrder(),"call", 0);
+        round.update_round();// pot = 200
+
+        round.player_turn(p1.getTurnOrder(),"raise",10);
+        round.player_turn(p2.getTurnOrder(),"call",0);
+        round.player_turn(p3.getTurnOrder(), "call", 0);
+        round.player_turn(p4.getTurnOrder(),"call", 10);
+        round.update_round(); // pot = 240
+        System.out.println(round);// error is in the raise still
+
+        round.player_turn(p1.getTurnOrder(),"raise",10);
+        round.player_turn(p2.getTurnOrder(),"call",0);
+        round.player_turn(p3.getTurnOrder(), "call", 0);
+        round.player_turn(p4.getTurnOrder(),"call", 10);
+        round.update_round(); // pot = 280
+
+//        System.out.println(round);
+        assertEquals(280,round.getCurrent_pot());
     }
 
     @Test
@@ -300,8 +341,42 @@ public class RoundTest {
 
         round.update_round();
 
-        System.out.println(round);
+//        System.out.println(round);
         assertEquals(2,round.getRound_num());
+    }
+
+    @Test
+    public void multiple_raises_check_pot(){
+        Player p1 = new Player(0, "dave", 10000);
+        Player p2 = new Player(1, "bolden", 10000);
+        Player p3 = new Player(2, "alex", 10000);
+        Player p4 = new Player(3, "neil", 10000);
+        p1.setTurnOrder(0);
+        p2.setTurnOrder(1);
+        p3.setTurnOrder(2);
+        p4.setTurnOrder(3);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(p1);
+        players.add(p2);
+        players.add(p3);
+        players.add(p4);
+
+        int starting_bet = 50;
+        Round round = new Round(players,starting_bet);
+        round.player_turn(p1.getTurnOrder(),"call",0); // 50
+        round.player_turn(p2.getTurnOrder(),"check",0); //50
+        round.player_turn(p3.getTurnOrder(), "call", 0); // 50
+        round.player_turn(p4.getTurnOrder(),"raise", 10); //60
+
+        round.player_turn(p1.getTurnOrder(),"raise",10); //70
+        round.player_turn(p2.getTurnOrder(),"call",0); //70
+        round.player_turn(p3.getTurnOrder(), "call", 0); //70
+        round.player_turn(p4.getTurnOrder(),"call", 0); //70
+
+        round.update_round();
+
+//        System.out.println(round);
+        assertEquals(280,round.getCurrent_pot());
     }
 
 }
