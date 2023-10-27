@@ -6,12 +6,14 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-<h1><%= "FutureTech Poker" %></h1>
+<div class="banner">
+  <h1><%= "FutureTech Poker" %></h1>
+</div>
 <br/>
-<a href="register.jsp">Register Page</a>
-<br/>
-<a href="login.jsp">Login Page</a>
-<br/>
-<a href="home.jsp">Home Page</a>
+<div class="centered">
+  <a href="register.jsp">Register Page</a>
+  <a href="login.jsp">Login Page</a>
+  <a href="home.jsp">Home Page</a>
+</div>
 </body>
 </html>
