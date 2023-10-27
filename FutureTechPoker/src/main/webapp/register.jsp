@@ -61,14 +61,14 @@
             </div>
         </div>
         <div class="centered">
-            <div class="offset-md-1 col-12 col-md-2 d-grid">
-                <button type="submit" onclick="return checkRegisterForm()" class="btn btn-success me-2"> Register</button>
+            <div>
+                <button type="submit" onclick="return checkRegisterForm()"> Register</button>
             </div>
-            <div class="col-12 col-md-2 d-grid">
-                <button type="reset" class="btn btn-warning me-2" id="clear_button"> Clear</button>
+            <div>
+                <button type="reset" id="clear_button"> Clear</button>
             </div>
-            <div class="col-12 col-md-2 d-grid">
-                <a type="button" class="btn btn-danger me-2" href="index.jsp"> Cancel</a>
+            <div>
+                <a type="button" href="index.jsp"> Cancel</a>
             </div>
         </div>
     </form>
