@@ -15,15 +15,20 @@
     <title>FutureTech Poker User Home</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<h1>Welcome, <%=((User) session.getAttribute("User")).getLogin()%></h1>
+
 <body>
-<h1><%= "FutureTech Poker" %></h1>
+<div class="banner">
+    <h1><%= "FutureTech Poker" %></h1>
+</div>
 <br/>
-<form action="logoutServlet" method="post">
-    <button type="submit" class="btn btn-success me-2">Log Out</button>
-</form>
-<form action="deleteUserServlet" method="post">
-    <button type="submit" class="btn btn-success me-2">Delete Account</button>
-</form>
+<%--<h1>Welcome, <%=((User) session.getAttribute("User")).getLogin()%></h1>--%>
+<div class="centered">
+    <form action="logoutServlet" method="post">
+        <button type="submit" class="btn btn-success me-2">Log Out</button>
+    </form>
+    <form action="deleteUserServlet" method="post">
+        <button type="submit" class="btn btn-success me-2">Delete Account</button>
+    </form>
+</div>
 </body>
 </html>

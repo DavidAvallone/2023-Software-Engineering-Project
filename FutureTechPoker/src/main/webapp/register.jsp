@@ -27,9 +27,11 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-<h1><%= "FutureTech Poker" %></h1>
+<div class="banner">
+    <h1><%= "FutureTech Poker" %></h1>
+</div>
 <br/>
-<div class="container mt-2">
+<div class="centered">
     <h3 class="center text-primary"> Register New User </h3>
     <form method="post" action="registerUserServlet">
         <div class="row mb-2">
@@ -58,7 +60,7 @@
                        minlength="6" required/>
             </div>
         </div>
-        <div class="row mb-2">
+        <div class="centered">
             <div class="offset-md-1 col-12 col-md-2 d-grid">
                 <button type="submit" onclick="return checkRegisterForm()" class="btn btn-success me-2"> Register</button>
             </div>
@@ -73,7 +75,7 @@
 </div>
 
 <% if(errorMessage.length()>0){ %>
-<div class="container">
+<div class="centered">
     <div class="row">
         <div class="col-md-6">
             <div class="alert alert-danger alert-dismissible">

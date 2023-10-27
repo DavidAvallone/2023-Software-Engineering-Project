@@ -20,9 +20,11 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-<h1><%= "FutureTech Poker" %></h1>
+<div class="banner">
+  <h1><%= "FutureTech Poker" %></h1>
+</div>
 <br/>
-<div class="container mt-2">
+<div class="centered">
   <h3 class="center text-primary"> Login </h3>
   <form method="post" action="loginServlet">
     <div class="row mb-2">
@@ -39,7 +41,7 @@
       </div>
     </div>
 
-    <div class="row mb-2">
+    <div class="centered">
       <div class="offset-md-1 col-12 col-md-2 d-grid">
         <button type="submit" class="btn btn-success me-2"> <span class="bi bi-box-arrow-in-right"></span> Login </button>
       </div>
