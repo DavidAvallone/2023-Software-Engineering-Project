@@ -1,0 +1,194 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > User</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">model.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: User (model.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">User</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package model.entity;
+&nbsp;
+&nbsp;import javax.persistence.*;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Entity
+<b class="nc">&nbsp;public class User extends BaseEntity {</b>
+&nbsp;    @Id @Column(name=&quot;id_user&quot;) @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private Integer ID = null;
+&nbsp;    @Column(unique=true) // Login/Email must be unique for each record in DB
+&nbsp;    private String Login;
+&nbsp;    private String Password;
+&nbsp;    private int Permission;
+&nbsp;
+&nbsp;    // Other fields: Balance, wins-losses, friends list, net profit?
+&nbsp;    /*
+<b class="nc">&nbsp;    private Double Balance;</b>
+<b class="nc">&nbsp;    private Integer Wins;</b>
+&nbsp;    private Integer Losses;
+&nbsp;    private Integer NetProfit;
+<b class="nc">&nbsp;    private List&lt;String&gt; Friends;</b>
+<b class="nc">&nbsp;    */</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    public transient static final int NORMAL_PERMISSION = 1;</b>
+<b class="nc">&nbsp;    public transient static final int ADMIN_PERMISSION = 2;</b>
+&nbsp;    public transient static final int GUEST_PERMISSION = 3; // Correct/best way to make a guest profile?
+&nbsp;
+&nbsp;    public User(){
+<b class="nc">&nbsp;        this.Permission = NORMAL_PERMISSION;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public User(Integer ID, String login, String password, int permission) {</b>
+&nbsp;        this.ID = ID;
+&nbsp;        Login = login;
+&nbsp;        Password = password;
+<b class="nc">&nbsp;        Permission = permission;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getID() {
+<b class="nc">&nbsp;        return ID;</b>
+&nbsp;    }
+&nbsp;    public void setID(Integer ID) {
+&nbsp;        this.ID = ID;
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getLogin() {
+&nbsp;        return Login;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public void setLogin(String login) {
+&nbsp;        Login = login;
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    /***</b>
+&nbsp;     * Returns the email which should be same as the Login
+&nbsp;     *
+&nbsp;     * @return
+<b class="nc">&nbsp;     */</b>
+&nbsp;    public String getEmail(){ return getLogin(); }
+&nbsp;
+&nbsp;    /***
+<b class="nc">&nbsp;     * Sets the Email which should be same as Login</b>
+&nbsp;     */
+&nbsp;    public void setEmail(String email){
+&nbsp;        setLogin(email);
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public String getPassword() {
+&nbsp;        return Password;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public void setPassword(String password) {
+&nbsp;        Password = password;
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    public int getPermission() {</b>
+&nbsp;        return Permission;
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPermission(int permission) {
+&nbsp;        Permission = permission;
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPermissionAsString(){
+&nbsp;        if(Permission==NORMAL_PERMISSION) return &quot;Normal&quot;;
+&nbsp;        else if(Permission==ADMIN_PERMISSION) return &quot;Admin&quot;;
+&nbsp;        else if(Permission==GUEST_PERMISSION) return &quot;Guest&quot;;
+&nbsp;        else return &quot;Unknown&quot;;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-27 10:19</div>
+</div>
+</body>
+</html>
