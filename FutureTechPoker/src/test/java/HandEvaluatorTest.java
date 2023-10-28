@@ -464,7 +464,7 @@ public class HandEvaluatorTest {
         cards.add(card7);
         assertTrue(HandEvaluator.isRoyalFlush(cards));
     }
-    @Test public void EvaluateRoyalFlush() {
+    @Test public void testEvaluateRoyalFlush() {
         ArrayList<Card> cards = new ArrayList<>();
         Card card1 = new Card(3, 14);
         Card card2 = new Card(1, 5);
@@ -482,7 +482,7 @@ public class HandEvaluatorTest {
         cards.add(card7);
         assertEquals(9,HandEvaluator.evaluate(cards));
     }
-    @Test public void EvaluateStraightFlush() {
+    @Test public void testEvaluateStraightFlush() {
         ArrayList<Card> cards = new ArrayList<>();
         Card card1 = new Card(3, 13);
         Card card2 = new Card(3, 9);
@@ -500,7 +500,7 @@ public class HandEvaluatorTest {
         cards.add(card7);
         assertEquals(8,HandEvaluator.evaluate(cards));
     }
-    @Test public void EvaluateFourOfKind() {
+    @Test public void testEvaluateFourOfKind() {
         ArrayList<Card> cards = new ArrayList<>();
         Card card1 = new Card(3, 13);
         Card card2 = new Card(3, 9);
@@ -518,7 +518,7 @@ public class HandEvaluatorTest {
         cards.add(card7);
         assertEquals(7,HandEvaluator.evaluate(cards));
     }
-    @Test public void EvaluateFullHouse() {
+    @Test public void testEvaluateFullHouse() {
         ArrayList<Card> cards = new ArrayList<>();
         Card card1 = new Card(3, 13);
         Card card2 = new Card(3, 9);
@@ -536,7 +536,7 @@ public class HandEvaluatorTest {
         cards.add(card7);
         assertEquals(6,HandEvaluator.evaluate(cards));
     }
-    @Test public void EvaluateFlush() {
+    @Test public void testEvaluateFlush() {
         ArrayList<Card> cards = new ArrayList<>();
         Card card1 = new Card(3, 13);
         Card card2 = new Card(3, 9);
@@ -554,7 +554,7 @@ public class HandEvaluatorTest {
         cards.add(card7);
         assertEquals(5,HandEvaluator.evaluate(cards));
     }
-    @Test public void EvaluateStraight() {
+    @Test public void testEvaluateStraight() {
         ArrayList<Card> cards = new ArrayList<>();
         Card card1 = new Card(0, 3);
         Card card2 = new Card(0, 4);
@@ -572,7 +572,7 @@ public class HandEvaluatorTest {
         cards.add(card7);
         assertEquals(4,HandEvaluator.evaluate(cards));
     }
-    @Test public void EvaluateThreeOfKind() {
+    @Test public void testEvaluateThreeOfKind() {
         ArrayList<Card> cards = new ArrayList<>();
         Card card1 = new Card(0, 3);
         Card card2 = new Card(0, 3);
@@ -590,7 +590,7 @@ public class HandEvaluatorTest {
         cards.add(card7);
         assertEquals(3,HandEvaluator.evaluate(cards));
     }
-    @Test public void EvaluateTwoPair() {
+    @Test public void testEvaluateTwoPair() {
         ArrayList<Card> cards = new ArrayList<>();
         Card card1 = new Card(0, 3);
         Card card2 = new Card(1, 3);
@@ -608,7 +608,7 @@ public class HandEvaluatorTest {
         cards.add(card7);
         assertEquals(2,HandEvaluator.evaluate(cards));
     }
-    @Test public void EvaluatePair() {
+    @Test public void testEvaluatePair() {
         ArrayList<Card> cards = new ArrayList<>();
         Card card1 = new Card(0, 8);
         Card card2 = new Card(1, 3);
@@ -626,7 +626,7 @@ public class HandEvaluatorTest {
         cards.add(card7);
         assertEquals(1,HandEvaluator.evaluate(cards));
     }
-    @Test public void EvaluateHighCard() {
+    @Test public void testEvaluateHighCard() {
         ArrayList<Card> cards = new ArrayList<>();
         Card card1 = new Card(0, 8);
         Card card2 = new Card(1, 3);

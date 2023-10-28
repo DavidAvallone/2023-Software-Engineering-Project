@@ -30,8 +30,6 @@ public class Hand{
         this.cards = cards;
     }
 
-
-
     public int compareTo(Hand otherHand, List<Card> river){
         List<Card> totalCardsPlayer1 = new ArrayList<>();
         totalCardsPlayer1.addAll(this.getCards());

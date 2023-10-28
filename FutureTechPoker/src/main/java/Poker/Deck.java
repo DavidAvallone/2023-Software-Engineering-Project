@@ -43,8 +43,7 @@ public class Deck {
 
     public Card draw(){
         if (this.deck.isEmpty()){
-            this.resetDeck();
-            this.shuffle();
+            return null;
         }
         Card card = this.deck.get(size-1);
         this.deck.remove(size-1);
@@ -52,21 +51,10 @@ public class Deck {
         return card;
     }
 
-    public ArrayList<Card> resetDeck(){
-        deck.clear();
-        for (int suit = 0; suit < 4; suit++){
-            for (int rank = 1; rank < 14; rank++){
-                deck.add(new Card(suit, rank));
-            }
-        }
-        this.size = deck.size();
-        return this.shuffle();
-    }
-
     public String toString(){
         String contents = "";
         for (int i = 0; i < size; i++){
-            contents = contents + "\n" + deck.get(i).toString();
+            contents = contents + deck.get(i).toString() + "\n";
         }
         return contents;
     }
