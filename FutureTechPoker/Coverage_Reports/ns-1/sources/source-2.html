@@ -1,0 +1,177 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Deck</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Poker</a>
+</div>
+
+<h1>Coverage Summary for Class: Deck (Poker)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Deck</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    42.9%
+  </span>
+  <span class="absValue">
+    (3/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    51.6%
+  </span>
+  <span class="absValue">
+    (16/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Poker;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;
+&nbsp;public class Deck {
+&nbsp;    private ArrayList&lt;Card&gt; deck;
+&nbsp;    private int size;
+&nbsp;    private Long seed;
+&nbsp;
+&nbsp;    public Deck(Long seed)
+<b class="fc">&nbsp;    {</b>
+<b class="fc">&nbsp;        this.seed = seed;</b>
+<b class="fc">&nbsp;        deck = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (int suit = 0; suit &lt; 4; suit++){</b>
+<b class="fc">&nbsp;            for (int rank = 2; rank &lt;= 14; rank++){</b>
+<b class="fc">&nbsp;                deck.add(new Card(suit, rank));</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        this.size = deck.size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getSize(){
+<b class="nc">&nbsp;        return this.size;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isEmpty(){
+<b class="nc">&nbsp;        return size &lt;= 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public ArrayList&lt;Card&gt; shuffle(){
+<b class="fc">&nbsp;        if(seed == null){</b>
+<b class="nc">&nbsp;            Collections.shuffle(this.deck);</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="fc">&nbsp;            Random r = new Random(seed);</b>
+<b class="fc">&nbsp;            Collections.shuffle(this.deck,r);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return this.deck;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Card draw(){
+<b class="fc">&nbsp;        if (this.deck.isEmpty()){</b>
+<b class="nc">&nbsp;            this.resetDeck();</b>
+<b class="nc">&nbsp;            this.shuffle();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Card card = this.deck.get(size-1);</b>
+<b class="fc">&nbsp;        this.deck.remove(size-1);</b>
+<b class="fc">&nbsp;        this.size--;</b>
+<b class="fc">&nbsp;        return card;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public ArrayList&lt;Card&gt; resetDeck(){
+<b class="nc">&nbsp;        deck.clear();</b>
+<b class="nc">&nbsp;        for (int suit = 0; suit &lt; 4; suit++){</b>
+<b class="nc">&nbsp;            for (int rank = 1; rank &lt; 14; rank++){</b>
+<b class="nc">&nbsp;                deck.add(new Card(suit, rank));</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        this.size = deck.size();</b>
+<b class="nc">&nbsp;        return this.shuffle();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String toString(){
+<b class="nc">&nbsp;        String contents = &quot;&quot;;</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; size; i++){</b>
+<b class="nc">&nbsp;            contents = contents + &quot;\n&quot; + deck.get(i).toString();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return contents;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-27 10:19</div>
+</div>
+</body>
+</html>

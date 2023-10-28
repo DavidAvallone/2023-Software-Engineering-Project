@@ -1,0 +1,163 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Hand</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Poker</a>
+</div>
+
+<h1>Coverage Summary for Class: Hand (Poker)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Hand</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    62.5%
+  </span>
+  <span class="absValue">
+    (5/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    68.2%
+  </span>
+  <span class="absValue">
+    (15/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Poker;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class Hand{
+&nbsp;    private ArrayList&lt;Card&gt; cards;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;    public Hand(ArrayList&lt;Card&gt; cards){</b>
+&nbsp;
+<b class="nc">&nbsp;        this.cards = cards;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getHandSize(){
+<b class="fc">&nbsp;        return this.cards.size();</b>
+&nbsp;    }
+<b class="fc">&nbsp;    public Hand(){</b>
+<b class="fc">&nbsp;        cards = new ArrayList&lt;Card&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void add(Card c){
+<b class="fc">&nbsp;        cards.add(c);</b>
+&nbsp;    }
+&nbsp;    public List&lt;Card&gt; getCards(){
+<b class="fc">&nbsp;        return this.cards;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCards(ArrayList&lt;Card&gt; cards){
+<b class="nc">&nbsp;        this.cards = cards;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    public int compareTo(Hand otherHand, List&lt;Card&gt; river){
+<b class="fc">&nbsp;        List&lt;Card&gt; totalCardsPlayer1 = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        totalCardsPlayer1.addAll(this.getCards());</b>
+<b class="fc">&nbsp;        totalCardsPlayer1.addAll(river);</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; totalCardsPlayer2 = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        totalCardsPlayer2.addAll(otherHand.getCards());</b>
+<b class="fc">&nbsp;        totalCardsPlayer2.addAll(river);</b>
+<b class="fc">&nbsp;        int comparison = HandEvaluator.evaluate(totalCardsPlayer1) - HandEvaluator.evaluate(totalCardsPlayer2);</b>
+<b class="fc">&nbsp;        if(comparison == 0){</b>
+<b class="fc">&nbsp;            return HandEvaluator.tieBreaker(totalCardsPlayer1, totalCardsPlayer2);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return comparison;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public String toString(){
+<b class="nc">&nbsp;        String totalString = &quot;&quot;;</b>
+<b class="nc">&nbsp;        for(int i = 0; i &lt; this.cards.size(); i++){</b>
+<b class="nc">&nbsp;            totalString += this.cards.get(i).toString() + &quot; | &quot;;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return totalString;</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-27 10:19</div>
+</div>
+</body>
+</html>

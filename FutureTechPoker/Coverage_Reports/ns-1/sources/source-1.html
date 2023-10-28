@@ -1,0 +1,167 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Card</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Poker</a>
+</div>
+
+<h1>Coverage Summary for Class: Card (Poker)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Card</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    27.6%
+  </span>
+  <span class="absValue">
+    (8/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Poker;
+&nbsp;
+&nbsp;public class Card implements Comparable&lt;Card&gt; {
+&nbsp;    private int suit;
+&nbsp;    private int rank;
+&nbsp;
+<b class="fc">&nbsp;    public Card(int suit, int rank) {</b>
+<b class="fc">&nbsp;        if (suit &gt;= 0 &amp;&amp; suit &lt;= 4) {</b>
+<b class="fc">&nbsp;            this.suit = suit;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (rank &gt;= 2 &amp;&amp; rank &lt;= 14) {</b>
+<b class="fc">&nbsp;            this.rank = rank;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getSuit() {
+<b class="fc">&nbsp;        return this.suit;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getRank() {
+<b class="fc">&nbsp;        return this.rank;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int compareTo(Card otherCard) {
+<b class="fc">&nbsp;        return this.rank - otherCard.getRank();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String toString() {
+&nbsp;        String suitName;
+&nbsp;        String rankName;
+&nbsp;
+<b class="nc">&nbsp;        if (this.suit == 0) {</b>
+<b class="nc">&nbsp;            suitName = &quot;Clubs&quot;;</b>
+<b class="nc">&nbsp;        } else if (this.suit == 1) {</b>
+<b class="nc">&nbsp;            suitName = &quot;Hearts&quot;;</b>
+<b class="nc">&nbsp;        } else if (this.suit == 2) {</b>
+<b class="nc">&nbsp;            suitName = &quot;Diamonds&quot;;</b>
+<b class="nc">&nbsp;        } else if (this.suit == 3) {</b>
+<b class="nc">&nbsp;            suitName = &quot;Spades&quot;;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            suitName = &quot;Unknown Suit&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (this.rank &lt;= 14 &amp;&amp; this.rank &gt;=2) {</b>
+<b class="nc">&nbsp;            if (this.rank == 14) {</b>
+<b class="nc">&nbsp;                rankName = &quot;Ace&quot;;</b>
+<b class="nc">&nbsp;            } else if (this.rank == 13) {</b>
+<b class="nc">&nbsp;                rankName = &quot;King&quot;;</b>
+<b class="nc">&nbsp;            } else if (this.rank == 12) {</b>
+<b class="nc">&nbsp;                rankName = &quot;Queen&quot;;</b>
+<b class="nc">&nbsp;            } else if (this.rank == 11) {</b>
+<b class="nc">&nbsp;                rankName = &quot;Jack&quot;;</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                rankName = String.valueOf(this.rank);</b>
+&nbsp;            }
+&nbsp;        }else {
+<b class="nc">&nbsp;                rankName = &quot;Unknown Rank&quot;;</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;        return rankName + &quot; of &quot; + suitName;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-27 10:19</div>
+</div>
+</body>
+</html>
