@@ -90,14 +90,14 @@ public class HandEvaluator {
             int secondPair1 = getHighestPair(withoutPair1);
             int secondPair2 = getHighestPair(withoutPair2);
             if(secondPair1 == secondPair2){
-                List<Card> withoutTwoPair1 = getCardsWithoutRank(cards1, secondPair1);
-                List<Card> withoutTwoPair2 = getCardsWithoutRank(cards2, secondPair2);
+                List<Card> withoutTwoPair1 = getCardsWithoutRank(withoutPair1, secondPair1);
+                List<Card> withoutTwoPair2 = getCardsWithoutRank(withoutPair2, secondPair2);
                 sortByRank(withoutTwoPair1);
                 sortByRank(withoutTwoPair2);
                 return withoutTwoPair1.get(0).getRank() - withoutTwoPair2.get(0).getRank();
             }
             else{
-                return secondPair2 - secondPair1;
+                return secondPair1 - secondPair2;
             }
         }
         else{
@@ -131,7 +131,7 @@ public class HandEvaluator {
         List<Card> orderedCards1 = new ArrayList<>();
         orderedCards1.addAll(cards1);
         List<Card> orderedCards2 = new ArrayList<>();
-        orderedCards1.addAll(cards2);
+        orderedCards2.addAll(cards2);
         sortByRank(orderedCards1);
         sortByRank(orderedCards2);
 
@@ -428,7 +428,7 @@ public class HandEvaluator {
         List<Card> flushCards = getCardsOfSameSuit(cards, flushSuit);
         if(flushCards.size() >= 5){
             HandEvaluator.sortByRank(flushCards);
-            return flushCards.subList(0, 4);
+            return flushCards.subList(0, 5);
         }
         return null;
     }

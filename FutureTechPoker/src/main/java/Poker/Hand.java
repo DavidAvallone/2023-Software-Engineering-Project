@@ -12,11 +12,12 @@ public class Hand{
         this.cards = cards;
     }
 
-    public int getHandSize(){
-        return this.cards.size();
-    }
     public Hand(){
         cards = new ArrayList<Card>();
+    }
+
+    public int getHandSize(){
+        return this.cards.size();
     }
 
     public void add(Card c){
