@@ -16,12 +16,13 @@ public class Round {
     private double big_blind;
     private double current_pot = 0;
     private int current_player_turn;
-
+    private ArrayList<Player> tied;
     private int last_raise;
     private boolean gameover = false;
     private String[] player_status;
     private double[] player_bets;
     private Player winning_player = null;
+    boolean isTie = false;
 
     /**
      * This is the constructor for the round class: a round is the entire game of poker
@@ -470,12 +471,65 @@ public class Round {
         }
         else if(isRoundOver() && round_num == 4){ // end of game
             gameover = true;
-            winning_player = who_won();
-            winning_player.setCurrency(winning_player.getCurrency() + current_pot);
+            if(tie() == null || tie().size() == 1) {
+                winning_player = who_won();
+                winning_player.setCurrency(winning_player.getCurrency() + current_pot);
+            }
+            else{
+                tied = tie();
+                isTie = true;
+                int split = tied.size();
+                double split_pot = current_pot/split;
+                for(Player p : tied){
+                    p.setCurrency(p.getCurrency() + current_pot);
+                }
+            }
             // hand evaluations and make a function to update all of the players information in the database
         }
     }
 
+    public ArrayList<Player> tie(){
+        ArrayList<Player> winningPlayers = new ArrayList<>();
+        int bestHandValue = -1;
+
+        for (Player player1 : players) {
+            if (player1.isFold()) {
+                continue; // Skip folded players
+            }
+            Hand hand1 = player1.getHand();
+
+            for (Player player2 : players) {
+                if (player2.isFold() || player1 == player2) {
+                    continue; // Skip folded players and self-comparisons
+                }
+                Hand hand2 = player2.getHand();
+
+                // You need to implement a compareHands method in your Hand class
+                int result = hand1.compareTo(hand2, river);
+
+                if (result > 0 && result > bestHandValue) {
+                    bestHandValue = result;
+                    winningPlayers.clear();
+                    winningPlayers.add(player1);
+                } else if (result > 0 && result == bestHandValue) {
+                    winningPlayers.add(player1);
+                } else if (result < 0 && -result > bestHandValue) {
+                    bestHandValue = -result;
+                    winningPlayers.clear();
+                    winningPlayers.add(player2);
+                } else if (result < 0 && -result == bestHandValue) {
+                    winningPlayers.add(player2);
+                }
+            }
+        }
+
+        if (bestHandValue == 0) {
+            // No player had a better hand than any other; it's a tie
+            return winningPlayers;
+        } else {
+            return null;
+        }
+    }
 
     /**
      * This function checks to see if everyone folded except one player
@@ -584,6 +638,15 @@ public class Round {
             result += "Winning Player: " + winning_player + "\n";
             result += winning_player.getHand() + "\n";
             result += "Other Player Hands: \n";
+            result += player_hands_toString();
+        }
+        if(isTie){
+            result += "GAME OVER \n TIE GAME \n Tied: ";
+
+            for(Player p : tied){
+                result += p + "\n";
+            }
+            result += "Player Hands: \n";
             result += player_hands_toString();
         }
         return result;
