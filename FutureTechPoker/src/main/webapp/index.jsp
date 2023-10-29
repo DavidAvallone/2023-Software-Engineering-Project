@@ -11,9 +11,9 @@
 </div>
 <br/>
 <div class="centered">
-  <a href="register.jsp">Register Page</a>
-  <a href="login.jsp">Login Page</a>
-  <a href="home.jsp">Home Page</a>
+  <a href="register.jsp" class="home-button">Register Page</a>
+  <a href="login.jsp" class="home-button">Login Page</a>
+  <a href="home.jsp" class="home-button">Home Page</a>
 </div>
 <img src="logo.jpeg" alt="FutureTech Logo" width="574" height="223" style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%)">
 </body>
