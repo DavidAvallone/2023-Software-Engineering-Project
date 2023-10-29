@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/21)
+    (0/22)
   </span>
 </td>
 </tr>
@@ -81,8 +81,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.List;
 &nbsp;
 &nbsp;@Entity
-<b class="nc">&nbsp;public class User extends BaseEntity {</b>
-&nbsp;    @Id @Column(name=&quot;id_user&quot;) @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;public class User extends BaseEntity {
+<b class="nc">&nbsp;    @Id @Column(name=&quot;id_user&quot;) @GeneratedValue(strategy = GenerationType.IDENTITY)</b>
 &nbsp;    private Integer ID = null;
 &nbsp;    @Column(unique=true) // Login/Email must be unique for each record in DB
 &nbsp;    private String Login;
@@ -91,25 +91,25 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    // Other fields: Balance, wins-losses, friends list, net profit?
 &nbsp;    /*
-<b class="nc">&nbsp;    private Double Balance;</b>
-<b class="nc">&nbsp;    private Integer Wins;</b>
+&nbsp;    private Double Balance;
+&nbsp;    private Integer Wins;
 &nbsp;    private Integer Losses;
 &nbsp;    private Integer NetProfit;
-<b class="nc">&nbsp;    private List&lt;String&gt; Friends;</b>
-<b class="nc">&nbsp;    */</b>
-<b class="nc">&nbsp;</b>
-<b class="nc">&nbsp;    public transient static final int NORMAL_PERMISSION = 1;</b>
-<b class="nc">&nbsp;    public transient static final int ADMIN_PERMISSION = 2;</b>
+&nbsp;    private List&lt;String&gt; Friends;
+&nbsp;    */
+&nbsp;
+&nbsp;    public transient static final int NORMAL_PERMISSION = 1;
+&nbsp;    public transient static final int ADMIN_PERMISSION = 2;
 &nbsp;    public transient static final int GUEST_PERMISSION = 3; // Correct/best way to make a guest profile?
 &nbsp;
-&nbsp;    public User(){
+<b class="nc">&nbsp;    public User(){</b>
 <b class="nc">&nbsp;        this.Permission = NORMAL_PERMISSION;</b>
 &nbsp;    }
 &nbsp;
 <b class="nc">&nbsp;    public User(Integer ID, String login, String password, int permission) {</b>
-&nbsp;        this.ID = ID;
-&nbsp;        Login = login;
-&nbsp;        Password = password;
+<b class="nc">&nbsp;        this.ID = ID;</b>
+<b class="nc">&nbsp;        Login = login;</b>
+<b class="nc">&nbsp;        Password = password;</b>
 <b class="nc">&nbsp;        Permission = permission;</b>
 &nbsp;    }
 &nbsp;
@@ -117,52 +117,52 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        return ID;</b>
 &nbsp;    }
 &nbsp;    public void setID(Integer ID) {
-&nbsp;        this.ID = ID;
+<b class="nc">&nbsp;        this.ID = ID;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public String getLogin() {
-&nbsp;        return Login;
-<b class="nc">&nbsp;    }</b>
-&nbsp;
-&nbsp;    public void setLogin(String login) {
-&nbsp;        Login = login;
+<b class="nc">&nbsp;        return Login;</b>
 &nbsp;    }
 &nbsp;
-<b class="nc">&nbsp;    /***</b>
+&nbsp;    public void setLogin(String login) {
+<b class="nc">&nbsp;        Login = login;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /***
 &nbsp;     * Returns the email which should be same as the Login
 &nbsp;     *
 &nbsp;     * @return
-<b class="nc">&nbsp;     */</b>
-&nbsp;    public String getEmail(){ return getLogin(); }
+&nbsp;     */
+<b class="nc">&nbsp;    public String getEmail(){ return getLogin(); }</b>
 &nbsp;
 &nbsp;    /***
-<b class="nc">&nbsp;     * Sets the Email which should be same as Login</b>
+&nbsp;     * Sets the Email which should be same as Login
 &nbsp;     */
 &nbsp;    public void setEmail(String email){
-&nbsp;        setLogin(email);
-<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;        setLogin(email);</b>
+&nbsp;    }
 &nbsp;
 &nbsp;    public String getPassword() {
-&nbsp;        return Password;
-<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;        return Password;</b>
+&nbsp;    }
 &nbsp;
 &nbsp;    public void setPassword(String password) {
-&nbsp;        Password = password;
-<b class="nc">&nbsp;    }</b>
-<b class="nc">&nbsp;</b>
-<b class="nc">&nbsp;    public int getPermission() {</b>
-&nbsp;        return Permission;
+<b class="nc">&nbsp;        Password = password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getPermission() {
+<b class="nc">&nbsp;        return Permission;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setPermission(int permission) {
-&nbsp;        Permission = permission;
+<b class="nc">&nbsp;        Permission = permission;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public String getPermissionAsString(){
-&nbsp;        if(Permission==NORMAL_PERMISSION) return &quot;Normal&quot;;
-&nbsp;        else if(Permission==ADMIN_PERMISSION) return &quot;Admin&quot;;
-&nbsp;        else if(Permission==GUEST_PERMISSION) return &quot;Guest&quot;;
-&nbsp;        else return &quot;Unknown&quot;;
+<b class="nc">&nbsp;        if(Permission==NORMAL_PERMISSION) return &quot;Normal&quot;;</b>
+<b class="nc">&nbsp;        else if(Permission==ADMIN_PERMISSION) return &quot;Admin&quot;;</b>
+<b class="nc">&nbsp;        else if(Permission==GUEST_PERMISSION) return &quot;Guest&quot;;</b>
+<b class="nc">&nbsp;        else return &quot;Unknown&quot;;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -188,7 +188,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-10-27 10:19</div>
+    <div style="float:right;">generated on 2023-10-29 17:02</div>
 </div>
 </body>
 </html>

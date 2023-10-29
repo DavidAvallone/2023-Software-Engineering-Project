@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    85.2%
+    92.9%
   </span>
   <span class="absValue">
-    (23/27)
+    (26/28)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    83.4%
+    88.2%
   </span>
   <span class="absValue">
-    (221/265)
+    (276/313)
   </span>
 </td>
 </tr>
@@ -93,12 +93,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private double big_blind;
 <b class="fc">&nbsp;    private double current_pot = 0;</b>
 &nbsp;    private int current_player_turn;
-&nbsp;
+&nbsp;    private ArrayList&lt;Player&gt; tied;
 &nbsp;    private int last_raise;
 <b class="fc">&nbsp;    private boolean gameover = false;</b>
 &nbsp;    private String[] player_status;
 &nbsp;    private double[] player_bets;
 <b class="fc">&nbsp;    private Player winning_player = null;</b>
+<b class="fc">&nbsp;    boolean isTie = false;</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * This is the constructor for the round class: a round is the entire game of poker
@@ -196,11 +197,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return a human-readable way to print all hands
 &nbsp;     */
 &nbsp;    public String player_hands_toString(){
-<b class="nc">&nbsp;        String result = &quot;Player Hands: \n&quot;;</b>
-<b class="nc">&nbsp;        for(Player p : players){</b>
-<b class="nc">&nbsp;            result += p.getName() + &quot;: &quot; + p.getHand() + &quot;\n&quot;;</b>
-<b class="nc">&nbsp;        }</b>
-<b class="nc">&nbsp;        return result;</b>
+<b class="fc">&nbsp;        String result = &quot;Player Hands: \n&quot;;</b>
+<b class="fc">&nbsp;        for(Player p : players){</b>
+<b class="fc">&nbsp;            result += p.getName() + &quot;: &quot; + p.getHand() + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return result;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -547,30 +548,83 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        }
 <b class="fc">&nbsp;        else if(isRoundOver() &amp;&amp; round_num == 4){ // end of game</b>
 <b class="fc">&nbsp;            gameover = true;</b>
-<b class="fc">&nbsp;            winning_player = who_won();</b>
-&nbsp;            winning_player.setCurrency(winning_player.getCurrency() + current_pot);
+<b class="fc">&nbsp;            if(tie() == null || tie().size() == 1) {</b>
+<b class="fc">&nbsp;                winning_player = who_won();</b>
+<b class="fc">&nbsp;                winning_player.setCurrency(winning_player.getCurrency() + current_pot);</b>
+&nbsp;            }
+&nbsp;            else{
+<b class="nc">&nbsp;                tied = tie();</b>
+<b class="nc">&nbsp;                isTie = true;</b>
+<b class="nc">&nbsp;                int split = tied.size();</b>
+<b class="nc">&nbsp;                double split_pot = current_pot/split;</b>
+<b class="nc">&nbsp;                for(Player p : tied){</b>
+<b class="nc">&nbsp;                    p.setCurrency(p.getCurrency() + current_pot);</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;            }
 &nbsp;            // hand evaluations and make a function to update all of the players information in the database
 &nbsp;        }
 &nbsp;    }
 &nbsp;
+&nbsp;    public ArrayList&lt;Player&gt; tie(){
+<b class="fc">&nbsp;        ArrayList&lt;Player&gt; winningPlayers = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        int bestHandValue = -1;</b>
+&nbsp;
+<b class="fc">&nbsp;        for (Player player1 : players) {</b>
+<b class="fc">&nbsp;            if (player1.isFold()) {</b>
+<b class="nc">&nbsp;                continue; // Skip folded players</b>
+&nbsp;            }
+<b class="fc">&nbsp;            Hand hand1 = player1.getHand();</b>
+&nbsp;
+<b class="fc">&nbsp;            for (Player player2 : players) {</b>
+<b class="fc">&nbsp;                if (player2.isFold() || player1 == player2) {</b>
+<b class="fc">&nbsp;                    continue; // Skip folded players and self-comparisons</b>
+&nbsp;                }
+<b class="fc">&nbsp;                Hand hand2 = player2.getHand();</b>
+&nbsp;
+&nbsp;                // You need to implement a compareHands method in your Hand class
+<b class="fc">&nbsp;                int result = hand1.compareTo(hand2, river);</b>
+&nbsp;
+<b class="fc">&nbsp;                if (result &gt; 0 &amp;&amp; result &gt; bestHandValue) {</b>
+<b class="fc">&nbsp;                    bestHandValue = result;</b>
+<b class="fc">&nbsp;                    winningPlayers.clear();</b>
+<b class="fc">&nbsp;                    winningPlayers.add(player1);</b>
+<b class="fc">&nbsp;                } else if (result &gt; 0 &amp;&amp; result == bestHandValue) {</b>
+<b class="fc">&nbsp;                    winningPlayers.add(player1);</b>
+<b class="fc">&nbsp;                } else if (result &lt; 0 &amp;&amp; -result &gt; bestHandValue) {</b>
+<b class="fc">&nbsp;                    bestHandValue = -result;</b>
+<b class="fc">&nbsp;                    winningPlayers.clear();</b>
+<b class="fc">&nbsp;                    winningPlayers.add(player2);</b>
+<b class="fc">&nbsp;                } else if (result &lt; 0 &amp;&amp; -result == bestHandValue) {</b>
+<b class="fc">&nbsp;                    winningPlayers.add(player2);</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+<b class="fc">&nbsp;        if (bestHandValue == 0) {</b>
+&nbsp;            // No player had a better hand than any other; it&#39;s a tie
+<b class="nc">&nbsp;            return winningPlayers;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * This function checks to see if everyone folded except one player
 &nbsp;     * @return a boolean to see if the game is over or not
 &nbsp;     */
-<b class="fc">&nbsp;    public boolean everyone_folded(){</b>
+&nbsp;    public boolean everyone_folded(){
 <b class="fc">&nbsp;        int num_players = players.size();</b>
 <b class="fc">&nbsp;        int folded = 0;</b>
 <b class="fc">&nbsp;        for(int i = 0; i &lt; num_players; i++){</b>
 <b class="fc">&nbsp;            if(player_status[i].equals(&quot;fold&quot;)){</b>
-&nbsp;                folded++;
+<b class="fc">&nbsp;                folded++;</b>
 &nbsp;            }
-<b class="fc">&nbsp;        }</b>
-<b class="fc">&nbsp;        if(num_players - folded == 1){</b>
-&nbsp;            return true;
 &nbsp;        }
-<b class="fc">&nbsp;        else{</b>
-&nbsp;            return false;
+<b class="fc">&nbsp;        if(num_players - folded == 1){</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="fc">&nbsp;            return false;</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -578,92 +632,101 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * this function finds the last player to not fold incase everyone except one folded
 &nbsp;     * @return the last standing player
 &nbsp;     */
-<b class="fc">&nbsp;    public Player last_player_standing(){</b>
+&nbsp;    public Player last_player_standing(){
 <b class="fc">&nbsp;        if(everyone_folded()){</b>
 <b class="fc">&nbsp;            for(Player p : players){</b>
 <b class="fc">&nbsp;                if(!p.isFold()){</b>
-&nbsp;                    return p;
-<b class="fc">&nbsp;                }</b>
-&nbsp;            }
+<b class="fc">&nbsp;                    return p;</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
 &nbsp;        }
-<b class="fc">&nbsp;        else {</b>
-&nbsp;            return null;
-<b class="nc">&nbsp;        }</b>
-&nbsp;        return null;
+&nbsp;        else {
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return null;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * a getter for the round number 1-4
 &nbsp;     * @return this rounds number
 &nbsp;     */
-<b class="fc">&nbsp;    public int getRound_num(){</b>
-&nbsp;        return this.round_num;
+&nbsp;    public int getRound_num(){
+<b class="fc">&nbsp;        return this.round_num;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * This function determines who won the game
 &nbsp;     * @return the winning player object
 &nbsp;     */
-<b class="fc">&nbsp;    public Player who_won(){</b>
-&nbsp;        Player winning_player = null;
-<b class="fc">&nbsp;</b>
-<b class="fc">&nbsp;        for (int i = 0; i &lt; players.size(); i++) {</b>
-&nbsp;            Player player1 = players.get(i);
-<b class="fc">&nbsp;</b>
-<b class="nc">&nbsp;            if (player1.isFold()) {</b>
-&nbsp;                continue; // Skip folded players
-&nbsp;            }
-<b class="fc">&nbsp;</b>
-&nbsp;            Hand hand1 = player1.getHand();
-<b class="fc">&nbsp;</b>
-<b class="fc">&nbsp;            for (int j = i + 1; j &lt; players.size(); j++) {</b>
-&nbsp;                Player player2 = players.get(j);
-<b class="fc">&nbsp;</b>
-<b class="nc">&nbsp;                if (player2.isFold()) {</b>
-&nbsp;                    continue; // Skip folded players
-&nbsp;                }
-<b class="fc">&nbsp;</b>
-&nbsp;                Hand hand2 = player2.getHand();
+&nbsp;    public Player who_won(){
+<b class="fc">&nbsp;        Player winning_player = null;</b>
 &nbsp;
-<b class="fc">&nbsp;                // You need to implement a compareHands method in your Hand class</b>
-&nbsp;                int result = hand1.compareTo(hand2, river);
-<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; players.size(); i++) {</b>
+<b class="fc">&nbsp;            Player player1 = players.get(i);</b>
+&nbsp;
+<b class="fc">&nbsp;            if (player1.isFold()) {</b>
+<b class="nc">&nbsp;                continue; // Skip folded players</b>
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            Hand hand1 = player1.getHand();</b>
+&nbsp;
+<b class="fc">&nbsp;            for (int j = i + 1; j &lt; players.size(); j++) {</b>
+<b class="fc">&nbsp;                Player player2 = players.get(j);</b>
+&nbsp;
+<b class="fc">&nbsp;                if (player2.isFold()) {</b>
+<b class="nc">&nbsp;                    continue; // Skip folded players</b>
+&nbsp;                }
+&nbsp;
+<b class="fc">&nbsp;                Hand hand2 = player2.getHand();</b>
+&nbsp;
+&nbsp;                // You need to implement a compareHands method in your Hand class
+<b class="fc">&nbsp;                int result = hand1.compareTo(hand2, river);</b>
+&nbsp;
 <b class="fc">&nbsp;                if (result &gt; 0) {</b>
 <b class="fc">&nbsp;                    winning_player = player1;</b>
 <b class="fc">&nbsp;                } else if (result &lt; 0) {</b>
-&nbsp;                    winning_player = player2;
+<b class="fc">&nbsp;                    winning_player = player2;</b>
 &nbsp;                }
 &nbsp;            }
-<b class="fc">&nbsp;        }</b>
-&nbsp;        return winning_player;
+&nbsp;        }
+<b class="fc">&nbsp;        return winning_player;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * the tostring method for a round in a human-readable way
 &nbsp;     * @return humanreadable string of this round
 &nbsp;     */
-<b class="nc">&nbsp;    public String toString(){</b>
-<b class="nc">&nbsp;        String result = &quot;Current Players: \n&quot;;</b>
-<b class="nc">&nbsp;        for (Player player : players) {</b>
-<b class="nc">&nbsp;            result += player + &quot;\n&quot;;</b>
-<b class="nc">&nbsp;        }</b>
-<b class="nc">&nbsp;        result += &quot;Round Info: \n&quot;;</b>
-<b class="nc">&nbsp;        result += &quot;Current Round: &quot; + round_num + &quot;\n&quot;;</b>
-<b class="nc">&nbsp;        result += &quot;Current Pot: &quot; + current_pot + &quot;\n&quot;;</b>
-<b class="nc">&nbsp;        result += &quot;Current Bet: &quot; + current_bet + &quot;\n&quot;;</b>
-<b class="nc">&nbsp;        result += &quot;Current River: \n&quot;;</b>
-<b class="nc">&nbsp;        for(Card card : river){</b>
-<b class="nc">&nbsp;            result += &quot;&quot; + card + &quot;\n&quot;;</b>
-<b class="nc">&nbsp;        }</b>
-<b class="nc">&nbsp;        result += &quot;Current Player Turn: &quot; + (current_player_turn+1) + &quot;\n&quot;;</b>
-<b class="nc">&nbsp;        if(winning_player != null){</b>
-<b class="nc">&nbsp;            result += &quot;GAME OVER \n&quot;;</b>
-&nbsp;            result += &quot;Winning Player: &quot; + winning_player + &quot;\n&quot;;
-<b class="nc">&nbsp;            result += winning_player.getHand() + &quot;\n&quot;;</b>
-&nbsp;            result += &quot;Other Player Hands: \n&quot;;
-&nbsp;            result += player_hands_toString();
+&nbsp;    public String toString(){
+<b class="fc">&nbsp;        String result = &quot;Current Players: \n&quot;;</b>
+<b class="fc">&nbsp;        for (Player player : players) {</b>
+<b class="fc">&nbsp;            result += player + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        result += &quot;Round Info: \n&quot;;</b>
+<b class="fc">&nbsp;        result += &quot;Current Round: &quot; + round_num + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        result += &quot;Current Pot: &quot; + current_pot + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        result += &quot;Current Bet: &quot; + current_bet + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        result += &quot;Current River: \n&quot;;</b>
+<b class="fc">&nbsp;        for(Card card : river){</b>
+<b class="fc">&nbsp;            result += &quot;&quot; + card + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        result += &quot;Current Player Turn: &quot; + (current_player_turn+1) + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        if(winning_player != null){</b>
+<b class="fc">&nbsp;            result += &quot;GAME OVER \n&quot;;</b>
+<b class="fc">&nbsp;            result += &quot;Winning Player: &quot; + winning_player + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;            result += winning_player.getHand() + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;            result += &quot;Other Player Hands: \n&quot;;</b>
+<b class="fc">&nbsp;            result += player_hands_toString();</b>
 &nbsp;        }
-&nbsp;        return result;
+<b class="fc">&nbsp;        if(isTie){</b>
+<b class="nc">&nbsp;            result += &quot;GAME OVER \n TIE GAME \n Tied: &quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;            for(Player p : tied){</b>
+<b class="nc">&nbsp;                result += p + &quot;\n&quot;;</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;            result += &quot;Player Hands: \n&quot;;</b>
+<b class="nc">&nbsp;            result += player_hands_toString();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return result;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -689,7 +752,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-10-27 10:19</div>
+    <div style="float:right;">generated on 2023-10-29 17:02</div>
 </div>
 </body>
 </html>
