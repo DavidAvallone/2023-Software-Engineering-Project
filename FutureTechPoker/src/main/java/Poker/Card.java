@@ -4,6 +4,11 @@ public class Card implements Comparable<Card> {
     private int suit;
     private int rank;
 
+    /**
+     * Card class constructor
+     * @param suit int suit of card
+     * @param rank int rank of card
+     */
     public Card(int suit, int rank) {
         if (suit >= 0 && suit <= 4) {
             this.suit = suit;
@@ -13,19 +18,37 @@ public class Card implements Comparable<Card> {
         }
     }
 
+    /**
+     * Getter for the suit attribute
+     * @return int, the suit of the card
+     */
     public int getSuit() {
         return this.suit;
     }
 
+    /**
+     * Getter for the rank attribute
+     * @return int, the rank of the card
+     */
     public int getRank() {
         return this.rank;
     }
 
+    /**
+     * Compares the rank of this card to the rank of otherCard
+     * @param otherCard the object to be compared.
+     * @return int, Greater than 0 if this Card has a higher rank,
+     * less than 0 if otherCard has a greater rank, 0 if ranks are even
+     */
     @Override
     public int compareTo(Card otherCard) {
         return this.rank - otherCard.getRank();
     }
 
+    /**
+     * Card class toString
+     * @return String, Readable representation of a Card
+     */
     public String toString() {
         String suitName;
         String rankName;

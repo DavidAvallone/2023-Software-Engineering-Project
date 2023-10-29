@@ -10,6 +10,10 @@ public class Deck {
     private int size;
     private Long seed;
 
+    /**
+     * Deck class constructor
+     * @param seed long, the seed of the deck for randomization
+     */
     public Deck(Long seed)
     {
         this.seed = seed;
@@ -22,14 +26,26 @@ public class Deck {
         this.size = deck.size();
     }
 
+    /**
+     * Getter for the size attribute
+     * @return int, the number of cards in the deck
+     */
     public int getSize(){
         return this.size;
     }
 
+    /**
+     * Determines if the deck is empty
+     * @return boolean, true if empty, false if not empty
+     */
     public boolean isEmpty(){
         return size <= 0;
     }
 
+    /**
+     * Shuffles the cards within the deck
+     * @return ArrayList of Cards, the shuffled list of Cards
+     */
     public ArrayList<Card> shuffle(){
         if(seed == null){
             Collections.shuffle(this.deck);
@@ -41,6 +57,10 @@ public class Deck {
         return this.deck;
     }
 
+    /**
+     * Draws a card off the top of the deck. This Card is removed from the deck
+     * @return Card, the Card drawn
+     */
     public Card draw(){
         if (this.deck.isEmpty()){
             return null;
@@ -51,6 +71,10 @@ public class Deck {
         return card;
     }
 
+    /**
+     * Deck class toSting
+     * @return String, String representation of the Cards in the deck
+     */
     public String toString(){
         String contents = "";
         for (int i = 0; i < size; i++){
