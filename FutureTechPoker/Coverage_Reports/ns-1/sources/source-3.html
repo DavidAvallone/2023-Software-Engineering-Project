@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    62.5%
+    100%
   </span>
   <span class="absValue">
-    (5/8)
+    (8/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    68.2%
+    100%
   </span>
   <span class="absValue">
-    (15/22)
+    (22/22)
   </span>
 </td>
 </tr>
@@ -83,32 +83,60 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;public class Hand{
 &nbsp;    private ArrayList&lt;Card&gt; cards;
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Hand Constructor
+&nbsp;     * @param cards List of Cards to be added to the hand
+&nbsp;     */
+<b class="fc">&nbsp;    public Hand(ArrayList&lt;Card&gt; cards){</b>
 &nbsp;
-<b class="nc">&nbsp;    public Hand(ArrayList&lt;Card&gt; cards){</b>
-&nbsp;
-<b class="nc">&nbsp;        this.cards = cards;</b>
+<b class="fc">&nbsp;        this.cards = cards;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public int getHandSize(){
-<b class="fc">&nbsp;        return this.cards.size();</b>
-&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Hand Constructor
+&nbsp;     */
 <b class="fc">&nbsp;    public Hand(){</b>
 <b class="fc">&nbsp;        cards = new ArrayList&lt;Card&gt;();</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the number of Cards in the Hand
+&nbsp;     * @return int, number of Cards in the Hand
+&nbsp;     */
+&nbsp;    public int getHandSize(){
+<b class="fc">&nbsp;        return this.cards.size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds a Card to the Hand
+&nbsp;     * @param c Card to be added to the Hand
+&nbsp;     */
 &nbsp;    public void add(Card c){
 <b class="fc">&nbsp;        cards.add(c);</b>
 &nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter for the cards attribute
+&nbsp;     * @return List of Cards in the Hand
+&nbsp;     */
 &nbsp;    public List&lt;Card&gt; getCards(){
 <b class="fc">&nbsp;        return this.cards;</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Setter for the card attribute
+&nbsp;     * @param cards List of Cards to be added to the Hand
+&nbsp;     */
 &nbsp;    public void setCards(ArrayList&lt;Card&gt; cards){
-<b class="nc">&nbsp;        this.cards = cards;</b>
+<b class="fc">&nbsp;        this.cards = cards;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;
-&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares this Hand to another Hand
+&nbsp;     * @param otherHand the Hand to be compared to
+&nbsp;     * @param river List of river Cards
+&nbsp;     * @return Greater than 0 if this Hand is better, less than 0 if the other hand is better, 0 if the hands are even
+&nbsp;     */
 &nbsp;    public int compareTo(Hand otherHand, List&lt;Card&gt; river){
 <b class="fc">&nbsp;        List&lt;Card&gt; totalCardsPlayer1 = new ArrayList&lt;&gt;();</b>
 <b class="fc">&nbsp;        totalCardsPlayer1.addAll(this.getCards());</b>
@@ -123,13 +151,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        return comparison;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;
+&nbsp;    /**
+&nbsp;     * Hand class toString
+&nbsp;     * @return String representation of a Hand
+&nbsp;     */
 &nbsp;    public String toString(){
-<b class="nc">&nbsp;        String totalString = &quot;&quot;;</b>
-<b class="nc">&nbsp;        for(int i = 0; i &lt; this.cards.size(); i++){</b>
-<b class="nc">&nbsp;            totalString += this.cards.get(i).toString() + &quot; | &quot;;</b>
+<b class="fc">&nbsp;        String totalString = &quot;&quot;;</b>
+<b class="fc">&nbsp;        for(int i = 0; i &lt; this.cards.size(); i++){</b>
+<b class="fc">&nbsp;            totalString += this.cards.get(i).toString() + &quot; | &quot;;</b>
 &nbsp;        }
-<b class="nc">&nbsp;        return totalString;</b>
+<b class="fc">&nbsp;        return totalString;</b>
 &nbsp;    }
 &nbsp;}
 &nbsp;
@@ -157,7 +188,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-10-27 10:19</div>
+    <div style="float:right;">generated on 2023-10-29 17:02</div>
 </div>
 </body>
 </html>
