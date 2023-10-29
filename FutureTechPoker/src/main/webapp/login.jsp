@@ -74,5 +74,6 @@
 
 <script type="text/javascript">
 </script>
+<img src="logo.jpeg" alt="FutureTech Logo" width="574" height="223" style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%)">
 </body>
 </html>
