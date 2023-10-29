@@ -25,7 +25,7 @@ a {
     text-decoration: none;
 }
 
-/*
+
 button {
     background-color: #fff;
     color: #000;
@@ -38,9 +38,8 @@ button {
     height: 20px;
     display: block;
     margin: 10px;
-    text-decoration: none;
 }
-*/
+
 
 .nav-link {
     display: block;
