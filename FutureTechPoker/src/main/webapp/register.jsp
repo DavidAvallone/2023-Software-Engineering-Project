@@ -62,15 +62,18 @@
         </div>
         <div class="centered">
             <div>
-                <button type="submit" onclick="return checkRegisterForm()"> Register</button>
+                <button type="submit" onclick="return checkRegisterForm()">Register</button>
             </div>
             <div>
-                <button type="reset" id="clear_button"> Clear</button>
+                <button type="reset" id="clear_button">Clear</button>
             </div>
             <div>
-                <a type="button" href="index.jsp"> Cancel</a>
+                <a type="button" href="index.jsp"">Cancel</a>
             </div>
         </div>
+    </form>
+    <form action="guestAccountServlet" method="post">
+        <button type="submit">Continue as Guest</button>
     </form>
 </div>
 

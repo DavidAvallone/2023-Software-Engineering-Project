@@ -6,11 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="model.entity.User" %>
-<%@ page import="controller.service.UserService" %>
-<%@ page import="java.util.List" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    User logged = (User) session.getAttribute("User");
+%>
 <html>
+<% if(logged!=null){ %>
 <head>
     <title>FutureTech Poker User Home</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
@@ -21,7 +22,6 @@
     <h1><%= "FutureTech Poker" %></h1>
 </div>
 <br/>
-<%--<h1>Welcome, <%=((User) session.getAttribute("User")).getLogin()%></h1>--%>
 
 <div class="centered">
     <h2>Available Games</h2>
@@ -45,10 +45,18 @@
     <form action="logoutServlet" method="post">
         <button type="submit">Log Out</button>
     </form>
-    <form action="deleteUserServlet" method="post">
-        <button type="submit">Delete Account</button>
-    </form>
+    <a href="user_profile_information.jsp" class="home-button">User Settings / Information</a>
+    <% if(logged.getPermission()==User.ADMIN_PERMISSION){ %>
+    <a href="admin.jsp" class="home-button">Admin Settings</a>
+    <% } //end-else-if %>
+
 </div>
 <img src="logo.jpeg" alt="FutureTech Logo" width="574" height="223" style="position: fixed; bottom: 0px; left: 50%; transform: translateX(-50%)">
 </body>
+<% } else { %>
+<%
+    // If access is denied, send a redirect to another page
+    response.sendRedirect("index.jsp");
+%>
+<% } //end-else-if %>
 </html>
