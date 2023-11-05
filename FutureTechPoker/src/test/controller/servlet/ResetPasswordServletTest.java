@@ -8,12 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-
 import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class ResetPasswordServletTest {
@@ -24,7 +20,6 @@ public class ResetPasswordServletTest {
         user.setPermission(User.NORMAL_PERMISSION);
         String oldPassword = "oldPassword";
         user.setPassword(oldPassword);
-        Integer idToReset = 101;
 
         //Servlets always have two main parameters request & repost which we need to mock
         HttpServletRequest request = mock(HttpServletRequest.class);
