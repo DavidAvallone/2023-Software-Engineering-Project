@@ -25,3 +25,6 @@ replay_pid*
 
 # Persistence configuration file
 persistence.xml
+
+# Ignore .idea directory
+.idea/
