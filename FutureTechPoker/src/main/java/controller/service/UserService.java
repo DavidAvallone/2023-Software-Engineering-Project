@@ -53,4 +53,9 @@ public class UserService {
     public static void deleteUser(int id){
         dao.delete(id);
     }
+
+    public static void updatePassword(User updatedUser) {
+        dao.update(updatedUser);
+
+    }
 }
