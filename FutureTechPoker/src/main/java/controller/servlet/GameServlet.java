@@ -22,5 +22,11 @@ public class GameServlet extends HttpServlet {
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "password123";
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        Double bet = Double.parseDouble(request.getParameter("raiseAmount"));
+
+        // call dao and do an update crud to the round
+    }
 
 }

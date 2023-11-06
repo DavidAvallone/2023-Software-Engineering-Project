@@ -89,3 +89,12 @@ button {
     width: 50px; /* Set the desired width for the right image */
     height: auto; /* Maintain aspect ratio */
 }
+
+.hand {
+    display: flex;       /* Use flexbox layout */
+    align-items: center; /* Vertically center the images */
+}
+
+.hand img {
+    margin-right: 10px; /* Add some spacing between the images (adjust as needed) */
+}
