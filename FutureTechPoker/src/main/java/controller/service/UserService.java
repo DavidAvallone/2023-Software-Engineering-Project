@@ -23,7 +23,7 @@ public class UserService {
      */
     public static User registerUser(User newUser){
         try {
-            String hashed = PasswordUtil.hash(newUser.getPassword());
+            String hashed = newUser.getPassword() == null ? "" : PasswordUtil.hash(newUser.getPassword()); // Determine if new user is a guest or real user
             newUser.setPassword(hashed);
             newUser = dao.create(newUser);
         }catch(javax.persistence.PersistenceException ex){

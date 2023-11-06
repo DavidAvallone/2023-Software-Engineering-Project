@@ -21,7 +21,7 @@ public class User extends BaseEntity {
 
     public User(){
         this.Permission = NORMAL_PERMISSION;
-        Balance = 1000.0;
+        Balance = 5000.0;
         Wins = 0;
         Losses = 0;
     }
