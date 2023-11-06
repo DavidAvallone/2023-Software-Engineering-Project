@@ -1,7 +1,9 @@
 package controller.service;
-
-import Poker.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import Poker.*;
 
 public class RoundService {
 
@@ -26,5 +28,18 @@ public class RoundService {
         int starting_bet = 50;
         long seed = 42;
         this.round = new Round(players, starting_bet, seed);
+    }
+
+    public ArrayList<String> extractCardNames(String inputString) {
+        ArrayList<String> cardNames = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\d+ of \\w+");
+        Matcher matcher = pattern.matcher(inputString);
+
+        while (matcher.find()) {
+            String cardDescription = matcher.group().replaceAll(" ", "_").toLowerCase() + ".png";
+            cardNames.add(cardDescription);
+        }
+
+        return cardNames;
     }
 }

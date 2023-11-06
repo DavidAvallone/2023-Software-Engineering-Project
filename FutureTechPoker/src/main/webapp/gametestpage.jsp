@@ -1,5 +1,8 @@
 <%@ page import="controller.servlet.GameServlet" %>
 <%@ page import="controller.service.RoundService" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: David
@@ -22,7 +25,18 @@
 
 <p>Current Bet: $<%= rs.round.getCurrent_bet() %></p>
 <p>Current Pot: $<%= rs.round.getCurrent_pot() %></p>
-<p>Current Hand: <%= rs.round.getPlayers().get(0).getHand().toString() %></p>
+<%
+    List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(0).getHand().toString());
+    String card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
+    String card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
+%>
+
+<p>Current Hand: </p>
+<div class="hand">
+    <img src="<%= card1 %>" width="50" height="75">
+    <img src="<%= card2 %>" width="50" height="75">
+</div>
+
 <p>River: <% for(int i = 0; i < rs.round.getRiver().size(); i++){
         rs.round.getRiver().get(i);
         } %></p>
@@ -31,6 +45,8 @@
 <form action="GameServlet" method="post">
     <!-- Include buttons and form fields for raising, calling, checking, folding, all-in -->
     <!-- Example: -->
+    <label for="raiseAmount">Enter Raise Amount:</label>
+    <input type="number" step="0.01" id="raiseAmount" name="raiseAmount" placeholder="Enter amount" min="0.0">
     <button type="submit" name="action" value="raise">Raise</button>
     <button type="submit" name="action" value="call">Call</button>
     <button type="submit" name="action" value="check">Check</button>
