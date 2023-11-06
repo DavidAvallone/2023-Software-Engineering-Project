@@ -57,6 +57,7 @@ public class Round {
     public ArrayList<Card> getRiver(){
         return river;
     }
+
     /**
      * This function sorts the players by the turn order
      */
@@ -133,6 +134,10 @@ public class Round {
      */
     public double getCurrent_pot(){
         return this.current_pot;
+    }
+
+    public double getCurrent_bet() {
+        return current_bet;
     }
 
     /**
