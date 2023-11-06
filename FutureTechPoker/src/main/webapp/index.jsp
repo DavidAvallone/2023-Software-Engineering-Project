@@ -20,15 +20,6 @@
 </div>
 <br/>
 <div class="centered">
-
-  <a href="register.jsp" class="home-button">Register Page</a>
-  <a href="login.jsp" class="home-button">Login Page</a>
-  <a href="home.jsp" class="home-button">Home Page</a>
-  <a href="gametestpage.jsp" class="home-button">Game Test Page</a>
-
-  <a href="home.jsp" class="home-button">Home Page</a>
-  <a href="gametestpage.jsp" class="home-button">Game Test Page</a>
-
   <div class="image-container">
     <img src="poker-chips.png" alt="Poker Chips" class="poker-chips">
     <a href="register.jsp" class="home-button">Register Page</a>
@@ -38,7 +29,11 @@
     <a href="login.jsp" class="home-button">Login Page</a>
     <img src="cards.png" alt="Cards" class="cards-image">
   </div>
+  <a href="home.jsp" class="home-button">Home Page</a>
+  <a href="gametestpage.jsp" class="home-button">Game Test Page</a>
 
+  <a href="home.jsp" class="home-button">Home Page</a>
+  <a href="gametestpage.jsp" class="home-button">Game Test Page</a>
 </div>
 <img src="logo.jpeg" alt="FutureTech Logo" width="574" height="223" style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%)">
 </body>
