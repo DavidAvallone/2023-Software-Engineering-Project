@@ -11,15 +11,9 @@ public class User extends BaseEntity {
     private String Login;
     private String Password;
     private int Permission;
-
-    // Other fields: Balance, wins-losses, friends list, net profit?
-    /*
     private Double Balance;
     private Integer Wins;
     private Integer Losses;
-    private Integer NetProfit;
-    private List<String> Friends;
-    */
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
@@ -27,6 +21,9 @@ public class User extends BaseEntity {
 
     public User(){
         this.Permission = NORMAL_PERMISSION;
+        Balance = 1000.0;
+        Wins = 0;
+        Losses = 0;
     }
 
     public User(Integer ID, String login, String password, int permission) {
@@ -34,6 +31,13 @@ public class User extends BaseEntity {
         Login = login;
         Password = password;
         Permission = permission;
+    }
+
+    public static User createGuest(){
+        User guest = new User();
+        guest.Permission = GUEST_PERMISSION;
+        guest.Login = "Guest";
+        return guest;
     }
 
     public Integer getID() {
@@ -86,5 +90,17 @@ public class User extends BaseEntity {
         else if(Permission==ADMIN_PERMISSION) return "Admin";
         else if(Permission==GUEST_PERMISSION) return "Guest";
         else return "Unknown";
+    }
+
+    public int getWins() {
+        return Wins;
+    }
+
+    public int getLosses() {
+        return Losses;
+    }
+
+    public Double getBalance() {
+        return Balance;
     }
 }
