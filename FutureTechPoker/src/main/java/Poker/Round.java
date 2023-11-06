@@ -656,4 +656,16 @@ public class Round {
         }
         return result;
     }
+
+    public boolean getTie() {
+        return this.isTie;
+    }
+
+    public Integer getLast_raise() {
+        return this.last_raise;
+    }
+
+    public Integer getCurrent_player() {
+        return this.current_player_turn;
+    }
 }
