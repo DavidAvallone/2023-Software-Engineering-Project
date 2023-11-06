@@ -19,7 +19,7 @@
 
 <body>
 <div class="banner">
-    <h1><%= "FutureTech Poker" %></h1>
+    <h1>FutureTech Poker</h1>
 </div>
 <br/>
 
