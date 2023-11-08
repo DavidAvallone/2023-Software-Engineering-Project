@@ -22,27 +22,21 @@ public class Round {
     private String[] player_status;
     private double[] player_bets;
     private Player winning_player = null;
-    boolean isTie = false;
+    private boolean isTie = false;
+    private boolean gameStarted;
 
     /**
      * This is the constructor for the round class: a round is the entire game of poker
-     * @param players An arraylist of player objects to be played in this round of poker
      * @param starting_bet the starting bet for the big blind and small blind
+     * @param seed the seed for the game which is randomly generated
      */
     public Round(double starting_bet, Long seed) {
         this.players = new ArrayList<>();
-        this.player_status = new String[players.size()];
-        this.player_bets = new double[players.size()];
-        for (int i = 0; i < players.size(); i++) {
-            player_bets[i] = 0;
-            player_status[i] = "Playing";
-        }
         this.starting_bet = starting_bet;
         this.small_blind = starting_bet / 2;
         this.big_blind = starting_bet;
         deck = new Deck(seed);
         deck.shuffle();
-        deal_out();
         current_pot += small_blind + big_blind;
         this.river = new ArrayList<Card>();
         current_player_turn = 0;
@@ -50,7 +44,19 @@ public class Round {
         last_raise = 1;
     }
 
-    public void add_player(Player p){
+    public void start_game(){
+        this.player_status = new String[players.size()];
+        this.player_bets = new double[players.size()];
+        deal_out();
+        for (int i = 0; i < players.size(); i++) {
+            player_bets[i] = players.get(i).getCurrentBet();
+            player_status[i] = players.get(i).getStatus();
+        }
+        gameStarted = true;
+    }
+
+    public void add_player(Player p, String status){
+        p.setStatus(status);
         this.players.add(p);
     }
 
@@ -111,8 +117,7 @@ public class Round {
         players.get(0).addCardToHand(deck.draw());
         for (int i = 0; i < players.size(); i++) {
             //add a card to players hand
-            Player temp = players.get(i);
-            temp.addCardToHand(deck.draw());
+            players.get(i).addCardToHand(deck.draw());
             if (i + 1 == players.size() && all_drew == 0) {
                 i = 0;
                 all_drew++;
@@ -183,6 +188,7 @@ public class Round {
      */
     public void fold(int p, Player current_player){
         current_player.setFold(true);
+        current_player.setStatus("fold");
         player_status[p] = "fold";
         if(p < players.size()-1)
             current_player_turn++;
@@ -197,6 +203,7 @@ public class Round {
      */
     public void check(int p, Player current_player){
         player_status[p] = "check";
+        current_player.setStatus("check");
         if(p < players.size()-1)
             current_player_turn++;
         else if(p == players.size()-1)
@@ -238,10 +245,12 @@ public class Round {
         if(bet > current_player.getCurrency()){
             bet = current_player.getCurrency();
             player_status[p] = "all in";
+            current_player.setStatus("all in");
             current_player.setCurrency(0.0);
         }
         else{
             player_status[p] = "raise";
+            current_player.setStatus("raise");
             if(after_raise){
                 current_player.setCurrency(current_player.getCurrency() - (call + bet));
             }
@@ -289,6 +298,7 @@ public class Round {
         current_player.setCurrentBet(current_player.getCurrency());
         current_player.setCurrency(0.0);
         player_status[p] = "all in";
+        current_player.setStatus("all in");
         player_bets[p] = current_player.getCurrentBet();
         last_raise = p;
         if(p < players.size()-1)
@@ -308,9 +318,11 @@ public class Round {
         if(call > current_player.getCurrency()){
             call = current_player.getCurrency();
             player_status[p] = "all in";
+            current_player.setStatus("all in");
         }
         else{
             player_status[p] = "call";
+            current_player.setStatus("call");
         }
         current_player.setCurrency(current_player.getCurrency() - call);
         current_player.addtoCurrentBet(call);
