@@ -1,24 +1,25 @@
 package model.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "user")
 public class User extends BaseEntity {
     @Id @Column(name="id_user") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID = null;
-    @Column(unique=true) // Login/Email must be unique for each record in DB
+    @Column(name = "login",unique=true) // Login/Email must be unique for each record in DB
     private String Login;
-    @Column
+    @Column(name = "password")
     private String Password;
-    @Column
+    @Column(name = "name")
+    private String Name;
+    @Column(name = "permission")
     private int Permission;
-    @Column
+    @Column(name = "balance")
     private Double Balance;
-    @Column
+    @Column(name = "wins")
     private Integer Wins;
-    @Column
+    @Column(name = "losses")
     private Integer Losses;
 
     public transient static final int NORMAL_PERMISSION = 1;
@@ -32,8 +33,9 @@ public class User extends BaseEntity {
         Losses = 0;
     }
 
-    public User(Integer ID, String login, String password, int permission) {
+    public User(Integer ID, String name, String login, String password, int permission) {
         this.ID = ID;
+        this.Name = name;
         Login = login;
         Password = password;
         Permission = permission;
@@ -61,6 +63,12 @@ public class User extends BaseEntity {
         Login = login;
     }
 
+    public void setName(String name){
+        this.Name =name;
+    }
+    public String getName(){
+        return this.Name;
+    }
     /***
      * Returns the email which should be same as the Login
      *

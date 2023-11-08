@@ -24,6 +24,7 @@ public class Round {
     private Player winning_player = null;
     private boolean isTie = false;
     private boolean gameStarted;
+    private long seed;
 
     /**
      * This is the constructor for the round class: a round is the entire game of poker
@@ -31,6 +32,7 @@ public class Round {
      * @param seed the seed for the game which is randomly generated
      */
     public Round(double starting_bet, Long seed) {
+        this.seed = seed;
         this.players = new ArrayList<>();
         this.starting_bet = starting_bet;
         this.small_blind = starting_bet / 2;
@@ -77,6 +79,10 @@ public class Round {
      */
     public ArrayList<Player> getPlayers(){
         return this.players;
+    }
+
+    public long getSeed(){
+        return this.seed;
     }
 
     /**
@@ -673,5 +679,9 @@ public class Round {
 
     public Integer getCurrent_player() {
         return this.current_player_turn;
+    }
+
+    public double getStarting_bet() {
+        return this.starting_bet;
     }
 }

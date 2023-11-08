@@ -1,38 +1,93 @@
 package model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-import javax.persistence.Column;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "player")
 public class PlayerEntity extends BaseEntity{
 
-    @Id @Column
-    private int id_player; // should be the user id primary key from user table
-    @Column
-    private String player_name; // should be pulled from the user table
-    @Column
-    private double currency; // should be pulled from the uer table
-    @Column
-    private String hand; // will be updated after the game has started
-    @Column
-    private int turn_order;
-    @Column
-    private double current_bet;
-    @Column
+    @Id
+    @Column(name = "id_player")
+    private int id_player;
+
+    @Column(name = "player_name")
+    private String playerName;
+
+    @Column(name = "currency")
+    private double currency;
+
+    @Column(name = "hand")
+    private String hand;
+
+    @Column(name = "turn_order")
+    private int turnOrder;
+
+    @Column(name = "current_bet")
+    private double currentBet;
+
+    @Column(name = "status")
     private String status;
 
+    @OneToOne
+    @JoinColumn(name = "user_id") // This is the foreign key column
+    private User user; // This is the reference to the User entity
 
+    public PlayerEntity(User user){
+        this.user = user;
+        this.currency = user.getBalance();
+        this.playerName = user.getName();
+        this.currentBet = 0;
+        this.turnOrder = -1;
+        this.hand = null;
+        this.status = null;
+    }
 
     @Override
     public Integer getID() {
         return id_player;
     }
 
-    public void setId(int id) {
-        this.id_player = id;
+    public String getStatus() {
+        return status;
+    }
+
+    public double getCurrency() {
+        return currency;
+    }
+
+    public double getCurrentBet() {
+        return currentBet;
+    }
+
+    public int getTurnOrder() {
+        return turnOrder;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public String getHand() {
+        return hand;
+    }
+
+    public void setCurrency(double currency) {
+        this.currency = currency;
+    }
+
+    public void setCurrentBet(double currentBet) {
+        this.currentBet = currentBet;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setTurnOrder(int turnOrder) {
+        this.turnOrder = turnOrder;
+    }
+
+    public void setHand(String string) {
+        this.hand = string;
     }
 }

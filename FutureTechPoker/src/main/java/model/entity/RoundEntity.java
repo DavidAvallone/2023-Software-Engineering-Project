@@ -1,6 +1,5 @@
 package model.entity;
-import Poker.Player;
-import Poker.Round;
+import Poker.*;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -8,128 +7,224 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "table")
+@Table(name = "game")
 public class RoundEntity extends BaseEntity {
-    @Id @Column(name= "id_round") @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_round = null;
-    @Column
-    private Integer round_num;
-    @Column
+    @Id
+    @Column(name = "id_round")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_round;
+
+    @Column(name = "round_num")
+    private Integer roundNum;
+
+    @Column(name = "river")
     private String river;
-    @Column
-    private String winning_player;
-    @Column
-    private double current_bet;
-    @Column
-    private double current_pot;
-    @Column
-    private double starting_bet;
-    @Column
-    private Integer current_player_turn;
-    @Column
-    private Integer last_raise;
-    @Column
-    private boolean game_over;
-    @Column
+
+    @Column(name = "winning_player")
+    private String winningPlayer;
+
+    @Column(name = "current_bet")
+    private double currentBet;
+
+    @Column(name = "current_pot")
+    private double currentPot;
+
+    @Column(name = "starting_bet")
+    private double startingBet;
+
+    @Column(name = "current_player_turn")
+    private Integer currentPlayerTurn;
+
+    @Column(name = "last_raise")
+    private Integer lastRaise;
+
+    @Column(name = "game_over")
+    private boolean gameOver;
+
+    @Column(name = "tie")
     private boolean tie;
-    @Column
+
+    @Column(name = "seed")
     private long seed;
-    @Column
-    private String tied_players;
-    @Column
-    private Integer player1_id;
-    @Column
-    private Integer player2_id;
-    @Column
-    private Integer player3_id;
-    @Column
-    private Integer player4_id;
-    @Column
-    private Integer player5_id;
-    @Column
-    private Integer player6_id;
 
-    /** SQL table creator
-     create table poker.`round`(
-     id_round INT not null auto_increment,
-     round_num INT,
-     river Varchar(255),
-     winning_player varchar(50),
-     current_bet double,
-     current_pot double,
-     starting_bet double,
-     current_player_turn int,
-     last_raise int,
-     game_over bit,
-     tie bit,
-     seed BIGINT,
-     tied_players Varchar(255),
-     player1_id int,
-     player2_id int,
-     player3_id int,
-     player4_id int,
-     player5_id int,
-     player6_id int,
-     constraint id_round_pk primary key(id_round),
-     constraint player1_fk foreign key(player1_id) references poker.user(id_user),
-     constraint player2_fk foreign key(player2_id) references poker.user(id_user),
-     constraint player3_fk foreign key(player3_id) references poker.user(id_user),
-     constraint player4_fk foreign key(player4_id) references poker.user(id_user),
-     constraint player5_fk foreign key(player5_id) references poker.user(id_user),
-     constraint player6_fk foreign key(player6_id) references poker.user(id_user)
-     );
-     */
+    @Column(name = "tied_players")
+    private String tiedPlayers;
+    @ManyToOne
+    @JoinColumn(name = "player1_id")
+    private PlayerEntity player1;
 
-    /**
-     *
-     *
-     * @param seed
-     * @param starting_bet
-     */
-    public RoundEntity(long seed, double starting_bet){
-        Round round = new Round(starting_bet, seed);
-        this.starting_bet = starting_bet;
-        this.seed = seed;
+    @ManyToOne
+    @JoinColumn(name = "player2_id")
+    private PlayerEntity player2;
+
+    @ManyToOne
+    @JoinColumn(name = "player3_id")
+    private PlayerEntity player3;
+
+    @ManyToOne
+    @JoinColumn(name = "player4_id")
+    private PlayerEntity player4;
+
+    @ManyToOne
+    @JoinColumn(name = "player5_id")
+    private PlayerEntity player5;
+
+    @ManyToOne
+    @JoinColumn(name = "player6_id")
+    private PlayerEntity player6;
+
+    public RoundEntity(Round round){
+        this.roundNum = round.getRound_num();
         this.tie = round.getTie();
-        this.last_raise = round.getLast_raise();
-        this.game_over = round.getGameOver();
-        this.round_num = round.getRound_num();
-        this.current_player_turn = round.getCurrent_player();
-        this.current_bet = round.getCurrent_bet();
-        this.current_pot = round.getCurrent_pot();
+        this.seed = round.getSeed();
+        this.currentBet = round.getCurrent_bet();
+        this.currentPot = round.getCurrent_pot();
+        this.currentPlayerTurn = round.getCurrent_player();
+        this.lastRaise = round.getLast_raise();
+        this.gameOver = round.getGameOver();
+        this.winningPlayer = round.who_won().getName();
+        this.tiedPlayers = round.tie().toString();
+        this.startingBet = round.getStarting_bet();
+        this.river = round.getRiver().toString();
     }
 
-    public void add_player(int p, Player player){
-        switch (p){
+    public void addPlayer(int which, Player p, PlayerEntity entity){
+        switch (which){
             case 1:
-                this.player1_id = player.getId();
+                this.player1 = entity;
+                this.player1.setTurnOrder(p.getTurnOrder());
+                this.player1.setHand(p.getHand().toString());
+                this.player1.setCurrentBet(p.getCurrentBet());
+                this.player1.setStatus(p.getStatus());
                 break;
             case 2:
-                this.player2_id = player.getId();
+                this.player2 = entity;
+                this.player2.setTurnOrder(p.getTurnOrder());
+                this.player2.setHand(p.getHand().toString());
+                this.player2.setCurrentBet(p.getCurrentBet());
+                this.player2.setStatus(p.getStatus());
                 break;
             case 3:
-                this.player3_id = player.getId();
+                this.player3 = entity;
+                this.player3.setTurnOrder(p.getTurnOrder());
+                this.player3.setHand(p.getHand().toString());
+                this.player3.setCurrentBet(p.getCurrentBet());
+                this.player3.setStatus(p.getStatus());
                 break;
             case 4:
-                this.player4_id = player.getId();
+                this.player4 = entity;
+                this.player4.setTurnOrder(p.getTurnOrder());
+                this.player4.setHand(p.getHand().toString());
+                this.player4.setCurrentBet(p.getCurrentBet());
+                this.player4.setStatus(p.getStatus());
                 break;
             case 5:
-                this.player5_id = player.getId();
+                this.player5 = entity;
+                this.player5.setTurnOrder(p.getTurnOrder());
+                this.player5.setHand(p.getHand().toString());
+                this.player5.setCurrentBet(p.getCurrentBet());
+                this.player5.setStatus(p.getStatus());
                 break;
             case 6:
-                this.player6_id = player.getId();
+                this.player6 = entity;
+                this.player6.setTurnOrder(p.getTurnOrder());
+                this.player6.setHand(p.getHand().toString());
+                this.player6.setCurrentBet(p.getCurrentBet());
+                this.player6.setStatus(p.getStatus());
                 break;
-            default:
-                System.out.println("Player does not exist");
         }
+    }
 
+    public double getCurrentBet() {
+        return currentBet;
+    }
+
+    public void setCurrentBet(double currentBet) {
+        this.currentBet = currentBet;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public boolean isTie() {
+        return tie;
+    }
+
+    public double getCurrentPot() {
+        return currentPot;
+    }
+
+    public double getStartingBet() {
+        return startingBet;
+    }
+
+    public Integer getCurrentPlayerTurn() {
+        return currentPlayerTurn;
+    }
+
+    public Integer getRoundNum() {
+        return roundNum;
+    }
+
+    public Integer getLastRaise() {
+        return lastRaise;
+    }
+
+    public PlayerEntity getPlayer1() {
+        return player1;
+    }
+
+    public PlayerEntity getPlayer2() {
+        return player2;
+    }
+
+    public PlayerEntity getPlayer3() {
+        return player3;
+    }
+
+    public PlayerEntity getPlayer4() {
+        return player4;
+    }
+
+    public PlayerEntity getPlayer5() {
+        return player5;
+    }
+
+    public PlayerEntity getPlayer6() {
+        return player6;
+    }
+
+    public String getRiver() {
+        return river;
+    }
+
+    public String getTiedPlayers() {
+        return tiedPlayers;
+    }
+
+    public String getWinningPlayer() {
+        return winningPlayer;
+    }
+
+    public void setCurrentPlayerTurn(Integer currentPlayerTurn) {
+        this.currentPlayerTurn = currentPlayerTurn;
+    }
+
+    public void setCurrentPot(double currentPot) {
+        this.currentPot = currentPot;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    public void setLastRaise(Integer lastRaise) {
+        this.lastRaise = lastRaise;
     }
 
     public Integer getID() {
         return id_round;
-    }
-    public void setID(Integer id) {
-        this.id_round = id;
     }
 
 }
