@@ -27,6 +27,15 @@ public class Player {
         this.currentBet = 0;
     }
 
+    public Player(int id, String name, double currency){
+        this.id = id;
+        this.name = name;
+        this.currency = currency;
+        this.hand = new Hand();
+        this.status = null;
+        this.currentBet = 0;
+    }
+
     public void setStatus(String s){
         this.status = s;
     }

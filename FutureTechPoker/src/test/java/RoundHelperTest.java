@@ -212,7 +212,8 @@ public class RoundHelperTest {
 
         round.player_turn(0, "fold",0);
         round.player_turn(1, "check",0);
-        boolean actual = round.getPlayer_status()[1].equals("check");
+        String[] player_stats = round.getPlayer_status();
+        boolean actual = player_stats[1].equals("check");
         assertEquals(true,actual);
     }
 
@@ -235,7 +236,8 @@ public class RoundHelperTest {
 
 
         round.player_turn(0, "raise",10);
-        boolean actual = round.getPlayer_status()[0].equals("raise");
+        String[] player_stats = round.getPlayer_status();
+        boolean actual = player_stats[0].equals("raise");
         assertEquals(true,actual);
     }
 
@@ -258,7 +260,8 @@ public class RoundHelperTest {
 
 
         round.player_turn(0, "all in",10);
-        boolean actual = round.getPlayer_status()[0].equals("all in");
+        String[] player_stats = round.getPlayer_status();
+        boolean actual = player_stats[0].equals("all in");
         assertEquals(true,actual);
     }
 
