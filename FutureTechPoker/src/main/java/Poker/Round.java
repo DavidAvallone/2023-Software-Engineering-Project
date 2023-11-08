@@ -29,8 +29,8 @@ public class Round {
      * @param players An arraylist of player objects to be played in this round of poker
      * @param starting_bet the starting bet for the big blind and small blind
      */
-    public Round(ArrayList<Player> players, double starting_bet, Long seed) {
-        this.players = players;
+    public Round(double starting_bet, Long seed) {
+        this.players = new ArrayList<>();
         this.player_status = new String[players.size()];
         this.player_bets = new double[players.size()];
         for (int i = 0; i < players.size(); i++) {
@@ -48,6 +48,10 @@ public class Round {
         current_player_turn = 0;
         this.current_bet = starting_bet;
         last_raise = 1;
+    }
+
+    public void add_player(Player p){
+        this.players.add(p);
     }
 
     /**

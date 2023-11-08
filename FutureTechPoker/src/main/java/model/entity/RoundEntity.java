@@ -22,13 +22,24 @@ public class RoundEntity extends BaseEntity {
     private boolean tie;
     private long seed;
     private String tied_players;
-    private String players;
+    private String player1;
+    private String player2;
+    private String player3;
+    private String player4;
+    private String player5;
+    private String player6;
 
-    public RoundEntity(ArrayList<Player> players, long seed, double starting_bet){
-        Round round = new Round(players,starting_bet, seed);
+
+    public RoundEntity(long seed, double starting_bet){
+        Round round = new Round(starting_bet, seed);
         this.starting_bet = starting_bet;
         this.seed = seed;
-        this.players = players.toString();
+        this.player1 = "null";
+        this.player2 = "null";
+        this.player3 = "null";
+        this.player4 = "null";
+        this.player5 = "null";
+        this.player6 = "null";
         this.tie = round.getTie();
         this.last_raise = round.getLast_raise();
         this.game_over = round.getGameOver();
@@ -44,8 +55,5 @@ public class RoundEntity extends BaseEntity {
     public void setID(Integer id) {
         this.id = id;
     }
-
-
-
 
 }

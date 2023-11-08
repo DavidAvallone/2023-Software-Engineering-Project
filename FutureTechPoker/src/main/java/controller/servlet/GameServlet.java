@@ -26,7 +26,7 @@ public class GameServlet extends HttpServlet {
         String action = request.getParameter("action");
         Double bet = Double.parseDouble(request.getParameter("raiseAmount"));
 
-        // call dao and do an update crud to the round
+
     }
 
 }

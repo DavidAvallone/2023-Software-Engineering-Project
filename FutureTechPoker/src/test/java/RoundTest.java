@@ -16,15 +16,15 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
+        
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         //System.out.println(round);
@@ -41,15 +41,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
@@ -70,15 +69,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
@@ -99,16 +97,15 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
+        
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "fold", 0);
@@ -130,16 +127,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -160,16 +155,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -193,16 +186,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -227,16 +218,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -264,16 +253,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -306,16 +293,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -348,16 +333,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0); // 50
         round.player_turn(p2.getTurnOrder(), "check", 0); //50
@@ -385,16 +368,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0); // 50
         round.player_turn(p2.getTurnOrder(), "check", 0); //50
@@ -423,16 +404,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         //round 1
         round.player_turn(p1.getTurnOrder(), "call", 0);
@@ -467,16 +446,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         //round 1
         round.player_turn(p1.getTurnOrder(), "call", 0);
@@ -500,16 +477,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         //round 1
         round.player_turn(p1.getTurnOrder(), "fold", 0);
@@ -534,16 +509,14 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
-
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         //round 1
         round.player_turn(p1.getTurnOrder(), "call", 0);
@@ -585,18 +558,17 @@ public class RoundTest {
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
 
         int starting_bet = 50;
         long seed = 42;
-        Round round = new Round(players, starting_bet, seed);
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+
         System.out.println("BEFORE ROUND ONE");
         System.out.println(round);
-
 
         //round 1
         round.player_turn(p1.getTurnOrder(), "call", 0);
