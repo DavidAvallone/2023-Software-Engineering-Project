@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 public class RoundEntity extends BaseEntity {
+    @Id @Column(name= "id_round") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_round = null;
     private Integer round_num;
     private String river;
@@ -31,7 +32,7 @@ public class RoundEntity extends BaseEntity {
 
     /** SQL table creator
      create table poker.`round`(
-     id_round INT not null,
+     id_round INT not null auto_increment,
      round_num INT,
      river Varchar(255),
      winning_player varchar(50),
@@ -50,13 +51,13 @@ public class RoundEntity extends BaseEntity {
      player4_id int,
      player5_id int,
      player6_id int,
-     constraint id_round_pk foreign key(id_round) references poker.round_players(id_round),
-     constraint player1_fk foreign key(player1_id) references poker.round_players(id_player1),
-     constraint player2_fk foreign key(player2_id) references poker.round_players(id_player2),
-     constraint player3_fk foreign key(player3_id) references poker.round_players(id_player3),
-     constraint player4_fk foreign key(player4_id) references poker.round_players(id_player4),
-     constraint player5_fk foreign key(player5_id) references poker.round_players(id_player5),
-     constraint player6_fk foreign key(player6_id) references poker.round_players(id_player6)
+     constraint id_round_pk primary key(id_round),
+     constraint player1_fk foreign key(player1_id) references poker.user(id_user),
+     constraint player2_fk foreign key(player2_id) references poker.user(id_user),
+     constraint player3_fk foreign key(player3_id) references poker.user(id_user),
+     constraint player4_fk foreign key(player4_id) references poker.user(id_user),
+     constraint player5_fk foreign key(player5_id) references poker.user(id_user),
+     constraint player6_fk foreign key(player6_id) references poker.user(id_user)
      );
      */
 
