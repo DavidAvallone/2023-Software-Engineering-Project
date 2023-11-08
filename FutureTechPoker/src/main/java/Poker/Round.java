@@ -11,7 +11,7 @@ public class Round {
     private Deck deck;
     private int round_num = 1;
     private double current_bet = 0;
-    private double starting_bet;
+    private final double starting_bet;
     private double small_blind;
     private double big_blind;
     private double current_pot = 0;

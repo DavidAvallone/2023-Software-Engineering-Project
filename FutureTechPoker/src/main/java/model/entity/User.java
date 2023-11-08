@@ -4,15 +4,21 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "user")
 public class User extends BaseEntity {
     @Id @Column(name="id_user") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID = null;
     @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Login;
+    @Column
     private String Password;
+    @Column
     private int Permission;
+    @Column
     private Double Balance;
+    @Column
     private Integer Wins;
+    @Column
     private Integer Losses;
 
     public transient static final int NORMAL_PERMISSION = 1;
