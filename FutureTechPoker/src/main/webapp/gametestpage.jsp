@@ -12,7 +12,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% RoundService rs = new RoundService(); %>
-<% rs.game_create();%>
+<% rs.game_create_test();%>
         <html>
 <head>
     <title>Test Page</title>

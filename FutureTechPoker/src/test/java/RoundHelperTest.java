@@ -7,22 +7,22 @@ public class RoundHelperTest {
 
     @Test
     public void player_sort_test_same() {
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(2);
+        p1.setTurnOrder(0);
         p2.setTurnOrder(1);
-        p3.setTurnOrder(0);
+        p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         ArrayList<Player> expected = new ArrayList<>();
         expected.add(p3);
@@ -34,22 +34,22 @@ public class RoundHelperTest {
 
     @Test
     public void player_sort_test_notsame() {
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(2);
+        p1.setTurnOrder(0);
         p2.setTurnOrder(1);
-        p3.setTurnOrder(0);
+        p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         ArrayList<Player> expected = new ArrayList<>();
         expected.add(p3);
@@ -61,22 +61,22 @@ public class RoundHelperTest {
 
     @Test
     public void update_blinds_small() {
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(2);
+        p1.setTurnOrder(0);
         p2.setTurnOrder(1);
-        p3.setTurnOrder(0);
+        p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         // p3 is small blind
@@ -85,22 +85,22 @@ public class RoundHelperTest {
 
     @Test
     public void update_blinds_big() {
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(2);
+        p1.setTurnOrder(0);
         p2.setTurnOrder(1);
-        p3.setTurnOrder(0);
+        p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         // p2 is big blind
@@ -109,22 +109,22 @@ public class RoundHelperTest {
 
     @Test
     public void update_blinds_notBlind() {
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(2);
+        p1.setTurnOrder(0);
         p2.setTurnOrder(1);
-        p3.setTurnOrder(0);
+        p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         // p1 is neither
@@ -133,22 +133,22 @@ public class RoundHelperTest {
 
     @Test
     public void update_blinds_notBlind1() {
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(2);
+        p1.setTurnOrder(0);
         p2.setTurnOrder(1);
-        p3.setTurnOrder(0);
+        p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         // p1 is neither
@@ -157,23 +157,22 @@ public class RoundHelperTest {
 
     @Test
     public void deal_out_test(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         boolean two_cards_per_player = true;
         ArrayList<Player> dealt_cards = round.getPlayers();
@@ -187,23 +186,22 @@ public class RoundHelperTest {
 
     @Test
     public void player_fold(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "fold",0);
@@ -212,23 +210,22 @@ public class RoundHelperTest {
     }
     @Test
     public void player_check(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "fold",0);
@@ -239,23 +236,22 @@ public class RoundHelperTest {
 
     @Test
     public void player_raise(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "raise",10);
@@ -265,23 +261,22 @@ public class RoundHelperTest {
 
     @Test
     public void player_allin(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "all in",10);
@@ -291,23 +286,22 @@ public class RoundHelperTest {
 
     @Test
     public void player_allin_currency(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "all in",10);
@@ -316,23 +310,22 @@ public class RoundHelperTest {
 
     @Test
     public void player_call(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "call",10);
@@ -342,23 +335,22 @@ public class RoundHelperTest {
 
     @Test
     public void player_turn_exception_test(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         String choice = "hello";
@@ -374,23 +366,22 @@ public class RoundHelperTest {
 
     @Test
     public void is_roundover_false(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "call",0);
@@ -404,23 +395,22 @@ public class RoundHelperTest {
 
     @Test
     public void is_roundover_true(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "call",0);
@@ -434,23 +424,22 @@ public class RoundHelperTest {
 
     @Test
     public void is_roundover_everyoneFolded(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "fold",0);
@@ -464,23 +453,22 @@ public class RoundHelperTest {
 
     @Test
     public void whos_first_true(){
-        long seed = 42;
-
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "call",0);
@@ -494,22 +482,22 @@ public class RoundHelperTest {
 
     @Test
     public void whos_first_false(){
-        long seed = 42;
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "call",0);
@@ -522,22 +510,22 @@ public class RoundHelperTest {
 
     @Test
     public void last_player(){
-        long seed = 42;
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
 
         round.player_turn(0, "fold",0);
@@ -551,23 +539,22 @@ public class RoundHelperTest {
 
     @Test
     public void last_player_null(){
-        long seed = 42;
         Player p1 = new Player(0, "dave", 10000);
         Player p2 = new Player(1, "bolden", 10000);
         Player p3 = new Player(2, "alex", 10000);
         Player p4 = new Player(3, "neil", 10000);
-
         p1.setTurnOrder(0);
         p2.setTurnOrder(1);
         p3.setTurnOrder(2);
         p4.setTurnOrder(3);
-        ArrayList<Player> players = new ArrayList<Player>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
-
-        Round round = new Round(players, 50,seed);
+        
+        int starting_bet = 50;
+        long seed = 42;
+        Round round = new Round(starting_bet, seed);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
+        round.add_player(p1);
 
         round.player_turn(0, "call",0);
         round.player_turn(1, "check",0);
