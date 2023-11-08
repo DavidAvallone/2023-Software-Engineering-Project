@@ -5,7 +5,4 @@ public class RoundDAO extends GenericDAO<RoundEntity> {
         super(RoundEntity.class);
     }
 
-    public void player_turn_update(){
-
-    }
 }
