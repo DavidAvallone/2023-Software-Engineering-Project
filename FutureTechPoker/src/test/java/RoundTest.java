@@ -8,24 +8,21 @@ public class RoundTest {
 
     @Test
     public void test_round_creation() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
         
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
 
         //System.out.println(round);
         assertEquals(50, starting_bet);
@@ -33,23 +30,20 @@ public class RoundTest {
 
     @Test
     public void round_one_pot() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -61,23 +55,20 @@ public class RoundTest {
 
     @Test
     public void round_one_folds() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "fold", 0);
@@ -89,24 +80,21 @@ public class RoundTest {
 
     @Test
     public void round_one_folds_gameover() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
         
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "fold", 0);
         round.player_turn(p3.getTurnOrder(), "fold", 0);
@@ -119,23 +107,20 @@ public class RoundTest {
 
     @Test
     public void round_one_update() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -147,23 +132,20 @@ public class RoundTest {
 
     @Test
     public void test_is_round_over() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -178,23 +160,20 @@ public class RoundTest {
 
     @Test
     public void first_river() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -210,23 +189,20 @@ public class RoundTest {
 
     @Test
     public void second_river() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -245,23 +221,20 @@ public class RoundTest {
 
     @Test
     public void third_river() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -285,23 +258,20 @@ public class RoundTest {
 
     @Test
     public void end_of_round3_pot() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -325,23 +295,20 @@ public class RoundTest {
 
     @Test
     public void multiple_raises() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         round.player_turn(p1.getTurnOrder(), "call", 0); // 50
         round.player_turn(p2.getTurnOrder(), "check", 0); //50
         round.player_turn(p3.getTurnOrder(), "call", 0); // 50
@@ -360,23 +327,20 @@ public class RoundTest {
 
     @Test
     public void multiple_raises_check_pot() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         round.player_turn(p1.getTurnOrder(), "call", 0); // 50
         round.player_turn(p2.getTurnOrder(), "check", 0); //50
         round.player_turn(p3.getTurnOrder(), "call", 0); // 50
@@ -396,23 +360,20 @@ public class RoundTest {
 
     @Test
     public void correct_currency() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         //round 1
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -438,23 +399,20 @@ public class RoundTest {
 
     @Test
     public void out_of_order_player_turn() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         //round 1
         round.player_turn(p1.getTurnOrder(), "call", 0);
 
@@ -469,23 +427,20 @@ public class RoundTest {
 
     @Test
     public void player_folded() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         //round 1
         round.player_turn(p1.getTurnOrder(), "fold", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -501,23 +456,20 @@ public class RoundTest {
 
     @Test
     public void round4_river() {
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         //round 1
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -550,23 +502,20 @@ public class RoundTest {
 
     @Test
     public void classview(){
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
+     
 
         int starting_bet = 50;
         long seed = 42;
         Round round = new Round(starting_bet, seed);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-        round.add_player(p1);
-
+        round.add_player(p1, "playing");
+        round.add_player(p2, "playing");
+        round.add_player(p3, "playing");
+        round.add_player(p4, "playing");
+        round.start_game();
         System.out.println("BEFORE ROUND ONE");
         System.out.println(round);
 

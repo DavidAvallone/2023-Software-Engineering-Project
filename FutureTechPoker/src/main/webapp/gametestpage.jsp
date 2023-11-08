@@ -11,8 +11,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% RoundService rs = new RoundService(); %>
-<% rs.game_create_test();%>
+<%
+    RoundService rs = new RoundService();
+    rs.game_create_test();
+%>
+
         <html>
 <head>
     <title>Test Page</title>

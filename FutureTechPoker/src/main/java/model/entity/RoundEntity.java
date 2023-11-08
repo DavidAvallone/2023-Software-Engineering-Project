@@ -80,6 +80,32 @@ public class RoundEntity extends BaseEntity {
         this.current_pot = round.getCurrent_pot();
     }
 
+    public void add_player(int p, Player player){
+        switch (p){
+            case 1:
+                this.player1_id = player.getId();
+                break;
+            case 2:
+                this.player2_id = player.getId();
+                break;
+            case 3:
+                this.player3_id = player.getId();
+                break;
+            case 4:
+                this.player4_id = player.getId();
+                break;
+            case 5:
+                this.player5_id = player.getId();
+                break;
+            case 6:
+                this.player6_id = player.getId();
+                break;
+            default:
+                System.out.println("Player does not exist");
+        }
+
+    }
+
     public Integer getID() {
         return id_round;
     }

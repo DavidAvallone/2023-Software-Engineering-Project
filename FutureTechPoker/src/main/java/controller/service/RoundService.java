@@ -10,22 +10,19 @@ public class RoundService {
     public Round round;
 
     public void game_create_test(){
-        Player p1 = new Player(0, "dave", 10000);
-        Player p2 = new Player(1, "bolden", 10000);
-        Player p3 = new Player(2, "alex", 10000);
-        Player p4 = new Player(3, "neil", 10000);
+        Player p1 = new Player(0, "dave", 10000,0);
+        Player p2 = new Player(1, "bolden", 10000,1);
+        Player p3 = new Player(2, "alex", 10000,2);
+        Player p4 = new Player(3, "neil", 10000,3);
 
-        p1.setTurnOrder(0);
-        p2.setTurnOrder(1);
-        p3.setTurnOrder(2);
-        p4.setTurnOrder(3);
         int starting_bet = 50;
         long seed = 42;
         this.round = new Round(starting_bet, seed);
-        this.round.add_player(p1);
-        this.round.add_player(p2);
-        this.round.add_player(p3);
-        this.round.add_player(p4);
+        this.round.add_player(p1, "playing");
+        this.round.add_player(p2,"playing");
+        this.round.add_player(p3,"playing");
+        this.round.add_player(p4,"playing");
+        this.round.start_game();
     }
 
     public ArrayList<String> extractCardNames(String inputString) {
