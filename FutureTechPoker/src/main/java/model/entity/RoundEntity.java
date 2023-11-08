@@ -8,26 +8,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "table")
 public class RoundEntity extends BaseEntity {
     @Id @Column(name= "id_round") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_round = null;
+    @Column
     private Integer round_num;
+    @Column
     private String river;
+    @Column
     private String winning_player;
+    @Column
     private double current_bet;
+    @Column
     private double current_pot;
+    @Column
     private double starting_bet;
+    @Column
     private Integer current_player_turn;
+    @Column
     private Integer last_raise;
+    @Column
     private boolean game_over;
+    @Column
     private boolean tie;
+    @Column
     private long seed;
+    @Column
     private String tied_players;
+    @Column
     private Integer player1_id;
+    @Column
     private Integer player2_id;
+    @Column
     private Integer player3_id;
+    @Column
     private Integer player4_id;
+    @Column
     private Integer player5_id;
+    @Column
     private Integer player6_id;
 
     /** SQL table creator
