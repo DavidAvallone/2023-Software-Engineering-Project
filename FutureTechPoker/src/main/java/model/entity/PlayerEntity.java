@@ -32,14 +32,21 @@ public class PlayerEntity extends BaseEntity{
     @JoinColumn(name = "user_id") // This is the foreign key column
     private User user; // This is the reference to the User entity
 
-    public PlayerEntity(User user){
-        this.user = user;
-        this.currency = user.getBalance();
-        this.playerName = user.getName();
+    public PlayerEntity(){
+        this.user = null;
+        this.currency = 0;
+        this.playerName = null;
         this.currentBet = 0;
         this.turnOrder = -1;
         this.hand = null;
         this.status = null;
+    }
+
+    public PlayerEntity(User user){
+        this();
+        this.user = user;
+        this.currency = user.getBalance();
+        this.playerName = user.getName();
     }
 
     @Override
