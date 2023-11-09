@@ -6,23 +6,14 @@ import java.util.List;
 
 /*
 CREATE TABLE IF NOT EXISTS user (
-
-  id_user INT AUTO_INCREMENT PRIMARY KEY,
-
-  Login VARCHAR(255) UNIQUE,
-
-  Username VARCHAR(255) UNIQUE,
-
-  Password VARCHAR(255),
-
-  Permission INT,
-
-  Balance DOUBLE,
-
-  Wins INT,
-
-  Losses INT
-
+id_user INT AUTO_INCREMENT PRIMARY KEY,
+Login VARCHAR(255) UNIQUE,
+Username VARCHAR(255) UNIQUE,
+Password VARCHAR(255),
+Permission INT,
+Balance DOUBLE,
+Wins INT,
+Losses INT
 );
  */
 @Entity
