@@ -3,12 +3,36 @@ package model.entity;
 import javax.persistence.*;
 import java.util.List;
 
+
+/*
+CREATE TABLE IF NOT EXISTS user (
+
+  id_user INT AUTO_INCREMENT PRIMARY KEY,
+
+  Login VARCHAR(255) UNIQUE,
+
+  Username VARCHAR(255) UNIQUE,
+
+  Password VARCHAR(255),
+
+  Permission INT,
+
+  Balance DOUBLE,
+
+  Wins INT,
+
+  Losses INT
+
+);
+ */
 @Entity
 public class User extends BaseEntity {
     @Id @Column(name="id_user") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID = null;
     @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Login;
+
+    private String Username;
     private String Password;
     private int Permission;
     private Double Balance;
@@ -35,6 +59,7 @@ public class User extends BaseEntity {
 
     public static User createGuest(){
         User guest = new User();
+        guest.Username = "GuestUsername";
         guest.Permission = GUEST_PERMISSION;
         guest.Login = "Guest";
         return guest;
@@ -68,6 +93,22 @@ public class User extends BaseEntity {
     public void setEmail(String email){
         setLogin(email);
     }
+
+
+    /***
+     * Returns the email which should be same as the Login
+     *
+     * @return
+     */
+    public String getUsername(){ return Username; }
+
+    /***
+     * Sets the Email which should be same as Login
+     */
+    public void setUsername(String username){
+        Username = username;
+    }
+
 
     public String getPassword() {
         return Password;
