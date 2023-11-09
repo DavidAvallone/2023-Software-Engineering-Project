@@ -97,4 +97,7 @@ public class PlayerEntity extends BaseEntity{
     public void setHand(String string) {
         this.hand = string;
     }
+
+    public void setName(String playerName) {
+    }
 }
