@@ -2,6 +2,19 @@ package model.entity;
 import java.util.Random;
 import javax.persistence.*;
 
+
+/*
+CREATE TABLE IF NOT EXISTS user (
+id_user INT AUTO_INCREMENT PRIMARY KEY,
+Login VARCHAR(255) UNIQUE,
+Username VARCHAR(255) UNIQUE,
+Password VARCHAR(255),
+Permission INT,
+Balance DOUBLE,
+Wins INT,
+Losses INT
+);
+ */
 @Entity
 @Table(name = "user")
 public class User extends BaseEntity {
@@ -9,7 +22,9 @@ public class User extends BaseEntity {
     private Integer ID = null;
     @Column(name = "login",unique=true) // Login/Email must be unique for each record in DB
     private String Login;
-    @Column(name = "password")
+  
+    private String Username;
+  
     private String Password;
     @Column(name = "name")
     private String Name;
@@ -43,8 +58,7 @@ public class User extends BaseEntity {
 
     public static User createGuest(){
         User guest = new User();
-        Random rand = new Random();
-        guest.Name = "Guest"+ rand.nextLong();
+        guest.Username = "GuestUsername";
         guest.Permission = GUEST_PERMISSION;
         guest.Login = "Guest";
         return guest;
@@ -84,6 +98,22 @@ public class User extends BaseEntity {
     public void setEmail(String email){
         setLogin(email);
     }
+
+
+    /***
+     * Returns the email which should be same as the Login
+     *
+     * @return
+     */
+    public String getUsername(){ return Username; }
+
+    /***
+     * Sets the Email which should be same as Login
+     */
+    public void setUsername(String username){
+        Username = username;
+    }
+
 
     public String getPassword() {
         return Password;

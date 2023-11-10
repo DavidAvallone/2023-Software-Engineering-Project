@@ -58,4 +58,8 @@ public class UserService {
         dao.update(updatedUser);
 
     }
+
+    public static void updateUsername(User updateUser){
+        dao.update(updateUser);
+    }
 }
