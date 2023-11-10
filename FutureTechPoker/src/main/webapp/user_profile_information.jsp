@@ -13,8 +13,10 @@
 
 <html>
 <link rel="stylesheet" type="text/css" href="styles.css">
-
 <body>
+<div class="banner">
+    <h1><%= "FutureTech Poker" %></h1>
+</div>
 <% if(logged != null && logged.getPermission() != User.GUEST_PERMISSION){ %>
 <title><%= ((User) session.getAttribute("User")).getEmail()%>'s Profile</title>
 <div id="userInformation">
@@ -43,6 +45,7 @@
     <form action="deleteUserServlet" method="post">
         <button type="submit">Delete Account</button>
     </form>
+    <a href="home.jsp" class="home-button">Home Page</a>
 </div>
 <%} else if(logged != null && logged.getPermission() == User.GUEST_PERMISSION) {%>
     <div class="banner">
