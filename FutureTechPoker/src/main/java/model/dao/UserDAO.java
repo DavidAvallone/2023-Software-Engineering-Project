@@ -37,4 +37,10 @@ public class UserDAO extends GenericDAO<User> {
         return found;
     }
 
+    public User getUserById(Integer userId) {
+        EntityManager em = getEntityManager();
+        User user = em.find(User.class, userId);
+        em.close();
+        return user;
+    }
 }

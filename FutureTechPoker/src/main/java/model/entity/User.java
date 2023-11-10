@@ -1,6 +1,8 @@
 package model.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -21,6 +23,14 @@ public class User extends BaseEntity {
     private Integer Wins;
     @Column(name = "losses")
     private Integer Losses;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id")
+    )
+    private Set<User> friends  = new HashSet<>();;
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
