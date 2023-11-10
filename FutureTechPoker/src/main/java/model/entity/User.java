@@ -9,17 +9,17 @@ public class User extends BaseEntity {
     private Integer ID = null;
     @Column(name = "login",unique=true) // Login/Email must be unique for each record in DB
     private String Login;
-    @Column(name = "password")
+
     private String Password;
-    @Column(name = "name")
+
     private String Name;
-    @Column(name = "permission")
+
     private int Permission;
-    @Column(name = "balance")
+
     private Double Balance;
-    @Column(name = "wins")
+
     private Integer Wins;
-    @Column(name = "losses")
+    
     private Integer Losses;
 
     public transient static final int NORMAL_PERMISSION = 1;
