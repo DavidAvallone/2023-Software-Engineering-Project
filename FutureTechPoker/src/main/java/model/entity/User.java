@@ -22,16 +22,10 @@ public class User extends BaseEntity {
     private Integer ID = null;
     @Column(name = "login",unique=true) // Login/Email must be unique for each record in DB
     private String Login;
-<<<<<<< HEAD
 
-=======
-  
     private String Username;
-  
->>>>>>> main
-    private String Password;
 
-    private String Name;
+    private String Password;
 
     private int Permission;
 
@@ -54,7 +48,7 @@ public class User extends BaseEntity {
 
     public User(Integer ID, String name, String login, String password, int permission) {
         this.ID = ID;
-        this.Name = name;
+        this.Username = name;
         Login = login;
         Password = password;
         Permission = permission;
@@ -62,7 +56,8 @@ public class User extends BaseEntity {
 
     public static User createGuest(){
         User guest = new User();
-        guest.Username = "GuestUsername";
+        Random rand = new Random();
+        guest.Username = "GuestUsername" + rand.nextLong();
         guest.Permission = GUEST_PERMISSION;
         guest.Login = "Guest";
         return guest;
@@ -83,12 +78,6 @@ public class User extends BaseEntity {
         Login = login;
     }
 
-    public void setName(String name){
-        this.Name =name;
-    }
-    public String getName(){
-        return this.Name;
-    }
     /***
      * Returns the email which should be same as the Login
      *
