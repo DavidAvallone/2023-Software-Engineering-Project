@@ -1,5 +1,5 @@
 package model.entity;
-
+import java.util.Random;
 import javax.persistence.*;
 
 @Entity
@@ -43,6 +43,8 @@ public class User extends BaseEntity {
 
     public static User createGuest(){
         User guest = new User();
+        Random rand = new Random();
+        guest.Name = "Guest"+ rand.nextLong();
         guest.Permission = GUEST_PERMISSION;
         guest.Login = "Guest";
         return guest;
