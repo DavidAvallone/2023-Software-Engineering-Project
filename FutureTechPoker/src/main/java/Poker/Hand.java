@@ -81,7 +81,7 @@ public class Hand{
     public String toString(){
         String totalString = "";
         for(int i = 0; i < this.cards.size(); i++){
-            totalString += this.cards.get(i).toString() + " | ";
+            totalString += "| " + this.cards.get(i).toString() + " | ";
         }
         return totalString;
     }

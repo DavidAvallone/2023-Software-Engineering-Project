@@ -14,13 +14,38 @@ public class Player {
     private double currentBet = 0;
     private boolean smallBlind = false;
     private boolean bigBlind = false;
+    private String status;
 
+
+    public Player(int id, String name, double currency, int turnOrder){
+        this.id = id;
+        this.name = name;
+        this.currency = currency;
+        this.hand = new Hand();
+        this.status = null;
+        this.turnOrder = turnOrder;
+        this.currentBet = 0;
+    }
 
     public Player(int id, String name, double currency){
         this.id = id;
         this.name = name;
         this.currency = currency;
         this.hand = new Hand();
+        this.status = null;
+        this.currentBet = 0;
+    }
+
+    public void setStatus(String s){
+        this.status = s;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     @Override
@@ -142,6 +167,6 @@ public class Player {
     public String toString(){
 
         return "Player: " + this.name + ", Current Bet: " + this.currentBet + ", Currency: " + this.currency
-                + ", Folded? " + fold;
+                + ", Folded? " + fold + ", Status: " + this.status;
     }
 }

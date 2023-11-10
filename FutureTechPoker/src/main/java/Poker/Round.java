@@ -11,7 +11,7 @@ public class Round {
     private Deck deck;
     private int round_num = 1;
     private double current_bet = 0;
-    private double starting_bet;
+    private final double starting_bet;
     private double small_blind;
     private double big_blind;
     private double current_pot = 0;
@@ -22,32 +22,38 @@ public class Round {
     private String[] player_status;
     private double[] player_bets;
     private Player winning_player = null;
-    boolean isTie = false;
+    private boolean isTie = false;
+    private boolean gameStarted;
+    private long seed;
 
     /**
      * This is the constructor for the round class: a round is the entire game of poker
-     * @param players An arraylist of player objects to be played in this round of poker
      * @param starting_bet the starting bet for the big blind and small blind
+     * @param seed the seed for the game which is randomly generated
      */
-    public Round(ArrayList<Player> players, double starting_bet, Long seed) {
-        this.players = players;
-        this.player_status = new String[players.size()];
-        this.player_bets = new double[players.size()];
-        for (int i = 0; i < players.size(); i++) {
-            player_bets[i] = 0;
-            player_status[i] = "Playing";
-        }
+    public Round(double starting_bet, Long seed) {
+        this.seed = seed;
+        this.players = new ArrayList<>();
         this.starting_bet = starting_bet;
         this.small_blind = starting_bet / 2;
         this.big_blind = starting_bet;
         deck = new Deck(seed);
         deck.shuffle();
-        deal_out();
         current_pot += small_blind + big_blind;
         this.river = new ArrayList<Card>();
         current_player_turn = 0;
         this.current_bet = starting_bet;
         last_raise = 1;
+    }
+
+    public void start_game(){
+        deal_out();
+        gameStarted = true;
+    }
+
+    public void add_player(Player p, String status){
+        p.setStatus(status);
+        this.players.add(p);
     }
 
     /**
@@ -57,6 +63,7 @@ public class Round {
     public ArrayList<Card> getRiver(){
         return river;
     }
+
     /**
      * This function sorts the players by the turn order
      */
@@ -74,6 +81,10 @@ public class Round {
         return this.players;
     }
 
+    public long getSeed(){
+        return this.seed;
+    }
+
     /**
      * This updates the blinds depending on the turn order.
      */
@@ -82,11 +93,9 @@ public class Round {
         p1.setSmallBlind(true);
         p1.setCurrentBet(small_blind);
         p1.setCurrency(p1.getCurrency()-small_blind);
-        player_bets[0] = small_blind;
         Player p2 = players.get(1);
         p2.setCurrentBet(big_blind);
         p2.setCurrency(p2.getCurrency()-big_blind);
-        player_bets[1] = big_blind;
         p2.setBigBlind(true);
         for (int i = 2; i < players.size(); i++) {
             Player temp = players.get(i);
@@ -106,8 +115,7 @@ public class Round {
         players.get(0).addCardToHand(deck.draw());
         for (int i = 0; i < players.size(); i++) {
             //add a card to players hand
-            Player temp = players.get(i);
-            temp.addCardToHand(deck.draw());
+            players.get(i).addCardToHand(deck.draw());
             if (i + 1 == players.size() && all_drew == 0) {
                 i = 0;
                 all_drew++;
@@ -135,6 +143,10 @@ public class Round {
         return this.current_pot;
     }
 
+    public double getCurrent_bet() {
+        return current_bet;
+    }
+
     /**
      * This is a getter for the game over boolean
      * @return a boolean if the game is over
@@ -156,6 +168,10 @@ public class Round {
      * @return string array of statuses
      */
     public String[] getPlayer_status(){
+        this.player_status = new String[players.size()];
+        for(int i = 0; i < players.size(); i++){
+            this.player_status[i] = players.get(i).getStatus();
+        }
         return this.player_status;
     }
 
@@ -164,6 +180,10 @@ public class Round {
      * @return double array of bets
      */
     public double[] getPlayer_bets(){
+        this.player_bets = new double[players.size()];
+        for(int i = 0; i < players.size(); i++){
+            this.player_bets[i] = players.get(i).getCurrentBet();
+        }
         return this.player_bets;
     }
 
@@ -174,7 +194,7 @@ public class Round {
      */
     public void fold(int p, Player current_player){
         current_player.setFold(true);
-        player_status[p] = "fold";
+        current_player.setStatus("fold");
         if(p < players.size()-1)
             current_player_turn++;
         else if(p == players.size()-1)
@@ -187,7 +207,7 @@ public class Round {
      * @param current_player the player object
      */
     public void check(int p, Player current_player){
-        player_status[p] = "check";
+        current_player.setStatus("check");
         if(p < players.size()-1)
             current_player_turn++;
         else if(p == players.size()-1)
@@ -216,23 +236,23 @@ public class Round {
             last_player = p -1;
         }
 
-        if(player_status[last_player].equals("raise")){
+        if(players.get(last_player).getStatus().equals("raise")){
             call = current_bet - current_player.getCurrentBet();
             after_raise = true;
         }
-        if(player_status[last_player].equals("call")){
+        if(players.get(last_player).getStatus().equals("call")){
             after_call = true;
         }
-        if(player_status[last_player].equals("not played")){
+        if(players.get(last_player).getStatus().equals("not played")){
             beginning = true;
         }
         if(bet > current_player.getCurrency()){
             bet = current_player.getCurrency();
-            player_status[p] = "all in";
+            current_player.setStatus("all in");
             current_player.setCurrency(0.0);
         }
         else{
-            player_status[p] = "raise";
+            current_player.setStatus("raise");
             if(after_raise){
                 current_player.setCurrency(current_player.getCurrency() - (call + bet));
             }
@@ -249,7 +269,6 @@ public class Round {
 
         this.current_bet += bet;
         current_player.setCurrentBet(current_bet);
-        player_bets[p] = current_bet;
         last_raise = p;
         if(p < players.size()-1)
             current_player_turn++;
@@ -264,7 +283,7 @@ public class Round {
     public void updatePot(){
         double pot = 0;
         for(int i = 0; i < players.size(); i++){
-            pot += player_bets[i];
+            pot += players.get(i).getCurrentBet();
         }
         current_pot = pot;
     }
@@ -279,8 +298,7 @@ public class Round {
         current_bet = current_player.getCurrency();
         current_player.setCurrentBet(current_player.getCurrency());
         current_player.setCurrency(0.0);
-        player_status[p] = "all in";
-        player_bets[p] = current_player.getCurrentBet();
+        current_player.setStatus("all in");
         last_raise = p;
         if(p < players.size()-1)
             current_player_turn++;
@@ -298,14 +316,13 @@ public class Round {
         double call = current_bet - current_player.getCurrentBet();
         if(call > current_player.getCurrency()){
             call = current_player.getCurrency();
-            player_status[p] = "all in";
+            current_player.setStatus("all in");
         }
         else{
-            player_status[p] = "call";
+            current_player.setStatus("call");
         }
         current_player.setCurrency(current_player.getCurrency() - call);
         current_player.addtoCurrentBet(call);
-        player_bets[p] = current_bet;
         // current bet stays the same
         if(p < players.size()-1)
             current_player_turn++;
@@ -325,7 +342,7 @@ public class Round {
         if(current_player_turn != p){
             throw new IllegalStateException("Wrong Player! Current Turn is : " + current_player_turn);
         }
-        if(player_status[p].equals("fold") || player_status[p].equals("all in")){
+        if(current_player.getStatus().equals("fold") || current_player.getStatus().equals("all in")){
             if(current_player_turn + 1 == players.size()){
                 current_player_turn = 0;
             }
@@ -367,7 +384,7 @@ public class Round {
         int folded_players = 0;
         // find folded players
         for(int i = 0; i < players.size();i++){
-            if(player_status[i].equals("fold")){
+            if(players.get(i).getStatus().equals("fold")){
                 folded_players++;
             }
         }
@@ -383,7 +400,7 @@ public class Round {
             if(i == players.size()){
                 break;
             }
-            if(player_status[i].equals("fold") || player_status[i].equals("all in")){
+            if(players.get(i).getStatus().equals("fold") || players.get(i).getStatus().equals("all in")){
                 if(i + 1 == players.size()){
                     i = 0;
                 }
@@ -391,7 +408,7 @@ public class Round {
                     i++;// we skip these
                 }
             }
-            else if(player_status[i].equals("call") && player_bets[i] == player_bets[last_raise]){
+            else if(players.get(i).getStatus().equals("call") && players.get(i).getCurrentBet() == players.get(last_raise).getCurrentBet()){
                 called++;
                 if(i + 1 == players.size()){
                     i = 0;
@@ -424,7 +441,7 @@ public class Round {
     public int determine_first_player(){
         int player = 0;
         for(int i = 0; i < players.size();i++){
-            if(!(player_status[i].equals("fold") || player_status[i].equals("all in"))){
+            if(!(players.get(i).getStatus().equals("fold") || players.get(i).getStatus().equals("all in"))){
                 player = i;
                 break;
             }
@@ -446,8 +463,8 @@ public class Round {
             current_player_turn = determine_first_player();
             this.round_num++;
             for(int i = 0; i < players.size(); i++){
-                if(!(player_status[i].equals("fold") || player_status[i].equals("all in"))){
-                    player_status[i] = "not played";
+                if(!(players.get(i).getStatus().equals("fold") || players.get(i).getStatus().equals("all in"))){
+                    players.get(i).setStatus("not played");
                 }
             }
             this.deck.draw();
@@ -462,8 +479,8 @@ public class Round {
             current_player_turn = determine_first_player();
             this.round_num++;
             for(int i = 0; i < players.size(); i++){
-                if(!(player_status[i].equals("fold") || player_status[i].equals("all in"))){
-                    player_status[i] = "not played";
+                if(!(players.get(i).getStatus().equals("fold") || players.get(i).getStatus().equals("all in"))){
+                    players.get(i).setStatus("not played");
                 }
             }
             this.deck.draw();
@@ -539,7 +556,7 @@ public class Round {
         int num_players = players.size();
         int folded = 0;
         for(int i = 0; i < num_players; i++){
-            if(player_status[i].equals("fold")){
+            if(players.get(i).getStatus().equals("fold")){
                 folded++;
             }
         }
@@ -650,5 +667,21 @@ public class Round {
             result += player_hands_toString();
         }
         return result;
+    }
+
+    public boolean getTie() {
+        return this.isTie;
+    }
+
+    public Integer getLast_raise() {
+        return this.last_raise;
+    }
+
+    public Integer getCurrent_player() {
+        return this.current_player_turn;
+    }
+
+    public double getStarting_bet() {
+        return this.starting_bet;
     }
 }

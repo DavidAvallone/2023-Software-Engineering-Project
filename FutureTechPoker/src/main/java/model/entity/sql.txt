@@ -1,0 +1,52 @@
+create table poker_test.`user`(
+	id_user int not null auto_increment,
+	login varchar(55),
+	password varchar(55),
+	name varchar(55),
+	permission int,
+	balance double,
+	wins int,
+	losses int,
+	constraint id_user_pk primary key(id_user)
+);
+
+create table poker_test.`player`(
+	id_player int not null,
+	player_name varchar(55),
+	currency double,
+	hand varchar(55),
+	turn_order int,
+	current_bet double,
+	status varchar(20),
+	constraint id_player_fk foreign key(id_player) references poker.`user`(id_user)
+);
+
+
+create table poker_test.`round`(
+	id_round int not null auto_increment,
+	round_num int,
+	river varchar(100),
+	winning_player varchar(50),
+	current_bet double,
+	current_pot double,
+	starting_bet double,
+	current_player_turn int,
+	last_raise int,
+	game_over BOOL,
+	tie BOOL,
+	seed bigint,
+	tied_players varchar(50),
+	id_player1 int,
+	id_player2 int,
+	id_player3 int,
+	id_player4 int,
+	id_player5 int,
+	id_player6 int,
+	constraint id_round_pk primary key(id_round),
+	constraint id_player1_fk foreign key(id_player1) references poker.`player`(id_player),
+	constraint id_player2_fk foreign key(id_player2) references poker.`player`(id_player),
+	constraint id_player3_fk foreign key(id_player3) references poker.`player`(id_player),
+	constraint id_player4_fk foreign key(id_player4) references poker.`player`(id_player),
+	constraint id_player5_fk foreign key(id_player5) references poker.`player`(id_player),
+	constraint id_player6_fk foreign key(id_player6) references poker.`player`(id_player)
+);
