@@ -1,27 +1,41 @@
 package model.entity;
-
+import java.util.Random;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
+/*
+CREATE TABLE IF NOT EXISTS user (
+id_user INT AUTO_INCREMENT PRIMARY KEY,
+Login VARCHAR(255) UNIQUE,
+Username VARCHAR(255) UNIQUE,
+Password VARCHAR(255),
+Permission INT,
+Balance DOUBLE,
+Wins INT,
+Losses INT
+);
+ */
 @Entity
 @Table(name = "user")
 public class User extends BaseEntity {
     @Id @Column(name="id_user") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID = null;
-    @Column(name = "login",unique=true) // Login/Email must be unique for each record in DB
+    @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Login;
-    @Column(name = "password")
+
+    @Column(unique=true) // Login/Email must be unique for each record in DB
+    private String Username;
+
     private String Password;
-    @Column(name = "name")
-    private String Name;
-    @Column(name = "permission")
+
     private int Permission;
-    @Column(name = "balance")
+
     private Double Balance;
-    @Column(name = "wins")
+
     private Integer Wins;
-    @Column(name = "losses")
+    
     private Integer Losses;
 
     @ManyToMany
@@ -45,7 +59,7 @@ public class User extends BaseEntity {
 
     public User(Integer ID, String name, String login, String password, int permission) {
         this.ID = ID;
-        this.Name = name;
+        this.Username = name;
         Login = login;
         Password = password;
         Permission = permission;
@@ -53,6 +67,7 @@ public class User extends BaseEntity {
 
     public static User createGuest(){
         User guest = new User();
+        guest.Username = "GuestUsername";
         guest.Permission = GUEST_PERMISSION;
         guest.Login = "Guest";
         return guest;
@@ -73,12 +88,6 @@ public class User extends BaseEntity {
         Login = login;
     }
 
-    public void setName(String name){
-        this.Name =name;
-    }
-    public String getName(){
-        return this.Name;
-    }
     /***
      * Returns the email which should be same as the Login
      *
@@ -92,6 +101,22 @@ public class User extends BaseEntity {
     public void setEmail(String email){
         setLogin(email);
     }
+
+
+    /***
+     * Returns the email which should be same as the Login
+     *
+     * @return
+     */
+    public String getUsername(){ return Username; }
+
+    /***
+     * Sets the Email which should be same as Login
+     */
+    public void setUsername(String username){
+        Username = username;
+    }
+
 
     public String getPassword() {
         return Password;

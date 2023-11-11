@@ -46,7 +46,7 @@ public class PlayerEntity extends BaseEntity{
         this();
         this.user = user;
         this.currency = user.getBalance();
-        this.playerName = user.getName();
+        this.playerName = user.getUsername();
     }
 
     @Override
@@ -96,5 +96,8 @@ public class PlayerEntity extends BaseEntity{
 
     public void setHand(String string) {
         this.hand = string;
+    }
+
+    public void setName(String playerName) {
     }
 }

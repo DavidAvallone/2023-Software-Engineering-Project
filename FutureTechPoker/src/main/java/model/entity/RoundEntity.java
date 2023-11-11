@@ -51,32 +51,32 @@ public class RoundEntity extends BaseEntity {
     private String tiedPlayers;
     @OneToOne
     @JoinColumn(name = "id_player")
-    @Column(name = "id_player1")
+//    @Column(name = "id_player1")
     private PlayerEntity player1;
 
     @OneToOne
     @JoinColumn(name = "id_player")
-    @Column(name = "id_player2")
+//    @Column(name = "id_player2")
     private PlayerEntity player2;
 
     @OneToOne
     @JoinColumn(name = "id_player")
-    @Column(name = "id_player3")
+//    @Column(name = "id_player3")
     private PlayerEntity player3;
 
     @OneToOne
     @JoinColumn(name = "id_player")
-    @Column(name = "id_player4")
+//    @Column(name = "id_player4")
     private PlayerEntity player4;
 
     @OneToOne
     @JoinColumn(name = "id_player")
-    @Column(name = "id_player5")
+//    @Column(name = "id_player5")
     private PlayerEntity player5;
 
     @OneToOne
     @JoinColumn(name = "id_player")
-    @Column(name = "id_player6")
+//    @Column(name = "id_player6")
     private PlayerEntity player6;
 
     public RoundEntity(Round round){
