@@ -20,7 +20,7 @@ public class RegisterUserServlet extends HttpServlet {
         newUser.setName(strName);
         newUser.setLogin(strLogin);
         newUser.setPassword(strPass);
-        newUser.setUsername(strName);
+        newUser.setName(strName);
 
         User registered = UserService.registerUser(newUser);
         if(registered==null) {

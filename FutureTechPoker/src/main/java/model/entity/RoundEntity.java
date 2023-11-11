@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "game")
+@Table(name = "round")
 public class RoundEntity extends BaseEntity {
     @Id
     @Column(name = "id_round")
@@ -49,36 +49,32 @@ public class RoundEntity extends BaseEntity {
 
     @Column(name = "tied_players")
     private String tiedPlayers;
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player1")
+
+    /*
+    //@OneToOne
+    //@JoinColumn(name = "id_player1")
     private PlayerEntity player1;
 
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player2")
+    //@OneToOne
+    //@JoinColumn(name = "id_player2")
     private PlayerEntity player2;
 
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player3")
+    //@OneToOne
+    //@JoinColumn(name = "id_player3")
     private PlayerEntity player3;
 
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player4")
+    //@OneToOne
+    //@JoinColumn(name = "id_player4")
     private PlayerEntity player4;
 
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player5")
+    //@OneToOne
+    //@JoinColumn(name = "id_player5")
     private PlayerEntity player5;
 
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player6")
+    //@OneToOne
+    //@JoinColumn(name = "id_player6")
     private PlayerEntity player6;
-
+*/
     public RoundEntity(Round round){
         this.roundNum = round.getRound_num();
         this.tie = round.getTie();
@@ -93,7 +89,7 @@ public class RoundEntity extends BaseEntity {
         this.startingBet = round.getStarting_bet();
         this.river = round.getRiver().toString();
     }
-
+/*
     public void addPlayer(int which, Player p, PlayerEntity entity){
         switch (which){
             case 1:
@@ -228,9 +224,11 @@ public class RoundEntity extends BaseEntity {
     public void setLastRaise(Integer lastRaise) {
         this.lastRaise = lastRaise;
     }
-
+  */
     public Integer getID() {
         return id_round;
     }
+
+
 
 }

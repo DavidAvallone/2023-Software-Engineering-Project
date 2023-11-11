@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class PlayerEntity extends BaseEntity{
 
     @Id
-    @Column(name = "id_player")
+    @Column(name = "id_player", insertable = false, updatable = false)
     private int id_player;
 
     @Column(name = "player_name")
@@ -28,12 +28,15 @@ public class PlayerEntity extends BaseEntity{
     @Column(name = "status")
     private String status;
 
-    @OneToOne
-    @JoinColumn(name = "user_id") // This is the foreign key column
+    /*
+    //@OneToOne
+    //@JoinColumn(name = "user_id") // This is the foreign key column
     private User user; // This is the reference to the User entity
 
+     */
+
     public PlayerEntity(){
-        this.user = null;
+        //this.user = null;
         this.currency = 0;
         this.playerName = null;
         this.currentBet = 0;
@@ -44,7 +47,7 @@ public class PlayerEntity extends BaseEntity{
 
     public PlayerEntity(User user){
         this();
-        this.user = user;
+        //this.user = user;
         this.currency = user.getBalance();
         this.playerName = user.getName();
     }
