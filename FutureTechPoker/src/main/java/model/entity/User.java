@@ -20,9 +20,10 @@ Losses INT
 public class User extends BaseEntity {
     @Id @Column(name="id_user") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID = null;
-    @Column(name = "login",unique=true) // Login/Email must be unique for each record in DB
+    @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Login;
 
+    @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Username;
 
     private String Password;
@@ -56,8 +57,7 @@ public class User extends BaseEntity {
 
     public static User createGuest(){
         User guest = new User();
-        Random rand = new Random();
-        guest.Username = "GuestUsername" + rand.nextLong();
+        guest.Username = "GuestUsername";
         guest.Permission = GUEST_PERMISSION;
         guest.Login = "Guest";
         return guest;
