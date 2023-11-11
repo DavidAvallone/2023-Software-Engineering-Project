@@ -10,6 +10,20 @@ h1 {
     font-family: "Copperplate Gothic Light", fantasy;
 }
 
+a {
+    background-color: #fff;
+    color: #000;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #000;
+    cursor: pointer;
+    text-align: center;
+    width: 100px;
+    height: 20px;
+    display: block;
+    margin: 10px;
+}
+
 button {
     background-color: #fff;
     color: #000;
