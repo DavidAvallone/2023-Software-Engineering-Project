@@ -28,12 +28,12 @@ public class PlayerEntity extends BaseEntity{
     @Column(name = "status")
     private String status;
 
-    @OneToOne
-    @JoinColumn(name = "user_id") // This is the foreign key column
-    private User user; // This is the reference to the User entity
+//    @OneToOne
+//    @JoinColumn(name = "user_id") // This is the foreign key column
+//    private User user; // This is the reference to the User entity
 
     public PlayerEntity(){
-        this.user = null;
+//        this.user = null;
         this.currency = 0;
         this.playerName = null;
         this.currentBet = 0;
@@ -44,7 +44,7 @@ public class PlayerEntity extends BaseEntity{
 
     public PlayerEntity(User user){
         this();
-        this.user = user;
+//        this.user = user;
         this.currency = user.getBalance();
         this.playerName = user.getUsername();
     }

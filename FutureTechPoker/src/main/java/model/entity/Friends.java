@@ -10,19 +10,19 @@ public class Friends extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "friend_id")
-    private User friend;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+    private int user;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "friend_id")
+    private int friend;
 
 
     public Friends() {
     }
 
-    public Friends(User user, User friend) {
+    public Friends(Integer user, Integer friend) {
         this.user = user;
         this.friend = friend;
     }
@@ -34,19 +34,19 @@ public class Friends extends BaseEntity{
         this.id = id;
     }
 
-    public User getUser() {
+    public Integer getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Integer user) {
         this.user = user;
     }
 
-    public User getFriend() {
+    public Integer getFriend() {
         return friend;
     }
 
-    public void setFriend(User friend) {
+    public void setFriend(Integer friend) {
         this.friend = friend;
     }
 }

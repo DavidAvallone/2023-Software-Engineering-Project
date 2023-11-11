@@ -25,7 +25,6 @@ public class User extends BaseEntity {
     @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Login;
 
-    @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Username;
 
     private String Password;
@@ -38,13 +37,13 @@ public class User extends BaseEntity {
     
     private Integer Losses;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_friends",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "friend_id")
-    )
-    private List<User> friends;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_friends",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "friend_id")
+//    )
+//    private List<User> friends;
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
@@ -88,6 +87,12 @@ public class User extends BaseEntity {
         Login = login;
     }
 
+    public void setName(String name){
+        this.Username =name;
+    }
+    public String getName() {
+        return this.Username;
+    }
     /***
      * Returns the email which should be same as the Login
      *
@@ -154,11 +159,11 @@ public class User extends BaseEntity {
     }
 
 
-    public List<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
-    }
+//    public List<User> getFriends() {
+//        return friends;
+//    }
+//
+//    public void setFriends(List<User> friends) {
+//        this.friends = friends;
+//    }
 }
