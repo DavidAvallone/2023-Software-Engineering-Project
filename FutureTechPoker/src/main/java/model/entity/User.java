@@ -1,8 +1,8 @@
 package model.entity;
+import java.util.List;
 import java.util.Random;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+
 
 
 /*
@@ -44,7 +44,7 @@ public class User extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
-    private Set<User> friends  = new HashSet<>();;
+    private List<User> friends;
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
@@ -151,5 +151,14 @@ public class User extends BaseEntity {
 
     public Double getBalance() {
         return Balance;
+    }
+
+
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
     }
 }
