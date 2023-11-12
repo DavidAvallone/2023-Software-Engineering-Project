@@ -4,28 +4,29 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "user_friends")
-public class Friends extends BaseEntity{
+@Table(name = "friends")
+public class Friends extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-    private int user;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "friend_id")
-    private int friend;
+    @ManyToOne
+    @JoinColumn(name = "owner")
+    private User owner;
+
+    @ManyToOne
+    @JoinColumn(name = "friend")
+    private User friend;
 
 
     public Friends() {
     }
 
-    public Friends(Integer user, Integer friend) {
-        this.user = user;
+    public Friends(User owner, User friend) {
+        this.owner = owner;
         this.friend = friend;
     }
+
     public Integer getID() {
         return id;
     }
@@ -34,19 +35,19 @@ public class Friends extends BaseEntity{
         this.id = id;
     }
 
-    public Integer getUser() {
-        return user;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setUser(Integer user) {
-        this.user = user;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
-    public Integer getFriend() {
+    public User getFriend() {
         return friend;
     }
 
-    public void setFriend(Integer friend) {
+    public void setFriend(User friend) {
         this.friend = friend;
     }
 }

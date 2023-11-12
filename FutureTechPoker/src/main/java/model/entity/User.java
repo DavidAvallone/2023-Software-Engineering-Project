@@ -18,7 +18,7 @@ Losses INT
 );
  */
 @Entity
-@Table(name = "user")
+//@Table(name="user")
 public class User extends BaseEntity {
     @Id @Column(name="id_user") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID = null;
@@ -37,13 +37,13 @@ public class User extends BaseEntity {
     
     private Integer Losses;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "user_friends",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "friend_id")
-//    )
-//    private List<User> friends;
+    @ManyToMany
+    @JoinTable(
+            name = "friends",
+            joinColumns = @JoinColumn(name = "owner"),
+            inverseJoinColumns = @JoinColumn(name = "friend")
+    )
+    private List<User> friends;
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;

@@ -18,7 +18,7 @@ public class FriendsDAO extends GenericDAO<Friends> {
 
     public List<Friends> getFriendsByUserId(Long userId) {
         EntityManager em = getEntityManager();
-        List<Friends> friendsList = em.createQuery("SELECT f FROM Friends f WHERE f.user.id = :userId", Friends.class)
+        List<Friends> friendsList = em.createQuery("SELECT f FROM "+ getTableName() +" f WHERE f.user.id = :userId", Friends.class)
                 .setParameter("userId", userId)
                 .getResultList();
         em.close();
