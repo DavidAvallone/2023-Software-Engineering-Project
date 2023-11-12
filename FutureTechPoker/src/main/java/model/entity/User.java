@@ -21,7 +21,6 @@ public class User extends BaseEntity {
     private Integer ID = null;
     @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Login;
-
     private String Username;
     private String Password;
     private int Permission;
@@ -70,6 +69,7 @@ public class User extends BaseEntity {
     public void setLogin(String login) {
         Login = login;
     }
+
 
     public void setName(String name){
         this.Username =name;
