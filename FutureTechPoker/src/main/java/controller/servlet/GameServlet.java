@@ -17,9 +17,9 @@ public class GameServlet extends HttpServlet {
     public RoundService roundService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession test = request.getSession();
+        HttpSession session = request.getSession();
 
-        roundService = (RoundService) test.getAttribute("roundService");
+        roundService = (RoundService) session.getAttribute("roundService");
 
         String action = request.getParameter("action");
 
@@ -28,5 +28,7 @@ public class GameServlet extends HttpServlet {
         roundService.round.player_turn(0, action, bet);
 
         roundService.round.update_round();
+        session.setAttribute("roundService", roundService);
+        response.sendRedirect("gametestpage.jsp");
     }
 }
