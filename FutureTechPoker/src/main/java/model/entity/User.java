@@ -24,17 +24,11 @@ public class User extends BaseEntity {
     private Integer ID = null;
     @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Login;
-
     private String Username;
-
     private String Password;
-
     private int Permission;
-
     private Double Balance;
-
     private Integer Wins;
-    
     private Integer Losses;
 
 
@@ -45,10 +39,6 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "friend")
     )
     private List<User> friends = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<Friends> friends = new ArrayList<>();
-
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
@@ -95,7 +85,8 @@ public class User extends BaseEntity {
     public void setName(String name){
         this.Username =name;
     }
-    public String getName() {
+    public String getName(){
+
         return this.Username;
     }
     /***

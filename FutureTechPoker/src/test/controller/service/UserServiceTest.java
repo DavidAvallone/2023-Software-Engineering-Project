@@ -16,8 +16,8 @@ public class UserServiceTest {
     @Test
     public void testRegisterUser() {
         //Setup Data & Expected Return
-        User registered = new User(101, "test@test.com", PasswordUtil.hash("123456"), User.NORMAL_PERMISSION);
-        User newUser = new User(null, "test@test.com", "123456", User.NORMAL_PERMISSION);
+        User registered = new User(101, "name", "test@test.com", PasswordUtil.hash("123456"), User.NORMAL_PERMISSION);
+        User newUser = new User(null, "name", "test@test.com", "123456", User.NORMAL_PERMISSION);
 
         //We need to use Mocks to test the controller layer
         UserDAO mockDAO = mock(UserDAO.class);
@@ -54,7 +54,7 @@ public class UserServiceTest {
         String email = "test@test.com";
         String unhashed = "654321";
         String hashed = PasswordUtil.hash(unhashed);
-        User answer = new User(101, email, hashed, User.NORMAL_PERMISSION);
+        User answer = new User(101, "name", email, hashed, User.NORMAL_PERMISSION);
 
         UserDAO mockDAO = mock(UserDAO.class);
 
@@ -76,7 +76,7 @@ public class UserServiceTest {
         String email = "test@test.com";
         String incorrectPass = "654321";
         String hashed = PasswordUtil.hash("123456");
-        User answer = new User(101, email, hashed, User.NORMAL_PERMISSION);
+        User answer = new User(101, "name", email, hashed, User.NORMAL_PERMISSION);
 
         UserDAO mockDAO = mock(UserDAO.class);
 
