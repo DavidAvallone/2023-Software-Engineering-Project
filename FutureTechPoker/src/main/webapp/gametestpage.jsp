@@ -12,8 +12,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    RoundService rs = new RoundService();
-    rs.game_create_test();
+    HttpSession test = request.getSession();
+    test.setAttribute("roundService", new RoundService());
+    RoundService rs = (RoundService) test.getAttribute("roundService");
+//    RoundService rs = new RoundService();
+//    rs.game_create_test();
 //    rs.round.player_turn(0,"call",0);
 //    rs.round.player_turn(1,"check",0);
 //    rs.round.player_turn(2,"call",0);
@@ -65,7 +68,7 @@
 <%--<br>--%>
 
 <!-- Add buttons and forms for player actions -->
-<form action="GameServlet" method="post">
+<form action="GameServlet" method="post" >
     <!-- Include buttons and form fields for raising, calling, checking, folding, all-in -->
     <!-- Example: -->
     <label for="raiseAmount">Enter Raise Amount:</label>
@@ -77,6 +80,10 @@
     <button type="submit" name="action" value="all in">All In</button>
     <!-- Add input fields for raising amount, if applicable -->
 </form>
+
+<%
+    rs = (RoundService) session.getAttribute("roundService");
+%>
 
 </body>
 </html>
