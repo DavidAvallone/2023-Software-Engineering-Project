@@ -1,10 +1,10 @@
 package model.dao;
 
-import model.entity.PlayerEntity;
+import model.entity.Player;
 
-public class PlayerDAO extends GenericDAO<PlayerEntity> {
+public class PlayerDAO extends GenericDAO<Player> {
 
     public PlayerDAO(){
-        super(PlayerEntity.class);
+        super(Player.class);
     }
 }

@@ -1,5 +1,4 @@
 package model.entity;
-import java.util.Random;
 import javax.persistence.*;
 
 
@@ -27,6 +26,10 @@ public class User extends BaseEntity {
     private Double Balance;
     private Integer Wins;
     private Integer Losses;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Player player;
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
