@@ -18,7 +18,7 @@ public class UserTest {
     }
 
     @Test public void testConstructor(){
-        User u = new User(101,"test@test.com","123456",User.ADMIN_PERMISSION);
+        User u = new User(101,"NAME", "test@test.com","123456",User.ADMIN_PERMISSION);
         assertAll(
                 ()-> assertEquals(u.getID(), 101),
                 ()-> assertEquals(u.getLogin(),"test@test.com"),

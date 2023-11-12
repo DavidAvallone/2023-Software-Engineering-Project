@@ -16,24 +16,16 @@ Losses INT
 );
  */
 @Entity
-@Table(name = "user")
 public class User extends BaseEntity {
     @Id @Column(name="id_user") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID = null;
     @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Login;
-
-    @Column(unique=true) // Login/Email must be unique for each record in DB
     private String Username;
-
     private String Password;
-
     private int Permission;
-
     private Double Balance;
-
     private Integer Wins;
-    
     private Integer Losses;
 
     public transient static final int NORMAL_PERMISSION = 1;
@@ -78,6 +70,13 @@ public class User extends BaseEntity {
         Login = login;
     }
 
+
+    public void setName(String name){
+        this.Username =name;
+    }
+    public String getName(){
+        return this.Username;
+    }
     /***
      * Returns the email which should be same as the Login
      *
