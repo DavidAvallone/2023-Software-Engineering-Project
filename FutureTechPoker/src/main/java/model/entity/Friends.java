@@ -1,10 +1,18 @@
 package model.entity;
 
 import javax.persistence.*;
-
+/*
+CREATE TABLE Friends (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        owner INT,
+        friend INT,
+        FOREIGN KEY (owner) REFERENCES user(id_user),
+        FOREIGN KEY (friend) REFERENCES user(id_user)
+        );
+ */
 
 @Entity
-@Table(name = "friends")
+@Table(name = "Friends")
 public class Friends extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

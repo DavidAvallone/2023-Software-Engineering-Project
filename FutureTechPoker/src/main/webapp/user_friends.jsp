@@ -8,8 +8,36 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.entity.User" %>
 <%@ page import="model.entity.Friends" %>
+<%@ page import="controller.service.FriendsService" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+ String code = request.getParameter("msg");
+  String message = "";
+
+  if(code != null) {
+    switch (code) {
+      case "1":
+        message = "User is already your friend.";
+        break;
+      case "2":
+        message = "Unable to find user.";
+        break;
+    }
+  }
+  String deleteCode = request.getParameter("delmsg");
+  String deleteMessage = "";
+
+  if(deleteCode != null) {
+    switch (deleteCode) {
+      case "1":
+        deleteMessage = "User is not in your friends list.";
+        break;
+    }
+  }
+  User logged = (User) session.getAttribute("User");
+%>
 <html>
 <head>
   <title>FutureTech Poker User Friends</title>
@@ -19,21 +47,33 @@
 <div class="banner">
   <h1>FutureTech Poker</h1>
 </div>
-<h2>User Details:</h2>
-<p>User ID: ${user.userId}</p>
-<p>Username: ${user.username}</p>
+<h2><%=logged.getName()%>'s Friends</h2>
 
-<h2>Friends List:</h2>
-  <ul>
-    <%
-      // Retrieve the friends attribute from the request scope
-      List<String> friends = (List<String>) request.getAttribute("friends");
+<%
+  List<Friends> friendList = FriendsService.getFriendsList(logged);
+  for (Friends friend : friendList) {
+%>
+<p><%= friend.getFriend().getName() %></p>
+<%
+  }
+%>
+<div>
+  <h2>Add a Friend:</h2>
+   <form action="AddFriendsServlet" method="post">
+      <input type="text" name="newFriend" id="newFriend" placeholder="Enter friend's name" required>
+      <button type="submit" style="text-align: center"> Add Friend</button>
+    </form>
+  <p><%=message%></p>
+</div>
 
-      // Iterate over the friends and display them
-      for (String friend : friends) {
-    %>
-    <li><%= friend %></li>
-    <% } %>
-  </ul>
+<h2>Delete a Friend:</h2>
+<form action="DeleteFriendsServlet" method="post">
+  <input type="text" name="deleteFriend" id="deleteFriend" placeholder="Enter friend's name" required>
+  <button type="submit"> Delete Friend</button>
+</form>
+
+<p><%=deleteMessage%></p>
+
+<a href="home.jsp" class="home-button">Home Button</a>
 </body>
 </html>

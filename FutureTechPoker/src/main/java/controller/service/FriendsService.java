@@ -4,6 +4,9 @@ import model.dao.FriendsDAO;
 import model.entity.Friends;
 import model.entity.User;
 
+import javax.transaction.Transactional;
+import java.beans.Transient;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsService {
@@ -14,13 +17,19 @@ public class FriendsService {
         FriendsService.dao = dao;
     }
 
-    //Read Friends / getfriends list?
+    public static void addFriend(Friends f){
+        dao.create(f);
+    }
 
-    //Update friends -> status?
+    @Transactional
+    public static List<Friends> getFriendsList(User owner){
+        return dao.getFriendsByUserId(owner.getID());
+    }
+
     public static Friends updateFriends(Friends f){
         return dao.update(f);
     }
-    //Delete friends -> Unadd friend
+
     public static void deleteFriends(int id){
         dao.delete(id);
     }

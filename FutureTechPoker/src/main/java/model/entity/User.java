@@ -1,4 +1,5 @@
 package model.entity;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.persistence.*;
@@ -18,7 +19,6 @@ Losses INT
 );
  */
 @Entity
-//@Table(name="user")
 public class User extends BaseEntity {
     @Id @Column(name="id_user") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID = null;
@@ -37,13 +37,18 @@ public class User extends BaseEntity {
     
     private Integer Losses;
 
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
-            name = "friends",
+            name = "Friends",
             joinColumns = @JoinColumn(name = "owner"),
             inverseJoinColumns = @JoinColumn(name = "friend")
     )
-    private List<User> friends;
+    private List<User> friends = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Friends> friends = new ArrayList<>();
+
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
@@ -159,11 +164,13 @@ public class User extends BaseEntity {
     }
 
 
-//    public List<User> getFriends() {
-//        return friends;
-//    }
-//
-//    public void setFriends(List<User> friends) {
-//        this.friends = friends;
-//    }
+    //Be careful using getFriends(). The fetch type is lazy so this will often be inaccurate or empty
+    //May want to use getFriendsList(User owner) in FriendsService instead
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
+    }
 }

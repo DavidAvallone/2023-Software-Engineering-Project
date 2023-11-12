@@ -46,7 +46,10 @@
         <button type="submit">Log Out</button>
     </form>
     <a href="user_profile_information.jsp" class="home-button">User Settings / Information</a>
+    <% if(logged.getPermission()!=User.GUEST_PERMISSION){ %>
     <a href="user_friends.jsp" class="home-button">Manage Friends</a>
+    <% } //end-else-if %>
+
     <% if(logged.getPermission()==User.ADMIN_PERMISSION){ %>
     <a href="admin.jsp" class="home-button">Admin Settings</a>
     <% } //end-else-if %>
