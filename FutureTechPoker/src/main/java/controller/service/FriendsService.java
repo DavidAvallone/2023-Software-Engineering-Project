@@ -17,8 +17,8 @@ public class FriendsService {
         FriendsService.dao = dao;
     }
 
-    public static void addFriend(Friends f){
-        dao.create(f);
+    public static Friends addFriend(Friends f){
+        return dao.create(f);
     }
 
     @Transactional

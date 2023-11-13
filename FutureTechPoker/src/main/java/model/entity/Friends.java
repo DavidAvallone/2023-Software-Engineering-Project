@@ -35,6 +35,11 @@ public class Friends extends BaseEntity {
         this.friend = friend;
     }
 
+    public Friends(Integer id, User owner, User friend) {
+        this.id = id;
+        this.owner = owner;
+        this.friend = friend;
+    }
     public Integer getID() {
         return id;
     }
