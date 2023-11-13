@@ -99,4 +99,17 @@ public class UserServiceTest {
 
         assertDoesNotThrow(() -> UserService.deleteUser(1));
     }
+    @Test
+    public void testFindUserByName(){
+        User u = new User(10, "name", "login", "password", User.NORMAL_PERMISSION);
+        UserDAO mockDAO = mock(UserDAO.class);
+        when(mockDAO.findUserByName(anyString())).thenReturn(u);
+        UserService.setDAO(mockDAO);
+        User found = UserService.findUserByName("name");
+
+        assertAll(
+                () -> assertEquals(found.getID(), u.getID()),
+                () -> assertEquals(found.getName(), u.getName())
+        );
+    }
 }
