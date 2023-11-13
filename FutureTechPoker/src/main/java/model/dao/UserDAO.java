@@ -36,5 +36,19 @@ public class UserDAO extends GenericDAO<User> {
         }
         return found;
     }
+    public User findUserByName(String name){
+        EntityManager em = getEntityManager();
 
+        String query = "SELECT u FROM "+getTableName()+" u WHERE u.Username = :name"; // :email is a parameter, to avoid SQL Injection
+        User found = null;
+
+        try {
+            found = em.createQuery(query, User.class).setParameter("name", name).getSingleResult();
+        } catch(NoResultException ex){
+            found = null;
+        } finally{
+            em.close();
+        }
+        return found;
+    }
 }

@@ -38,6 +38,7 @@ public class RoundEntity extends BaseEntity {
 
     private String tied_players;
 
+
     /*
     //@OneToOne
     //@JoinColumn(name = "id_player1")
@@ -91,6 +92,9 @@ public class RoundEntity extends BaseEntity {
         this.starting_bet = round.getStarting_bet();
         this.river = round.getRiver().toString();
     }
+
+
+
 /*
     public void addPlayer(int which, Player p, PlayerEntity entity){
         switch (which){
