@@ -12,73 +12,31 @@ public class RoundEntity extends BaseEntity {
     @Id
     @Column(name = "id_round")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_round;
+    private Integer id;
 
-    @Column(name = "round_num")
-    private Integer roundNum;
+    private Integer round_num;
 
-    @Column(name = "river")
     private String river;
 
-    @Column(name = "winning_player")
-    private String winningPlayer;
+    private String winning_player;
 
-    @Column(name = "current_bet")
-    private double currentBet;
+    private double current_bet;
 
-    @Column(name = "current_pot")
-    private double currentPot;
+    private double current_pot;
 
-    @Column(name = "starting_bet")
-    private double startingBet;
+    private double starting_bet;
 
-    @Column(name = "current_player_turn")
-    private Integer currentPlayerTurn;
+    private Integer current_player_turn;
 
-    @Column(name = "last_raise")
-    private Integer lastRaise;
+    private Integer last_raise;
 
-    @Column(name = "game_over")
-    private boolean gameOver;
+    private boolean game_over;
 
-    @Column(name = "tie")
     private boolean tie;
 
-    @Column(name = "seed")
     private long seed;
 
-    @Column(name = "tied_players")
-    private String tiedPlayers;
-/*
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player1")
-    private PlayerEntity player1;
-
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player2")
-    private PlayerEntity player2;
-
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player3")
-    private PlayerEntity player3;
-
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player4")
-    private PlayerEntity player4;
-
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player5")
-    private PlayerEntity player5;
-
-    @OneToOne
-    @JoinColumn(name = "id_player")
-//    @Column(name = "id_player6")
-    private PlayerEntity player6;
+    private String tied_players;
 
 
     /*
@@ -106,18 +64,32 @@ public class RoundEntity extends BaseEntity {
     //@JoinColumn(name = "id_player6")
     private PlayerEntity player6;
 */
+    public RoundEntity(){
+        this.river = "no river";
+        this.round_num = -1;
+        this.tie = false;
+        this.game_over = false;
+        this.seed = 42;
+        this.current_bet = 0;
+        this.current_pot = 0;
+        this.current_player_turn = 0;
+        this.last_raise = 0;
+        this.tied_players = "none";
+        this.winning_player = "none";
+        this.starting_bet = 0;
+    }
     public RoundEntity(Round round){
-        this.roundNum = round.getRound_num();
+        this.round_num = round.getRound_num();
         this.tie = round.getTie();
         this.seed = round.getSeed();
-        this.currentBet = round.getCurrent_bet();
-        this.currentPot = round.getCurrent_pot();
-        this.currentPlayerTurn = round.getCurrent_player();
-        this.lastRaise = round.getLast_raise();
-        this.gameOver = round.getGameOver();
-        this.winningPlayer = round.who_won().getName();
-        this.tiedPlayers = round.tie().toString();
-        this.startingBet = round.getStarting_bet();
+        this.current_bet = round.getCurrent_bet();
+        this.current_pot = round.getCurrent_pot();
+        this.current_player_turn = round.getCurrent_player();
+        this.last_raise = round.getLast_raise();
+        this.game_over = round.getGameOver();
+        this.winning_player = round.who_won().getName();
+        this.tied_players = round.tie().toString();
+        this.starting_bet = round.getStarting_bet();
         this.river = round.getRiver().toString();
     }
 
@@ -260,7 +232,7 @@ public class RoundEntity extends BaseEntity {
     }
   */
     public Integer getID() {
-        return id_round;
+        return id;
     }
 
 

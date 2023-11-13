@@ -55,6 +55,8 @@
     <% } //end-else-if %>
 
 </div>
+<a href="entitytest.jsp" class="home-button">Entity Test Page</a>
+
 <img src="logo.jpeg" alt="FutureTech Logo" width="574" height="223" style="position: fixed; bottom: 0px; left: 50%; transform: translateX(-50%)">
 </body>
 <% } else { %>

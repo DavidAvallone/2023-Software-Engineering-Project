@@ -11,14 +11,12 @@ create table poker_test.`user`(
 );
 
 create table poker_test.`player`(
-	id_player int not null,
 	player_name varchar(55),
 	currency double,
 	hand varchar(55),
 	turn_order int,
 	current_bet double,
 	status varchar(20),
-	constraint id_player_fk foreign key(id_player) references poker.`user`(id_user)
 );
 
 

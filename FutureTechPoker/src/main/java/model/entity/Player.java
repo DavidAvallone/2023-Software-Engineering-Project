@@ -3,60 +3,49 @@ package model.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "player")
-public class PlayerEntity extends BaseEntity{
+public class Player extends BaseEntity{
 
     @Id
-    @Column(name = "id_player", insertable = false, updatable = false)
-    private int id_player;
+    @Column(name = "id_user")
+    private int id;
 
-    @Column(name = "player_name")
-    private String playerName;
+    private String player_name;
 
-    @Column(name = "currency")
     private double currency;
 
-    @Column(name = "hand")
     private String hand;
 
-    @Column(name = "turn_order")
-    private int turnOrder;
+    private int turn_order;
 
-    @Column(name = "current_bet")
-    private double currentBet;
+    private double current_bet;
 
-    @Column(name = "status")
     private String status;
 
-    /*
-    //@OneToOne
-    //@JoinColumn(name = "user_id") // This is the foreign key column
-    private User user; // This is the reference to the User entity
+    @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
+    @JoinColumn(name = "id_user")
+    private User user;
 
-     */
-
-    public PlayerEntity(){
-
-        //this.user = null;
-
+    public Player(){
+        this.user = null;
         this.currency = 0;
-        this.playerName = null;
-        this.currentBet = 0;
-        this.turnOrder = -1;
+        this.player_name = null;
+        this.current_bet = 0;
+        this.turn_order = -1;
         this.hand = null;
         this.status = null;
     }
 
-    public PlayerEntity(User user){
+    public Player(User user){
         this();
-        //this.user = user;
+        this.user = user;
         this.currency = user.getBalance();
-        this.playerName = user.getUsername();
+        this.player_name = user.getUsername();
     }
 
     @Override
     public Integer getID() {
-        return id_player;
+        return id;
     }
 
     public String getStatus() {
@@ -68,15 +57,15 @@ public class PlayerEntity extends BaseEntity{
     }
 
     public double getCurrentBet() {
-        return currentBet;
+        return current_bet;
     }
 
     public int getTurnOrder() {
-        return turnOrder;
+        return turn_order;
     }
 
     public String getPlayerName() {
-        return playerName;
+        return player_name;
     }
 
     public String getHand() {
@@ -88,7 +77,7 @@ public class PlayerEntity extends BaseEntity{
     }
 
     public void setCurrentBet(double currentBet) {
-        this.currentBet = currentBet;
+        this.current_bet = currentBet;
     }
 
     public void setStatus(String status) {
@@ -96,7 +85,7 @@ public class PlayerEntity extends BaseEntity{
     }
 
     public void setTurnOrder(int turnOrder) {
-        this.turnOrder = turnOrder;
+        this.turn_order = turnOrder;
     }
 
     public void setHand(String string) {
