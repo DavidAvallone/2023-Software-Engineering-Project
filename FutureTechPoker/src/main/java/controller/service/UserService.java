@@ -50,6 +50,9 @@ public class UserService {
         return null; // Login or Password incorrect
     }
 
+    public static User findUserByName(String name){
+        return dao.findUserByName(name);
+    }
     public static void deleteUser(int id){
         dao.delete(id);
     }
