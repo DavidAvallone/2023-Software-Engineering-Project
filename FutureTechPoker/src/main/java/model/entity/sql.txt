@@ -48,3 +48,12 @@ create table poker_test.`round`(
 	constraint id_player5_fk foreign key(id_player5) references poker.`player`(id_player),
 	constraint id_player6_fk foreign key(id_player6) references poker.`player`(id_player)
 );
+
+
+CREATE TABLE Friends (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    owner INT,
+    friend INT,
+    FOREIGN KEY (owner) REFERENCES user(id_user),
+    FOREIGN KEY (friend) REFERENCES user(id_user)
+);

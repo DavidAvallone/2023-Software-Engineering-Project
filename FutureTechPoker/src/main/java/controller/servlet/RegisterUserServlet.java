@@ -17,6 +17,7 @@ public class RegisterUserServlet extends HttpServlet {
         String strPass = request.getParameter("txt_pass");
 
         User newUser = new User();
+        newUser.setName(strName);
         newUser.setLogin(strLogin);
         newUser.setPassword(strPass);
         newUser.setName(strName);

@@ -1,5 +1,10 @@
 package model.entity;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import javax.persistence.*;
+
 
 
 /*
@@ -27,6 +32,13 @@ public class User extends BaseEntity {
     private Integer Wins;
     private Integer Losses;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Friends",
+            joinColumns = @JoinColumn(name = "owner"),
+            inverseJoinColumns = @JoinColumn(name = "friend")
+    )
+    private List<User> friends = new ArrayList<>();
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Player player;
@@ -73,11 +85,11 @@ public class User extends BaseEntity {
         Login = login;
     }
 
-
     public void setName(String name){
         this.Username =name;
     }
     public String getName(){
+
         return this.Username;
     }
     /***
@@ -143,5 +155,16 @@ public class User extends BaseEntity {
 
     public Double getBalance() {
         return Balance;
+    }
+
+
+    //Be careful using getFriends(). The fetch type is lazy so this will often be inaccurate or empty
+    //May want to use getFriendsList(User owner) in FriendsService instead
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
     }
 }
