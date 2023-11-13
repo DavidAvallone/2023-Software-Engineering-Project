@@ -1,0 +1,353 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > RoundEntity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">model.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: RoundEntity (model.entity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RoundEntity</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (1/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    48.1%
+  </span>
+  <span class="absValue">
+    (13/27)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">RoundEntity$HibernateProxy$6Xowoq6v</td>
+  </tr>
+  <tr>
+    <td class="name">RoundEntity$HibernateProxy$A4raY3OJ</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (1/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    48.1%
+  </span>
+  <span class="absValue">
+    (13/27)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package model.entity;
+&nbsp;import Poker.*;
+&nbsp;
+&nbsp;import javax.persistence.*;
+&nbsp;import javax.persistence.criteria.CriteriaBuilder;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;round&quot;)
+&nbsp;public class RoundEntity extends BaseEntity {
+&nbsp;    @Id
+&nbsp;    @Column(name = &quot;id_round&quot;)
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private Integer id;
+&nbsp;
+&nbsp;    private Integer round_num;
+&nbsp;
+&nbsp;    private String river;
+&nbsp;
+&nbsp;    private String winning_player;
+&nbsp;
+&nbsp;    private double current_bet;
+&nbsp;
+&nbsp;    private double current_pot;
+&nbsp;
+&nbsp;    private double starting_bet;
+&nbsp;
+&nbsp;    private Integer current_player_turn;
+&nbsp;
+&nbsp;    private Integer last_raise;
+&nbsp;
+&nbsp;    private boolean game_over;
+&nbsp;
+&nbsp;    private boolean tie;
+&nbsp;
+&nbsp;    private long seed;
+&nbsp;
+&nbsp;    private String tied_players;
+&nbsp;
+&nbsp;    /*
+&nbsp;    //@OneToOne
+&nbsp;    //@JoinColumn(name = &quot;id_player1&quot;)
+&nbsp;    private PlayerEntity player1;
+&nbsp;
+&nbsp;    //@OneToOne
+&nbsp;    //@JoinColumn(name = &quot;id_player2&quot;)
+&nbsp;    private PlayerEntity player2;
+&nbsp;
+&nbsp;    //@OneToOne
+&nbsp;    //@JoinColumn(name = &quot;id_player3&quot;)
+&nbsp;    private PlayerEntity player3;
+&nbsp;
+&nbsp;    //@OneToOne
+&nbsp;    //@JoinColumn(name = &quot;id_player4&quot;)
+&nbsp;    private PlayerEntity player4;
+&nbsp;
+&nbsp;    //@OneToOne
+&nbsp;    //@JoinColumn(name = &quot;id_player5&quot;)
+&nbsp;    private PlayerEntity player5;
+&nbsp;
+&nbsp;    //@OneToOne
+&nbsp;    //@JoinColumn(name = &quot;id_player6&quot;)
+&nbsp;    private PlayerEntity player6;
+&nbsp;*/
+<b class="fc">&nbsp;    public RoundEntity(){</b>
+<b class="fc">&nbsp;        this.river = &quot;no river&quot;;</b>
+<b class="fc">&nbsp;        this.round_num = -1;</b>
+<b class="fc">&nbsp;        this.tie = false;</b>
+<b class="fc">&nbsp;        this.game_over = false;</b>
+<b class="fc">&nbsp;        this.seed = 42;</b>
+<b class="fc">&nbsp;        this.current_bet = 0;</b>
+<b class="fc">&nbsp;        this.current_pot = 0;</b>
+<b class="fc">&nbsp;        this.current_player_turn = 0;</b>
+<b class="fc">&nbsp;        this.last_raise = 0;</b>
+<b class="fc">&nbsp;        this.tied_players = &quot;none&quot;;</b>
+<b class="fc">&nbsp;        this.winning_player = &quot;none&quot;;</b>
+<b class="fc">&nbsp;        this.starting_bet = 0;</b>
+&nbsp;    }
+<b class="nc">&nbsp;    public RoundEntity(Round round){</b>
+<b class="nc">&nbsp;        this.round_num = round.getRound_num();</b>
+<b class="nc">&nbsp;        this.tie = round.getTie();</b>
+<b class="nc">&nbsp;        this.seed = round.getSeed();</b>
+<b class="nc">&nbsp;        this.current_bet = round.getCurrent_bet();</b>
+<b class="nc">&nbsp;        this.current_pot = round.getCurrent_pot();</b>
+<b class="nc">&nbsp;        this.current_player_turn = round.getCurrent_player();</b>
+<b class="nc">&nbsp;        this.last_raise = round.getLast_raise();</b>
+<b class="nc">&nbsp;        this.game_over = round.getGameOver();</b>
+<b class="nc">&nbsp;        this.winning_player = round.who_won().getName();</b>
+<b class="nc">&nbsp;        this.tied_players = round.tie().toString();</b>
+<b class="nc">&nbsp;        this.starting_bet = round.getStarting_bet();</b>
+<b class="nc">&nbsp;        this.river = round.getRiver().toString();</b>
+&nbsp;    }
+&nbsp;/*
+&nbsp;    public void addPlayer(int which, Player p, PlayerEntity entity){
+&nbsp;        switch (which){
+&nbsp;            case 1:
+&nbsp;                this.player1 = entity;
+&nbsp;                this.player1.setTurnOrder(p.getTurnOrder());
+&nbsp;                this.player1.setHand(p.getHand().toString());
+&nbsp;                this.player1.setCurrentBet(p.getCurrentBet());
+&nbsp;                this.player1.setStatus(p.getStatus());
+&nbsp;                break;
+&nbsp;            case 2:
+&nbsp;                this.player2 = entity;
+&nbsp;                this.player2.setTurnOrder(p.getTurnOrder());
+&nbsp;                this.player2.setHand(p.getHand().toString());
+&nbsp;                this.player2.setCurrentBet(p.getCurrentBet());
+&nbsp;                this.player2.setStatus(p.getStatus());
+&nbsp;                break;
+&nbsp;            case 3:
+&nbsp;                this.player3 = entity;
+&nbsp;                this.player3.setTurnOrder(p.getTurnOrder());
+&nbsp;                this.player3.setHand(p.getHand().toString());
+&nbsp;                this.player3.setCurrentBet(p.getCurrentBet());
+&nbsp;                this.player3.setStatus(p.getStatus());
+&nbsp;                break;
+&nbsp;            case 4:
+&nbsp;                this.player4 = entity;
+&nbsp;                this.player4.setTurnOrder(p.getTurnOrder());
+&nbsp;                this.player4.setHand(p.getHand().toString());
+&nbsp;                this.player4.setCurrentBet(p.getCurrentBet());
+&nbsp;                this.player4.setStatus(p.getStatus());
+&nbsp;                break;
+&nbsp;            case 5:
+&nbsp;                this.player5 = entity;
+&nbsp;                this.player5.setTurnOrder(p.getTurnOrder());
+&nbsp;                this.player5.setHand(p.getHand().toString());
+&nbsp;                this.player5.setCurrentBet(p.getCurrentBet());
+&nbsp;                this.player5.setStatus(p.getStatus());
+&nbsp;                break;
+&nbsp;            case 6:
+&nbsp;                this.player6 = entity;
+&nbsp;                this.player6.setTurnOrder(p.getTurnOrder());
+&nbsp;                this.player6.setHand(p.getHand().toString());
+&nbsp;                this.player6.setCurrentBet(p.getCurrentBet());
+&nbsp;                this.player6.setStatus(p.getStatus());
+&nbsp;                break;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public double getCurrentBet() {
+&nbsp;        return currentBet;
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCurrentBet(double currentBet) {
+&nbsp;        this.currentBet = currentBet;
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isGameOver() {
+&nbsp;        return gameOver;
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isTie() {
+&nbsp;        return tie;
+&nbsp;    }
+&nbsp;
+&nbsp;    public double getCurrentPot() {
+&nbsp;        return currentPot;
+&nbsp;    }
+&nbsp;
+&nbsp;    public double getStartingBet() {
+&nbsp;        return startingBet;
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getCurrentPlayerTurn() {
+&nbsp;        return currentPlayerTurn;
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getRoundNum() {
+&nbsp;        return roundNum;
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getLastRaise() {
+&nbsp;        return lastRaise;
+&nbsp;    }
+&nbsp;
+&nbsp;    public PlayerEntity getPlayer1() {
+&nbsp;        return player1;
+&nbsp;    }
+&nbsp;
+&nbsp;    public PlayerEntity getPlayer2() {
+&nbsp;        return player2;
+&nbsp;    }
+&nbsp;
+&nbsp;    public PlayerEntity getPlayer3() {
+&nbsp;        return player3;
+&nbsp;    }
+&nbsp;
+&nbsp;    public PlayerEntity getPlayer4() {
+&nbsp;        return player4;
+&nbsp;    }
+&nbsp;
+&nbsp;    public PlayerEntity getPlayer5() {
+&nbsp;        return player5;
+&nbsp;    }
+&nbsp;
+&nbsp;    public PlayerEntity getPlayer6() {
+&nbsp;        return player6;
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getRiver() {
+&nbsp;        return river;
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getTiedPlayers() {
+&nbsp;        return tiedPlayers;
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getWinningPlayer() {
+&nbsp;        return winningPlayer;
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCurrentPlayerTurn(Integer currentPlayerTurn) {
+&nbsp;        this.currentPlayerTurn = currentPlayerTurn;
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCurrentPot(double currentPot) {
+&nbsp;        this.currentPot = currentPot;
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setGameOver(boolean gameOver) {
+&nbsp;        this.gameOver = gameOver;
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setLastRaise(Integer lastRaise) {
+&nbsp;        this.lastRaise = lastRaise;
+&nbsp;    }
+&nbsp;  */
+&nbsp;    public Integer getID() {
+<b class="nc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-13 14:30</div>
+</div>
+</body>
+</html>

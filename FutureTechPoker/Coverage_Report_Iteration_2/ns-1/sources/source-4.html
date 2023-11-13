@@ -1,0 +1,699 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > HandEvaluator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Poker</a>
+</div>
+
+<h1>Coverage Summary for Class: HandEvaluator (Poker)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HandEvaluator</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96.8%
+  </span>
+  <span class="absValue">
+    (30/31)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.6%
+  </span>
+  <span class="absValue">
+    (225/243)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Poker;
+&nbsp;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;public class HandEvaluator {</b>
+&nbsp;
+&nbsp;    private static final int NUM_SUITS = 4;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines the best kind of hand the
+&nbsp;     * @param cards List of Cards to be evaluated
+&nbsp;     * @return int representing the best type of hand
+&nbsp;     */
+&nbsp;    public static int evaluate(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        if (isRoyalFlush(cards)) {</b>
+<b class="fc">&nbsp;            return 9;</b>
+<b class="fc">&nbsp;        } else if (isStraightFlush(cards)) {</b>
+<b class="fc">&nbsp;            return 8;</b>
+<b class="fc">&nbsp;        } else if (isFourOfKind(cards)) {</b>
+<b class="fc">&nbsp;            return 7;</b>
+<b class="fc">&nbsp;        } else if (isFullHouse(cards)) {</b>
+<b class="fc">&nbsp;            return 6;</b>
+<b class="fc">&nbsp;        } else if (isFlush(cards)) {</b>
+<b class="fc">&nbsp;            return 5;</b>
+<b class="fc">&nbsp;        } else if (isStraight(cards)) {</b>
+<b class="fc">&nbsp;            return 4;</b>
+<b class="fc">&nbsp;        } else if (isThreeOfKind(cards)) {</b>
+<b class="fc">&nbsp;            return 3;</b>
+<b class="fc">&nbsp;        } else if (isTwoPair(cards)) {</b>
+<b class="fc">&nbsp;            return 2;</b>
+<b class="fc">&nbsp;        } else if (isPair(cards)) {</b>
+<b class="fc">&nbsp;            return 1;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            return 0;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares two sets of Cards that have the same kind of hand
+&nbsp;     * @param cards1 List of Cards to be compared
+&nbsp;     * @param cards2 List of Cards to be compared
+&nbsp;     * @return int, greater than 0 if cards1 is better than cards2, less than 0 if cards2 is better than cards1, 0 if they are equal
+&nbsp;     */
+&nbsp;    public static int tieBreaker(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2){
+<b class="fc">&nbsp;        int evaluationScore = evaluate(cards1);</b>
+<b class="fc">&nbsp;        if(evaluationScore == 9){</b>
+<b class="nc">&nbsp;            return 0;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        else if (evaluationScore == 8){</b>
+<b class="nc">&nbsp;            return compareStraightFlushes(cards1, cards2);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        else if (evaluationScore == 7){</b>
+<b class="nc">&nbsp;            return compareFourOfKinds(cards1, cards2);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        else if (evaluationScore == 6){</b>
+<b class="nc">&nbsp;            return compareFullHouse(cards1, cards2);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        else if (evaluationScore == 5){</b>
+<b class="nc">&nbsp;            return compareFlush(cards1, cards2);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        else if (evaluationScore == 4){</b>
+<b class="fc">&nbsp;            return compareStraights(cards1, cards2);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        else if (evaluationScore == 3){</b>
+<b class="nc">&nbsp;            return compareThreeOfKind(cards1, cards2);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        else if (evaluationScore == 2){</b>
+<b class="nc">&nbsp;            return compareTwoPair(cards1, cards2);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        else if (evaluationScore == 1){</b>
+<b class="fc">&nbsp;            return comparePair(cards1, cards2);</b>
+&nbsp;        }
+&nbsp;        else {
+<b class="nc">&nbsp;            return compareHighCard(cards1, cards2);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares two sets of cards when their best type of hand is a pair
+&nbsp;     * @param cards1 List of Cards that have a pair best hand
+&nbsp;     * @param cards2 List of Cards that have a pair best hand
+&nbsp;     * @return int, greater than 0 if cards1 is better, less than 0 if cards2 is better, 0 if they are equal
+&nbsp;     */
+&nbsp;    public static int comparePair(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2){
+<b class="fc">&nbsp;        int pair1 = getHighestPair(cards1);</b>
+<b class="fc">&nbsp;        int pair2 = getHighestPair(cards2);</b>
+<b class="fc">&nbsp;        if(pair1 == pair2) {</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; withoutPair1 = getCardsWithoutRank(cards1, pair1);</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; withoutPair2 = getCardsWithoutRank(cards2, pair2);</b>
+<b class="fc">&nbsp;            return compareNextNumHighCards(withoutPair1, withoutPair2, 3);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return pair1 - pair2;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares two sets of cards that have a two pair as their best hand
+&nbsp;     * @param cards1 List of Cards that have a two pair as its best hand
+&nbsp;     * @param cards2 List of Cards that have a two pair as its best hand
+&nbsp;     * @return int, greater than 0 if cards1 is better, less than 0 if cards2 is better, 0 if they are equal
+&nbsp;     */
+&nbsp;    public static int compareTwoPair(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2){
+<b class="fc">&nbsp;        int pair1 = getHighestPair(cards1);</b>
+<b class="fc">&nbsp;        int pair2 = getHighestPair(cards2);</b>
+<b class="fc">&nbsp;        if(pair1 == pair2) {</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; withoutPair1 = getCardsWithoutRank(cards1, pair1);</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; withoutPair2 = getCardsWithoutRank(cards2, pair2);</b>
+<b class="fc">&nbsp;            int secondPair1 = getHighestPair(withoutPair1);</b>
+<b class="fc">&nbsp;            int secondPair2 = getHighestPair(withoutPair2);</b>
+<b class="fc">&nbsp;            if(secondPair1 == secondPair2){</b>
+<b class="fc">&nbsp;                List&lt;Card&gt; withoutTwoPair1 = getCardsWithoutRank(withoutPair1, secondPair1);</b>
+<b class="fc">&nbsp;                List&lt;Card&gt; withoutTwoPair2 = getCardsWithoutRank(withoutPair2, secondPair2);</b>
+<b class="fc">&nbsp;                sortByRank(withoutTwoPair1);</b>
+<b class="fc">&nbsp;                sortByRank(withoutTwoPair2);</b>
+<b class="fc">&nbsp;                return withoutTwoPair1.get(0).getRank() - withoutTwoPair2.get(0).getRank();</b>
+&nbsp;            }
+&nbsp;            else{
+<b class="fc">&nbsp;                return secondPair1 - secondPair2;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;        else{
+<b class="fc">&nbsp;            return pair1 - pair2;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares two set of Cards that have a three of a kind best hand
+&nbsp;     * @param cards1 List of Cards that have a three of a kind as its best hand
+&nbsp;     * @param cards2 List of Cards that have a three of a kind as its best hand
+&nbsp;     * @return int, greater than 0 if cards1 is better, less than 0 if cards2 is better, 0 if they are equal
+&nbsp;     */
+&nbsp;    public static int compareThreeOfKind(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2){
+<b class="fc">&nbsp;        int threeOfKind1 = getHighestThreeOfKind(cards1);</b>
+<b class="fc">&nbsp;        int threeOfKind2 = getHighestThreeOfKind(cards2);</b>
+<b class="fc">&nbsp;        if(threeOfKind1 == threeOfKind2) {</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; withoutThreeOfKind1 = getCardsWithoutRank(cards1, threeOfKind1);</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; withoutThreeOfKind2 = getCardsWithoutRank(cards2, threeOfKind2);</b>
+<b class="fc">&nbsp;            return compareNextNumHighCards(withoutThreeOfKind1, withoutThreeOfKind2, 2);</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="fc">&nbsp;            return threeOfKind1 - threeOfKind2;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares two sets of Cards that have a flush best hand
+&nbsp;     * @param cards1 List of Cards that have a flush best hand
+&nbsp;     * @param cards2 List of Cards that have a flush best hand
+&nbsp;     * @return int, greater than 0 if cards1 is better, less than 0 if cards2 is better, 0 if they are equal
+&nbsp;     */
+&nbsp;    public static int compareFlush(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2){
+<b class="fc">&nbsp;        List&lt;Card&gt; flush1 = findFlush(cards1);</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; flush2 = findFlush(cards2);</b>
+<b class="fc">&nbsp;        return compareHighCard(flush1, flush2);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares a specified number of next high cards in a set of Cards
+&nbsp;     * @param cards1 List of Cards to compare
+&nbsp;     * @param cards2 List of Cards to compare
+&nbsp;     * @param numHighCardsToCompare number of high cards to be included in the comparison
+&nbsp;     * @return  int, greater than 0 if cards1 is better, less than 0 if cards2 is better, 0 if they are equal
+&nbsp;     */
+&nbsp;    public static int compareNextNumHighCards(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2, int numHighCardsToCompare){
+<b class="fc">&nbsp;        int numCardsToCompare = numHighCardsToCompare;</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; orderedCards1 = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        orderedCards1.addAll(cards1);</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; orderedCards2 = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        orderedCards2.addAll(cards2);</b>
+<b class="fc">&nbsp;        sortByRank(orderedCards1);</b>
+<b class="fc">&nbsp;        sortByRank(orderedCards2);</b>
+&nbsp;
+<b class="fc">&nbsp;        for(int i = 0; i &lt; numCardsToCompare; i++){</b>
+<b class="fc">&nbsp;            if(orderedCards1.get(i).getRank() - orderedCards2.get(i).getRank() != 0){</b>
+<b class="fc">&nbsp;                return orderedCards1.get(i).getRank() - orderedCards2.get(i).getRank();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;        //Best 5 cards are same rank
+<b class="fc">&nbsp;        return 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares high cards of two sets of cards
+&nbsp;     * @param cards1 List of Cards to be compared
+&nbsp;     * @param cards2 List of Cards to be compared
+&nbsp;     * @return int, greater than 0 if cards1 is better, less than 0 if cards2 is better, 0
+&nbsp;     */
+&nbsp;    public static int compareHighCard(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2){
+<b class="fc">&nbsp;        return compareNextNumHighCards(cards1, cards2, 5);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares two sets of Cards with full house best hand
+&nbsp;     * @param cards1 List of cards with full house best hand
+&nbsp;     * @param cards2 List of cards with full house best hand
+&nbsp;     * @return int, greater than 0 if cards1 is better, less than 0 if cards2 is better, 0
+&nbsp;     */
+&nbsp;    public static int compareFullHouse(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2){
+<b class="fc">&nbsp;        int threeOfKind1 = getHighestThreeOfKind(cards1);</b>
+<b class="fc">&nbsp;        int threeOfKind2 = getHighestThreeOfKind(cards2);</b>
+<b class="fc">&nbsp;        if(threeOfKind1 == threeOfKind2) {</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; withoutThreeOfKind1 = getCardsWithoutRank(cards1, threeOfKind1);</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; withoutThreeOfKind2 = getCardsWithoutRank(cards2, threeOfKind2);</b>
+<b class="fc">&nbsp;            int pair1 = getHighestPair(withoutThreeOfKind1);</b>
+<b class="fc">&nbsp;            int pair2 = getHighestPair(withoutThreeOfKind2);</b>
+<b class="fc">&nbsp;            return pair1 - pair2;</b>
+&nbsp;            }
+&nbsp;        else{
+<b class="fc">&nbsp;            return threeOfKind1 - threeOfKind2;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * comapres two sets of Cards with straight best hand
+&nbsp;     * @param cards1 List of Cards with straight best hand
+&nbsp;     * @param cards2 List of Cards with straight best hand
+&nbsp;     * @return int, greater than 0 if cards1 is better, less than 0 if cards2 is better, 0
+&nbsp;     */
+&nbsp;    public static int compareStraights(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2){
+<b class="fc">&nbsp;        List&lt;Card&gt; straight1 = findHighestStraight(cards1);</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; straight2 = findHighestStraight(cards2);</b>
+<b class="fc">&nbsp;        sortByRank(straight1);</b>
+<b class="fc">&nbsp;        sortByRank(straight2);</b>
+<b class="fc">&nbsp;        return straight1.get(0).getRank() - straight2.get(0).getRank();</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares two sets of Cards with four of a kind best hand
+&nbsp;     * @param cards1 List of Cards with four of a kind best hand
+&nbsp;     * @param cards2 List of Cards with four of a kind best hand
+&nbsp;     * @return int, greater than 0 if cards1 is better, less than 0 if cards2 is better, 0
+&nbsp;     */
+&nbsp;    public static int compareFourOfKinds(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2){
+<b class="fc">&nbsp;        int fourOfKind1 = getHighestFourOfKind(cards1);</b>
+<b class="fc">&nbsp;        int fourOfKind2 = getHighestFourOfKind(cards2);</b>
+<b class="fc">&nbsp;        if(fourOfKind1 == fourOfKind2){</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; highCard1 = getCardsWithoutRank(cards1, fourOfKind1);</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; highCard2 = getCardsWithoutRank(cards2, fourOfKind2);</b>
+<b class="fc">&nbsp;            sortByRank(highCard1);</b>
+<b class="fc">&nbsp;            sortByRank(highCard2);</b>
+<b class="fc">&nbsp;            return highCard1.get(0).getRank() - highCard2.get(0).getRank();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return fourOfKind1 - fourOfKind2;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares two sets of Cards with straight flush best hand
+&nbsp;     * @param cards1 List of Cards with best hand straight flush
+&nbsp;     * @param cards2 List og Cards with best hand straight flush
+&nbsp;     * @return int, greater than 0 if cards1 is better, less than 0 if cards2 is better, 0
+&nbsp;     */
+&nbsp;    public static int compareStraightFlushes(List&lt;Card&gt; cards1, List&lt;Card&gt; cards2){
+<b class="fc">&nbsp;        int suit1 = obtainMostCommonSuit(cards1);</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; flushCards1 = getCardsOfSameSuit(cards1, suit1);</b>
+<b class="fc">&nbsp;        int suit2 = obtainMostCommonSuit(cards2);</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; flushCards2 = getCardsOfSameSuit(cards2, suit2);</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; straightFlush1 = findHighestStraight(flushCards1);</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; straightFlush2 = findHighestStraight(flushCards2);</b>
+<b class="fc">&nbsp;        sortByRank(straightFlush1);</b>
+<b class="fc">&nbsp;        sortByRank(straightFlush2);</b>
+<b class="fc">&nbsp;        return straightFlush1.get(0).getRank() - straightFlush2.get(0).getRank();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines if a set of Cards is a pair
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @return true if is a pair, false otherwise
+&nbsp;     */
+&nbsp;    public static boolean isPair(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        sortByRank(cards);</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size() - 1; i++) {</b>
+<b class="fc">&nbsp;            if (cards.get(i).getRank() == cards.get(i + 1).getRank()) {</b>
+<b class="fc">&nbsp;                return true;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the highest pair in a set of Cards
+&nbsp;     * @param cards List of Cards with at least one pair
+&nbsp;     * @return the rank of the pair, -1 if there is no pair
+&nbsp;     */
+&nbsp;    public static int getHighestPair(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        sortByRank(cards);</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size() - 1; i++) {</b>
+<b class="fc">&nbsp;            if (cards.get(i).getRank() == cards.get(i + 1).getRank()) {</b>
+<b class="fc">&nbsp;                return cards.get(i).getRank();</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return -1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determine if the set of cards has a three of a kind
+&nbsp;     * @param cards List of cards
+&nbsp;     * @return true if there is a three of a kind, false otherwise
+&nbsp;     */
+&nbsp;    public static boolean isThreeOfKind(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        sortByRank(cards);</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size() - 2; i++) {</b>
+<b class="fc">&nbsp;            if (cards.get(i).getRank() == cards.get(i + 1).getRank() &amp;&amp; cards.get(i).getRank() == cards.get(i + 2).getRank()) {</b>
+<b class="fc">&nbsp;                return true;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the highest three of a kind in a List of Cards
+&nbsp;     * @param cards List of Cards with at least one three of a kind
+&nbsp;     * @return the rank of the highest three of a kind, -1 if there is no three of a kind
+&nbsp;     */
+&nbsp;    public static int getHighestThreeOfKind(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        sortByRank(cards);</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size() - 2; i++) {</b>
+<b class="fc">&nbsp;            if (cards.get(i).getRank() == cards.get(i + 1).getRank() &amp;&amp; cards.get(i).getRank() == cards.get(i + 2).getRank()) {</b>
+<b class="fc">&nbsp;                return cards.get(i).getRank();</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return -1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines if the set of Cards is a two pair
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @return true if it is a two pair, false otherwise
+&nbsp;     */
+&nbsp;    public static boolean isTwoPair(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        if (isPair(cards)) {</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; withoutRank = getCardsWithoutRank(cards, getHighestPair(cards));</b>
+<b class="fc">&nbsp;            return isPair(withoutRank);</b>
+&nbsp;
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines if the set of Cards is a full house
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @return true if the Cards have a full house, false otherwise
+&nbsp;     */
+&nbsp;    public static boolean isFullHouse(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        if (isThreeOfKind(cards)) {</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; withoutThreeOfKind = getCardsWithoutRank(cards, getHighestThreeOfKind(cards));</b>
+<b class="fc">&nbsp;            return isPair(withoutThreeOfKind);</b>
+&nbsp;
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines if the set of Cards is a four of a kind
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @return true if the Cards have a four of a kind, false otherwise
+&nbsp;     */
+&nbsp;    public static boolean isFourOfKind(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        sortByRank(cards);</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size() - 3; i++) {</b>
+<b class="fc">&nbsp;            if (cards.get(i).getRank() == cards.get(i + 1).getRank() &amp;&amp; cards.get(i).getRank() == cards.get(i + 2).getRank() &amp;&amp; cards.get(i).getRank() == cards.get(i + 3).getRank()) {</b>
+<b class="fc">&nbsp;                return true;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the highest four of a Kind in a set of Cards
+&nbsp;     * @param cards List of Cards with a four of a kind
+&nbsp;     * @return the rank of the highest four of a kind, -1 if there is no four of a kind
+&nbsp;     */
+&nbsp;    public static int getHighestFourOfKind(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        sortByRank(cards);</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size() - 3; i++) {</b>
+<b class="fc">&nbsp;            if (cards.get(i).getRank() == cards.get(i + 1).getRank() &amp;&amp; cards.get(i).getRank() == cards.get(i + 2).getRank() &amp;&amp; cards.get(i).getRank() == cards.get(i + 3).getRank()) {</b>
+<b class="fc">&nbsp;                return cards.get(i).getRank();</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return -1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines if a set of Cards has a flush
+&nbsp;     * @param cards list of Cards
+&nbsp;     * @return true if the list of Cards contains a flush, false otherwise
+&nbsp;     */
+&nbsp;    public static boolean isFlush(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        int flushCount = 0;</b>
+<b class="fc">&nbsp;        int suit = obtainMostCommonSuit(cards);</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size(); i++) {</b>
+<b class="fc">&nbsp;            if (suit == cards.get(i).getSuit()) {</b>
+<b class="fc">&nbsp;                flushCount++;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            if (flushCount &gt;= 5) {</b>
+<b class="fc">&nbsp;                return true;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determine if the set of Cards contains a straight
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @return true if the list of Cards contain a straight
+&nbsp;     */
+&nbsp;    public static boolean isStraight(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        List&lt;Card&gt; sortedCards = HandEvaluator.sortByRank(cards);</b>
+&nbsp;        int inOrderCount;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; sortedCards.size(); i++) {</b>
+<b class="fc">&nbsp;            inOrderCount = 1;</b>
+<b class="fc">&nbsp;            for (int j = i; j &lt; sortedCards.size() - 1; j++) {</b>
+&nbsp;
+<b class="fc">&nbsp;                if (sortedCards.get(j).getRank() - sortedCards.get(j + 1).getRank() == 1) {</b>
+<b class="fc">&nbsp;                    inOrderCount++;</b>
+&nbsp;
+<b class="fc">&nbsp;                } else if (sortedCards.get(j).getRank() - sortedCards.get(j + 1).getRank() != 0) {</b>
+<b class="fc">&nbsp;                    break;</b>
+&nbsp;                }
+<b class="fc">&nbsp;                if (inOrderCount == 4 &amp;&amp; sortedCards.get(j + 1).getRank() == 2 &amp;&amp; sortedCards.get(0).getRank() == 14) {</b>
+<b class="fc">&nbsp;                    inOrderCount++;</b>
+&nbsp;                }
+<b class="fc">&nbsp;                if (inOrderCount == 5) {</b>
+<b class="fc">&nbsp;                    return true;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines if the list of Cards contains a straight flush
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @return true if the list of Cards contains a straight flush, false otherwise
+&nbsp;     */
+&nbsp;    public static boolean isStraightFlush(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        List&lt;Card&gt; sameSuitCards = getCardsOfSameSuit(cards, obtainMostCommonSuit(cards));</b>
+<b class="fc">&nbsp;        if (isStraight(sameSuitCards)) {</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines if th list of Cards contains a royal flush
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @return true if the list of Cards contains a royal flush, false otherwise
+&nbsp;     */
+&nbsp;    public static boolean isRoyalFlush(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        List&lt;Card&gt; sameSuitCards = getCardsOfSameSuit(cards, obtainMostCommonSuit(cards));</b>
+<b class="fc">&nbsp;        sortByRank(sameSuitCards);</b>
+<b class="fc">&nbsp;        if (isStraight(sameSuitCards)) {</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; straightFlushCards = findHighestStraight(sameSuitCards);</b>
+<b class="fc">&nbsp;            if (straightFlushCards.get(0).getRank() == 14 &amp;&amp; straightFlushCards.get(1).getRank() == 13)</b>
+<b class="fc">&nbsp;                return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Filters out a specified rank from a list of Cards
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @param rank int, the rank to be filtered out
+&nbsp;     * @return The list of Cards without a specified rank
+&nbsp;     */
+&nbsp;    public static List&lt;Card&gt; getCardsWithoutRank(List&lt;Card&gt; cards, int rank) {
+<b class="fc">&nbsp;        List&lt;Card&gt; newCards = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size(); i++) {</b>
+<b class="fc">&nbsp;            if (cards.get(i).getRank() != rank) {</b>
+<b class="fc">&nbsp;                newCards.add(cards.get(i));</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return newCards;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sorts a list of Cards by its rank from greatest to least
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @return A list of sorted Cards
+&nbsp;     */
+&nbsp;    public static List&lt;Card&gt; sortByRank(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        if (cards.isEmpty() || cards.size() == 1) {</b>
+<b class="nc">&nbsp;            return cards;</b>
+&nbsp;        }
+&nbsp;        Card temp;
+<b class="fc">&nbsp;        boolean swapped = false;</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size() - 1; i++) {</b>
+<b class="fc">&nbsp;            for (int j = 0; j &lt; cards.size() - i - 1; j++) {</b>
+<b class="fc">&nbsp;                if (cards.get(j).compareTo(cards.get(j + 1)) &lt; 1) {</b>
+<b class="fc">&nbsp;                    temp = cards.get(j);</b>
+<b class="fc">&nbsp;                    cards.set(j, cards.get(j + 1));</b>
+<b class="fc">&nbsp;                    cards.set(j + 1, temp);</b>
+<b class="fc">&nbsp;                    swapped = true;</b>
+&nbsp;                }
+&nbsp;            }
+<b class="fc">&nbsp;            if (swapped == false) {</b>
+<b class="fc">&nbsp;                return cards;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return cards;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Finds the best possible straight in a set of Cards
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @return A list of Cards containing the best possible straight
+&nbsp;     */
+&nbsp;    public static ArrayList&lt;Card&gt; findHighestStraight(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        ArrayList&lt;Card&gt; straightCards = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; sortedCards = HandEvaluator.sortByRank(cards);</b>
+&nbsp;
+&nbsp;        int inOrderCount;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; sortedCards.size(); i++) {</b>
+<b class="fc">&nbsp;            straightCards.clear();</b>
+<b class="fc">&nbsp;            straightCards.add(cards.get(i));</b>
+<b class="fc">&nbsp;            inOrderCount = 1;</b>
+<b class="fc">&nbsp;            for (int j = i; j &lt; sortedCards.size(); j++) {</b>
+&nbsp;
+<b class="fc">&nbsp;                if (inOrderCount == 4 &amp;&amp; sortedCards.get(j).getRank() == 2 &amp;&amp; sortedCards.get(0).getRank() == 14) {</b>
+<b class="nc">&nbsp;                    straightCards.add(sortedCards.get(0));</b>
+<b class="nc">&nbsp;                    inOrderCount++;</b>
+<b class="fc">&nbsp;                } else if (sortedCards.get(j).getRank() - sortedCards.get(j + 1).getRank() == 1) {</b>
+<b class="fc">&nbsp;                    straightCards.add(sortedCards.get(j + 1));</b>
+<b class="fc">&nbsp;                    inOrderCount++;</b>
+<b class="fc">&nbsp;                } else if (sortedCards.get(j).getRank() - sortedCards.get(j + 1).getRank() != 0) {</b>
+<b class="nc">&nbsp;                    break;</b>
+&nbsp;                }
+<b class="fc">&nbsp;                if (inOrderCount == 5) {</b>
+<b class="fc">&nbsp;                    return straightCards;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Determines the most common suit in a set of Cards
+&nbsp;     * @param cards List of cards
+&nbsp;     * @return int, the most common suit
+&nbsp;     */
+&nbsp;    public static int obtainMostCommonSuit(List&lt;Card&gt; cards) {
+<b class="fc">&nbsp;        int[] suitCounts = new int[NUM_SUITS];</b>
+<b class="fc">&nbsp;        int mostCommonSuit = 0;</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size(); i++) {</b>
+<b class="fc">&nbsp;            for (int j = 0; j &lt; NUM_SUITS; j++) {</b>
+<b class="fc">&nbsp;                if (cards.get(i).getSuit() == j) {</b>
+<b class="fc">&nbsp;                    suitCounts[j] += 1;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        for (int j = 1; j &lt; suitCounts.length; j++) {</b>
+<b class="fc">&nbsp;            if (suitCounts[mostCommonSuit] &lt; suitCounts[j]) {</b>
+<b class="fc">&nbsp;                mostCommonSuit = j;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return mostCommonSuit;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets only the Cards with a specified suit from a list of Cards
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @param suit int, suit
+&nbsp;     * @return list of Cards with the specified suit
+&nbsp;     */
+&nbsp;    public static List&lt;Card&gt; getCardsOfSameSuit(List&lt;Card&gt; cards, int suit) {
+<b class="fc">&nbsp;        List&lt;Card&gt; sameSuitCards = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; cards.size(); i++) {</b>
+<b class="fc">&nbsp;            if (cards.get(i).getSuit() == suit) {</b>
+<b class="fc">&nbsp;                sameSuitCards.add(cards.get(i));</b>
+&nbsp;
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return sameSuitCards;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the best possible flush in a set of Cards
+&nbsp;     * @param cards List of Cards
+&nbsp;     * @return List of Cards containing the best possible flush from the list of Cards
+&nbsp;     */
+&nbsp;    public static List&lt;Card&gt; findFlush(List&lt;Card&gt; cards)
+&nbsp;    {
+<b class="fc">&nbsp;        int flushSuit = obtainMostCommonSuit(cards);</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; flushCards = getCardsOfSameSuit(cards, flushSuit);</b>
+<b class="fc">&nbsp;        if(flushCards.size() &gt;= 5){</b>
+<b class="fc">&nbsp;            HandEvaluator.sortByRank(flushCards);</b>
+<b class="fc">&nbsp;            return flushCards.subList(0, 5);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-13 14:30</div>
+</div>
+</body>
+</html>
