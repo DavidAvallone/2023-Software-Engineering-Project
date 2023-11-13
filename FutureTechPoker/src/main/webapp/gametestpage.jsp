@@ -12,16 +12,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    HttpSession test = request.getSession();
-    test.setAttribute("roundService", new RoundService());
-    RoundService rs = (RoundService) test.getAttribute("roundService");
-//    RoundService rs = new RoundService();
-//    rs.game_create_test();
-//    rs.round.player_turn(0,"call",0);
-//    rs.round.player_turn(1,"check",0);
-//    rs.round.player_turn(2,"call",0);
-//    rs.round.player_turn(3,"call",0);
-//    rs.round.update_round();
+    session = request.getSession();
+    RoundService rs = new RoundService();
+    rs.game_create_test();
+    session.setAttribute("roundService", rs);
+    rs = (RoundService) session.getAttribute("roundService");
+
 %>
 
 <html>
@@ -80,10 +76,5 @@
     <button type="submit" name="action" value="all in">All In</button>
     <!-- Add input fields for raising amount, if applicable -->
 </form>
-
-<%
-    rs = (RoundService) session.getAttribute("roundService");
-%>
-
 </body>
 </html>

@@ -27,8 +27,8 @@ public class User extends BaseEntity {
     private Integer Wins;
     private Integer Losses;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_player", referencedColumnName = "id_player")
     private Player player;
 
     public transient static final int NORMAL_PERMISSION = 1;
