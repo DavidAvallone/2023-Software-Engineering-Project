@@ -32,6 +32,10 @@ public class User extends BaseEntity {
     private Integer Wins;
     private Integer Losses;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_player", referencedColumnName = "id_player")
+    private Player player;
+  
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "Friends",
@@ -39,9 +43,8 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "friend")
     )
     private List<User> friends = new ArrayList<>();
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Player player;
+ 
+    
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;

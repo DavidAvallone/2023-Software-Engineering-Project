@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Player extends BaseEntity{
 
     @Id
-    @Column(name = "id_user")
+    @Column(name = "id_player")
     private int id;
 
     private String player_name;
@@ -21,27 +21,30 @@ public class Player extends BaseEntity{
 
     private String status;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @MapsId
-    @JoinColumn(name = "id_user")
+    @OneToOne(mappedBy = "player")
     private User user;
 
+    private Integer id_user;
+
     public Player(){
-        this.user = null;
+        //this.user = null;
         this.currency = 0;
         this.player_name = null;
         this.current_bet = 0;
         this.turn_order = -1;
         this.hand = null;
         this.status = null;
+        this.id_user = null;
     }
 
     public Player(User user){
         this();
-        this.user = user;
+        //this.user = user;
         this.currency = user.getBalance();
         this.player_name = user.getUsername();
+        this.id_user = user.getID();
     }
+
 
     @Override
     public Integer getID() {
@@ -93,5 +96,13 @@ public class Player extends BaseEntity{
     }
 
     public void setName(String playerName) {
+    }
+
+    public Integer getId_user(){
+        return this.id_user;
+    }
+
+    public void setId_user(Integer id){
+        this.id_user = id;
     }
 }

@@ -1,0 +1,264 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > User</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">model.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: User (model.entity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">User</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (18/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.1%
+  </span>
+  <span class="absValue">
+    (35/38)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">User$HibernateProxy$92S1yPNS</td>
+  </tr>
+  <tr>
+    <td class="name">User$HibernateProxy$Fr9sJEdv</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (18/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.1%
+  </span>
+  <span class="absValue">
+    (35/38)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package model.entity;
+&nbsp;import javax.persistence.*;
+&nbsp;
+&nbsp;
+&nbsp;/*
+&nbsp;CREATE TABLE IF NOT EXISTS user (
+&nbsp;id_user INT AUTO_INCREMENT PRIMARY KEY,
+&nbsp;Login VARCHAR(255) UNIQUE,
+&nbsp;Username VARCHAR(255) UNIQUE,
+&nbsp;Password VARCHAR(255),
+&nbsp;Permission INT,
+&nbsp;Balance DOUBLE,
+&nbsp;Wins INT,
+&nbsp;Losses INT
+&nbsp;);
+&nbsp; */
+&nbsp;@Entity
+&nbsp;public class User extends BaseEntity {
+<b class="fc">&nbsp;    @Id @Column(name=&quot;id_user&quot;) @GeneratedValue(strategy = GenerationType.IDENTITY)</b>
+&nbsp;    private Integer ID = null;
+&nbsp;    @Column(unique=true) // Login/Email must be unique for each record in DB
+&nbsp;    private String Login;
+&nbsp;    private String Username;
+&nbsp;    private String Password;
+&nbsp;    private int Permission;
+&nbsp;    private Double Balance;
+&nbsp;    private Integer Wins;
+&nbsp;    private Integer Losses;
+&nbsp;
+&nbsp;    @OneToOne(cascade = CascadeType.ALL)
+&nbsp;    @JoinColumn(name = &quot;id_player&quot;, referencedColumnName = &quot;id_player&quot;)
+&nbsp;    private Player player;
+&nbsp;
+&nbsp;    public transient static final int NORMAL_PERMISSION = 1;
+&nbsp;    public transient static final int ADMIN_PERMISSION = 2;
+&nbsp;    public transient static final int GUEST_PERMISSION = 3; // Correct/best way to make a guest profile?
+&nbsp;
+<b class="fc">&nbsp;    public User(){</b>
+<b class="fc">&nbsp;        this.Permission = NORMAL_PERMISSION;</b>
+<b class="fc">&nbsp;        Balance = 5000.0;</b>
+<b class="fc">&nbsp;        Wins = 0;</b>
+<b class="fc">&nbsp;        Losses = 0;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public User(Integer ID, String name, String login, String password, int permission) {</b>
+<b class="fc">&nbsp;        this.ID = ID;</b>
+<b class="fc">&nbsp;        this.Username = name;</b>
+<b class="fc">&nbsp;        Login = login;</b>
+<b class="fc">&nbsp;        Password = password;</b>
+<b class="fc">&nbsp;        Permission = permission;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static User createGuest(){
+<b class="fc">&nbsp;        User guest = new User();</b>
+<b class="fc">&nbsp;        guest.Username = &quot;GuestUsername&quot;;</b>
+<b class="fc">&nbsp;        guest.Permission = GUEST_PERMISSION;</b>
+<b class="fc">&nbsp;        guest.Login = &quot;Guest&quot;;</b>
+<b class="fc">&nbsp;        return guest;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getID() {
+<b class="fc">&nbsp;        return ID;</b>
+&nbsp;    }
+&nbsp;    public void setID(Integer ID) {
+<b class="fc">&nbsp;        this.ID = ID;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getLogin() {
+<b class="fc">&nbsp;        return Login;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setLogin(String login) {
+<b class="fc">&nbsp;        Login = login;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public void setName(String name){
+<b class="fc">&nbsp;        this.Username =name;</b>
+&nbsp;    }
+&nbsp;    public String getName(){
+<b class="nc">&nbsp;        return this.Username;</b>
+&nbsp;    }
+&nbsp;    /***
+&nbsp;     * Returns the email which should be same as the Login
+&nbsp;     *
+&nbsp;     * @return
+&nbsp;     */
+<b class="fc">&nbsp;    public String getEmail(){ return getLogin(); }</b>
+&nbsp;
+&nbsp;    /***
+&nbsp;     * Sets the Email which should be same as Login
+&nbsp;     */
+&nbsp;    public void setEmail(String email){
+<b class="fc">&nbsp;        setLogin(email);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /***
+&nbsp;     * Returns the email which should be same as the Login
+&nbsp;     *
+&nbsp;     * @return
+&nbsp;     */
+<b class="fc">&nbsp;    public String getUsername(){ return Username; }</b>
+&nbsp;
+&nbsp;    /***
+&nbsp;     * Sets the Email which should be same as Login
+&nbsp;     */
+&nbsp;    public void setUsername(String username){
+<b class="fc">&nbsp;        Username = username;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public String getPassword() {
+<b class="fc">&nbsp;        return Password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPassword(String password) {
+<b class="fc">&nbsp;        Password = password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getPermission() {
+<b class="fc">&nbsp;        return Permission;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPermission(int permission) {
+<b class="fc">&nbsp;        Permission = permission;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPermissionAsString(){
+<b class="fc">&nbsp;        if(Permission==NORMAL_PERMISSION) return &quot;Normal&quot;;</b>
+<b class="fc">&nbsp;        else if(Permission==ADMIN_PERMISSION) return &quot;Admin&quot;;</b>
+<b class="fc">&nbsp;        else if(Permission==GUEST_PERMISSION) return &quot;Guest&quot;;</b>
+<b class="fc">&nbsp;        else return &quot;Unknown&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getWins() {
+<b class="nc">&nbsp;        return Wins;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getLosses() {
+<b class="nc">&nbsp;        return Losses;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Double getBalance() {
+<b class="fc">&nbsp;        return Balance;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-13 14:30</div>
+</div>
+</body>
+</html>
