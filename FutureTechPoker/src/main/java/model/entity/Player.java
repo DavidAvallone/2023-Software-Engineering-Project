@@ -21,8 +21,8 @@ public class Player extends BaseEntity{
 
     private String status;
 
-    @OneToOne(mappedBy = "player")
-    private User user;
+//    @OneToOne(mappedBy = "player")
+//    private User user;
 
     private Integer id_user;
 
