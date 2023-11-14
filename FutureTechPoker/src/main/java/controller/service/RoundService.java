@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import Poker.*;
+import java.util.Random;
 
 public class RoundService {
 
@@ -16,7 +17,8 @@ public class RoundService {
         Player p4 = new Player(3, "neil", 10000,3);
 
         int starting_bet = 50;
-        long seed = 42;
+        Random rand = new Random();
+        long seed = rand.nextLong();
         this.round = new Round(starting_bet, seed);
         this.round.add_player(p1, "playing");
         this.round.add_player(p2,"playing");
