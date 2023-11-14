@@ -13,11 +13,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     session = request.getSession();
-    RoundService rs = new RoundService();
-    rs.game_create_test();
-    session.setAttribute("roundService", rs);
-    rs = (RoundService) session.getAttribute("roundService");
+    RoundService rs = (RoundService) session.getAttribute("roundService");
 
+    if(rs == null) {
+        rs = new RoundService();
+        session.setAttribute("roundService", rs);
+        rs.game_create_test();
+    }
 %>
 
 <html>
@@ -49,18 +51,23 @@
 <p>Current Bet: $<%= rs.round.getCurrent_bet() %></p>
 <p>Current Pot: $<%= rs.round.getCurrent_pot() %></p>
 
-<%--<%--%>
-<%--    List<String> rivers = rs.extractCardNames(rs.round.getRiver().toString());--%>
-<%--    String river1 = "images/Playing Cards/PNG-cards-1.3/" + rivers.get(0);--%>
-<%--    String river2 = "images/Playing Cards/PNG-cards-1.3/" + rivers.get(1);--%>
-<%--    String river3 = "images/Playing Cards/PNG-cards-1.3/" + rivers.get(2);--%>
-<%--%>--%>
-<%--<p>River: </p>--%>
-<%--<div class="hand">--%>
-<%--    <img src="<%= river1 %>" width="60" height="90">--%>
-<%--    <img src="<%= river2 %>" width="60" height="90">--%>
-<%--    <img src="<%= river3 %>" width="60" height="90">--%>
-<%--</div>--%>
+<%--
+<%
+    List<String> rivers = rs.extractCardNames(rs.round.getRiver().toString());
+    String river1 = "images/Playing Cards/PNG-cards-1.3/" + rivers.get(0);
+    String river2 = "images/Playing Cards/PNG-cards-1.3/" + rivers.get(1);
+    String river3 = "images/Playing Cards/PNG-cards-1.3/" + rivers.get(2);
+%>
+--%>
+
+<%--
+<div class="hand">
+    <img src="<%= river1 %>" width="60" height="90">
+    <img src="<%= river2 %>" width="60" height="90">
+    <img src="<%= river3 %>" width="60" height="90">
+</div>
+--%>
+
 <%--<br>--%>
 
 <!-- Add buttons and forms for player actions -->
