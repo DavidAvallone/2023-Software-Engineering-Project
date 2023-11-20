@@ -18,12 +18,12 @@ public class Friends extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "owner")
+//    @ManyToOne
+//    @JoinColumn(name = "owner")
     private User owner;
-
-    @ManyToOne
-    @JoinColumn(name = "friend")
+//
+//    @ManyToOne
+//    @JoinColumn(name = "friend")
     private User friend;
 
 
