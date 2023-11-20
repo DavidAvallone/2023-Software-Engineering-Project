@@ -15,5 +15,15 @@
     <h1><%= "FutureTech Poker" %></h1>
 </div>
 
+<form action="GameServlet" method="post" >
+
+    <div class="button-container poker-buttons">
+        <button type="submit" name="action" value="raise">Raise</button>
+        <button type="submit" name="action" value="call">Call</button>
+        <button type="submit" name="action" value="check">Check</button>
+        <button type="submit" name="action" value="fold">Fold</button>
+        <button type="submit" name="action" value="all in">All In</button>
+    </div>
+</form>
 </body>
 </html>
