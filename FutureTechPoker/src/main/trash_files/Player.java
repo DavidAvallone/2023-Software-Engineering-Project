@@ -1,9 +1,8 @@
-package model.entity;
 
 import javax.persistence.*;
 
-@Entity
-public class Player extends BaseEntity{
+
+public class Player{
 
     @Id
     @Column(name = "id_player")

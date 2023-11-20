@@ -1,4 +1,3 @@
-package model.entity;
 import Poker.*;
 
 import javax.persistence.*;
@@ -6,9 +5,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Table(name = "round")
-public class RoundEntity extends BaseEntity {
+public class RoundEntity{
     @Id
     @Column(name = "id_round")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
