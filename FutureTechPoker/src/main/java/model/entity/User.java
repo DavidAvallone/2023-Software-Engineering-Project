@@ -32,16 +32,12 @@ public class User extends BaseEntity {
     private Integer Wins;
     private Integer Losses;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id_player", referencedColumnName = "id_player")
-//    private Player player;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "Friends",
-            joinColumns = @JoinColumn(name = "owner"),
-            inverseJoinColumns = @JoinColumn(name = "friend")
-    )
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "Friends",
+//            joinColumns = @JoinColumn(name = "owner"),
+//            inverseJoinColumns = @JoinColumn(name = "friend")
+//    )
     private List<User> friends = new ArrayList<>();
  
     

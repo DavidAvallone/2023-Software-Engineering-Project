@@ -34,6 +34,8 @@
   <a href="home.jsp" class="home-button">Home Page</a>
   <br>
   <a href="gametestpage.jsp" class="home-button">Game Test Page</a>
+  <br>
+  <a href="table.jsp" class="home-button">Table Page</a>
 </div>
 <%--<img src="logo.jpeg" alt="FutureTech Logo" width="574" height="223" style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%)">--%>
 </body>
