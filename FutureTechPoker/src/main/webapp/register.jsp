@@ -12,7 +12,7 @@
     if(error != null) {
         switch (error) {
             case "1":
-                errorMessage = "Email is already registered..";
+                errorMessage = "Email is already registered.";
                 break;
             case "2":
                 errorMessage = "Unexpected error.";
@@ -28,11 +28,11 @@
 </head>
 <body>
 <div class="banner">
-    <h1><%= "FutureTech Poker" %></h1>
+    <h1>FutureTech Poker</h1>
 </div>
 <br/>
 <div class="centered">
-    <h3 class="center text-primary"> Register New User </h3>
+    <h2 class="center text-primary"> Register Account </h2>
     <form method="post" action="registerUserServlet">
         <div class="row mb-2">
             <label class="col-form-label col-md-3 col-lg-1" for="txt_name"> Name: </label>
@@ -82,7 +82,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+<%--                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>--%>
                 <strong>Error!</strong> <%= errorMessage %>
             </div>
         </div>

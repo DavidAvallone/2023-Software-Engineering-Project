@@ -28,17 +28,17 @@
 </div>
 <div style="column-gap: 10px; column-count: 4; align-content: center">
     <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 1</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 5</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 9</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 2</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 6</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 10</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 3</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 7</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 11</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 4</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 8</a>
-    <a style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 12</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 5</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 9</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 2</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 6</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 10</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 3</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 7</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 11</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 4</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 8</a>
+    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 12</a>
 </div>
 
 <div class="centered">
