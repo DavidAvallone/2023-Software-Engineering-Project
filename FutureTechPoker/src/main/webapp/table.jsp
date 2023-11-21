@@ -156,9 +156,6 @@
 
     }
 %>
-<p><%=river.size()%></p>
-<p><%=size%></p>
-
 
 <div class="river-container">
     <img src="<%= river1 %>" alt="Card 1">
