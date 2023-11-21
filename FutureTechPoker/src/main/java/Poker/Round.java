@@ -632,6 +632,14 @@ public class Round {
         return winning_player;
     }
 
+    public String river_string(){
+        String result = "| ";
+        for(Card card : river){
+            result += card + " | ";
+        }
+        return result;
+    }
+
     /**
      * the tostring method for a round in a human-readable way
      * @return humanreadable string of this round

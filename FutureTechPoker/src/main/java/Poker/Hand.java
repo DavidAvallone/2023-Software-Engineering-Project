@@ -79,9 +79,9 @@ public class Hand{
      * @return String representation of a Hand
      */
     public String toString(){
-        String totalString = "";
+        String totalString = "| ";
         for(int i = 0; i < this.cards.size(); i++){
-            totalString += "| " + this.cards.get(i).toString() + " | ";
+            totalString += this.cards.get(i).toString() + " | ";
         }
         return totalString;
     }
