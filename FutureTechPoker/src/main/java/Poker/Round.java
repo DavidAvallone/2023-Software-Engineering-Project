@@ -285,7 +285,7 @@ public class Round {
         for(int i = 0; i < players.size(); i++){
             pot += players.get(i).getCurrentBet();
         }
-        current_pot = pot;
+        this.current_pot = pot;
     }
 
     /**

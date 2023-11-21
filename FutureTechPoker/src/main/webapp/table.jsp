@@ -27,7 +27,11 @@
 </head>
 
 <body background="images/table_background.png" style="background-size: cover; background-position: center; background-repeat: no-repeat; margin: 0; padding: 0;">
-<h2>Current Players Turn: </h2>
+<%
+    int curr = rs.round.getCurrent_player();
+    String current_player = rs.round.getPlayers().get(curr).getName();
+%>
+<h2>Current Turn: <%= current_player%> </h2>
 <div class="centered">
     <%
         //Player 4
