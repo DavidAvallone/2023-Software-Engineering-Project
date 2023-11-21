@@ -25,7 +25,7 @@ public class RoundService {
         Player p6 = new Player(5, "jules", 5000, 5);
 
         int starting_bet = 50;
-        Random rand = new Random();
+
         long seed = 42;
         this.round = new Round(starting_bet, seed);
         this.round.add_player(p1, "playing");
@@ -36,6 +36,22 @@ public class RoundService {
         this.round.add_player(p6,"playing");
         this.round.start_game();
         this.game_started = true;
+    }
+
+    public void new_game(){
+        Random rand = new Random();
+        long seed = rand.nextLong();
+        int starting_bet = 50;
+        List<Player> players = this.round.getPlayers();
+        for (Player p : players){
+            p.clearHand();
+            p.setCurrentBet(0);
+        }
+        this.round = new Round(starting_bet,seed);
+        for (Player p : players){
+            this.round.add_player(p, "playing");
+        }
+
     }
 
     public ArrayList<String> extractCardNames(String inputString) {

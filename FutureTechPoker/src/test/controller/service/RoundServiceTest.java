@@ -42,6 +42,7 @@ public class RoundServiceTest {
         rs.round.update_round();
 
         System.out.println(rs.round.river_string());
+        System.out.println(rs.round.getPlayers().get(1).getHand());
         List<String> cards = rs.extractCardNames(rs.round.river_string());
         assertEquals(3, rs.round.getRiver().size());
         assertEquals(3, cards.size());
