@@ -49,7 +49,8 @@ public class RoundTest {
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
         round.player_turn(p4.getTurnOrder(), "call", 0);
-        //System.out.println(round);
+        round.update_round();
+        System.out.println(round.river_string());
         assertEquals(200, round.getCurrent_pot());
     }
 

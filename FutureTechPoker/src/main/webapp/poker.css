@@ -103,14 +103,6 @@ p {
     border: 2px solid #000000;
 }
 
-.hand::before {
-    content: attr(data-text); /* Use the 'data-text' attribute as the content */
-    position: absolute;
-    top: -50px; /* Adjust the distance above the hand */
-    left: 50%;
-    transform: translateX(-50%);
-}
-
 /* Style for the images */
 .hand img {
     display: inline-block;
@@ -125,7 +117,7 @@ p {
     align-items: center;
     position: absolute;
     top: 200px; /* Adjust the top position */
-    left: 38%;
+    left: 35%;
 }
 
 .river-text-container h2 {

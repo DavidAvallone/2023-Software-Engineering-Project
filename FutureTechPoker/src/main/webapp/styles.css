@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
 h1 {
     font-size: 48px;
     color: #000;
@@ -92,10 +97,10 @@ button {
     transform: translate(-50%, -50%);
 }
 
-/*.image-container {*/
-/*    display: inline-block; !* Allows elements to appear side by side *!*/
-/*    margin: 10px; !* Adjust spacing between elements *!*/
-/*}*/
+.image-container {
+    display: inline-block; /* Allows elements to appear side by side */
+    margin: 10px; /* Adjust spacing between elements */
+}
 
 .poker-chips {
     width: 100px; /* Set the desired width for the left image */
