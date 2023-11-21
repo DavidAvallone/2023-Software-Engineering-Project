@@ -1,0 +1,135 @@
+.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 48px;
+    color: #ffffff;
+    text-align: center;
+    font-family: "Copperplate Gothic Light", fantasy;
+}
+
+h2 {
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    font-family: "Copperplate Gothic Light", fantasy;
+}
+
+p {
+    color: #ffffff;
+    font-family: "Copperplate Gothic Light", fantasy;
+}
+
+.button-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #f1f1f1; /* Optional: Add a background color */
+    border-top: 1px solid #ccc; /* Optional: Add a border at the top */
+}
+
+/* Style for the poker buttons */
+.poker-buttons button,
+.poker-buttons .input-container input {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.poker-buttons button[value="raise"],
+.poker-buttons .input-container input {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.poker-buttons button[value="call"] {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.poker-buttons button[value="check"] {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.poker-buttons button[value="fold"] {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.poker-buttons button[value="all in"] {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.river-container {
+    width: 400px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    border: 2px solid #000000;
+    padding: 40px;
+    text-align: center;
+    background-color: #555353;
+    border-radius: 10px; /* Add rounded corners */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.river-container img {
+    display: inline-block;
+    height: 90px;
+    width: 60px;
+    margin: 0 5px; /* Add some space between images */
+}
+
+.hand {
+    display: flex; /* Use flexbox to arrange images in a row */
+    justify-content: space-around; /* Distribute space around images */
+    align-items: center; /* Center items vertically */
+    background-color: #3498db; /* Set background color */
+    width: 150px; /* Set a fixed width for the container */
+    height: 110px; /* Set a fixed height for the container */
+    overflow: hidden; /* Hide overflowing content */
+    border-radius: 10px; /* Add rounded corners */
+    border: 2px solid #000000;
+}
+
+.hand::before {
+    content: attr(data-text); /* Use the 'data-text' attribute as the content */
+    position: absolute;
+    top: -50px; /* Adjust the distance above the hand */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Style for the images */
+.hand img {
+    display: inline-block;
+    height: 90px;
+    width: 60px;
+    margin: 0 5px; /* Add some space between images */
+}
+
+.river-text-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    top: 200px; /* Adjust the top position */
+    left: 38%;
+}
+
+.river-text-container h2 {
+    margin: 20px;
+    color: #ffffff; /* Text color */
+}
+
