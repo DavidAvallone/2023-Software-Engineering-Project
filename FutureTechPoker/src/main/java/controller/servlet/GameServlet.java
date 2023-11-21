@@ -25,6 +25,8 @@ public class GameServlet extends HttpServlet {
 
         Double bet = Double.parseDouble(request.getParameter("raiseAmount"));
 
+        if (bet == 0 && action.equals("raise"))
+            bet = 25.0;
         roundService.round.player_turn(0, action, bet);
 
         roundService.round.player_turn(1, "call", 0);

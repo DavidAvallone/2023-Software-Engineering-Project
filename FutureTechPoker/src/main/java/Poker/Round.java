@@ -155,6 +155,9 @@ public class Round {
         return gameover;
     }
 
+    public Player getWinning_player(){
+        return winning_player;
+    }
     /**
      * A setter to set the game to over
      * @param b the boolean to set the game to over or still in play
@@ -285,7 +288,7 @@ public class Round {
         for(int i = 0; i < players.size(); i++){
             pot += players.get(i).getCurrentBet();
         }
-        current_pot = pot;
+        this.current_pot = pot;
     }
 
     /**
