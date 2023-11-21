@@ -46,6 +46,8 @@ public class Round {
         last_raise = 1;
     }
 
+
+
     public void start_game(){
         deal_out();
         gameStarted = true;
@@ -53,6 +55,8 @@ public class Round {
 
     public void add_player(Player p, String status){
         p.setStatus(status);
+        p.clearHand();
+        p.setCurrentBet(0);
         this.players.add(p);
     }
 

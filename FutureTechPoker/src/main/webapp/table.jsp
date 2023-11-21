@@ -31,7 +31,7 @@
     int curr = rs.round.getCurrent_player();
     String current_player = rs.round.getPlayers().get(curr).getName();
 %>
-<h2>Current Turn: <%= current_player%> </h2>
+<h2>Current Turn: <%= current_player%> Current Round: <%=rs.round.getRound_num()%> Game Seed: <%=rs.round.getSeed()%></h2>
 <div class="centered">
     <%
         //Player 4
@@ -169,8 +169,8 @@
 </div>
 
 <div class="river-text-container">
-    <h2>Current Pot: $<%= rs.round.getCurrent_bet() %></h2>
-    <h2>Current Bet: $<%= rs.round.getCurrent_pot() %></h2>
+    <h2>Current Pot: $<%= rs.round.getCurrent_pot() %></h2>
+    <h2>Current Bet: $<%= rs.round.getCurrent_bet() %></h2>
 </div>
 <%
     List<String> river_pngs;

@@ -43,15 +43,11 @@ public class RoundService {
         long seed = rand.nextLong();
         int starting_bet = 50;
         List<Player> players = this.round.getPlayers();
-        for (Player p : players){
-            p.clearHand();
-            p.setCurrentBet(0);
-        }
         this.round = new Round(starting_bet,seed);
         for (Player p : players){
             this.round.add_player(p, "playing");
         }
-
+        this.round.start_game();
     }
 
     public ArrayList<String> extractCardNames(String inputString) {
