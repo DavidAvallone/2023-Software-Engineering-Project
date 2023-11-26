@@ -226,8 +226,8 @@
     String card1 = "images/cardbacks.png";
     String card2 = "images/cardbacks.png";
     try {
-        Player p3 = rs.round.getPlayers().get(0);
-        p1_string = p3.getName() + " $" + p3.getCurrentBet() + " $" + p3.getCurrency();
+        Player p1 = rs.round.getPlayers().get(0);
+        p1_string = p1.getName() + " $" + p1.getCurrentBet() + " $" + p1.getCurrency();
         List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(0).getHand().toString());
         card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
         card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
@@ -244,8 +244,17 @@
     </div>
 </div>
 
+<%
+    String playerStatus = "";
+    try {
+        Player p1 = rs.round.getPlayers().get(0);
+        playerStatus = p1.getStatus(); // Replace this with your actual logic to get the player's status
+    }
+    catch (Exception ex){
+    }
 
-
+    if (!("fold".equals(playerStatus) || "all in".equals(playerStatus))) {
+%>
 <form action="GameServlet" method="post">
     <div class="button-container poker-buttons">
         <button type="submit" name="action" value="raise">Raise</button>
@@ -256,9 +265,54 @@
         <button type="submit" name="action" value="all in">All In</button>
     </div>
 </form>
+<%
+    }
+%>
 
 <% if (rs.round.getGameOver()) { %>
     <script>
+    function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        if (document.getElementById(elmnt.id + "-header")) {
+            // if present, the header is where you move the DIV from
+            document.getElementById(elmnt.id + "-header").onmousedown = dragMouseDown;
+        } else {
+            // otherwise, move the DIV from anywhere inside the DIV
+            elmnt.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            // stop moving when mouse button is released:
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+
     // JavaScript function to open the popup
     function openPopup() {
         document.getElementById('overlay').style.display = 'flex';
@@ -271,8 +325,15 @@
 
     }
 
+    // Call the dragElement function when the page loads
+    window.onload = function () {
+        var popup = document.getElementById('overlay');
+        dragElement(popup);
+        openPopup(); // Call openPopup function when the page loads (you can modify this based on your requirement)
+    };
+
     // Call openPopup function when the page loads (you can modify this based on your requirement)
-    window.onload = openPopup;
+    // window.onload = openPopup;
     </script>
 
     <!-- The overlay and pop-up -->
