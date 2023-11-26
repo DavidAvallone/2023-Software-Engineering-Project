@@ -109,7 +109,7 @@ public class UserServiceTest {
 
         assertAll(
                 () -> assertEquals(found.getID(), u.getID()),
-                () -> assertEquals(found.getName(), u.getName())
+                () -> assertEquals(found.getUsername(), u.getUsername())
         );
     }
 }

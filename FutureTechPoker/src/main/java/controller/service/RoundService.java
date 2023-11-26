@@ -4,20 +4,35 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import Poker.*;
+import model.dao.UserDAO;
+import model.entity.User;
+
 import java.util.Random;
 
 public class RoundService {
 
     public Round round;
+    private UserDAO dao = new UserDAO();
     public boolean game_started;
+
+    public Player player;
+    private User u;
 
     public RoundService(){
         this.round = null;
         this.game_started = false;
+
+    }
+    public RoundService(User u){
+        this.u = u;
+        this.round = null;
+        this.game_started = false;
+        this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), 0);
+
     }
 
     public void game_create_test(){
-        Player p1 = new Player(0, "dave", 5000,0);
+        //Player p1 = new Player(0, "dave", 5000,0);
         Player p2 = new Player(1, "bolden", 5000,1);
         Player p3 = new Player(2, "alex", 5000,2);
         Player p4 = new Player(3, "neil", 5000,3);
@@ -28,7 +43,7 @@ public class RoundService {
 
         long seed = 42;
         this.round = new Round(starting_bet, seed);
-        this.round.add_player(p1, "playing");
+        this.round.add_player(player, "playing");
         this.round.add_player(p2,"playing");
         this.round.add_player(p3,"playing");
         this.round.add_player(p4,"playing");
@@ -61,5 +76,10 @@ public class RoundService {
         }
 
         return cardNames;
+    }
+
+    public void update_player_db(){
+        u.setBalance(player.getCurrency());
+        dao.update(u);
     }
 }

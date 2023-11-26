@@ -74,6 +74,13 @@ public class Hand{
         return comparison;
     }
 
+    public int comparetoRiver(List<Card> river){
+        List<Card> totalCardsPlayer1 = new ArrayList<>();
+        totalCardsPlayer1.addAll(this.getCards());
+        totalCardsPlayer1.addAll(river);
+        return HandEvaluator.evaluate(totalCardsPlayer1);
+    }
+
     /**
      * Hand class toString
      * @return String representation of a Hand

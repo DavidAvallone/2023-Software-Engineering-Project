@@ -605,38 +605,65 @@ public class Round {
      * This function determines who won the game
      * @return the winning player object
      */
+//    public Player who_won(){
+//        Player winning_player = null;
+//
+//        for (int i = 0; i < players.size(); i++) {
+//            Player player1 = players.get(i);
+//
+//            if (player1.isFold()) {
+//                continue; // Skip folded players
+//            }
+//
+//            Hand hand1 = player1.getHand();
+//
+//            for (int j = i + 1; j < players.size(); j++) {
+//                Player player2 = players.get(j);
+//
+//                if (player2.isFold()) {
+//                    continue; // Skip folded players
+//                }
+//
+//                Hand hand2 = player2.getHand();
+//
+//                // You need to implement a compareHands method in your Hand class
+//                int result = hand1.compareTo(hand2, river);
+//
+//                if (result > 0) {
+//                    winning_player = player1;
+//                } else if (result < 0) {
+//                    winning_player = player2;
+//                }
+//            }
+//        }
+//        return winning_player;
+//    }
+
     public Player who_won(){
         Player winning_player = null;
-
+        Hand highest_hand = null;
+        int highest_value = 0;
         for (int i = 0; i < players.size(); i++) {
-            Player player1 = players.get(i);
+            Player player = players.get(i);
 
-            if (player1.isFold()) {
+            if (player.isFold()) {
                 continue; // Skip folded players
             }
-
-            Hand hand1 = player1.getHand();
-
-            for (int j = i + 1; j < players.size(); j++) {
-                Player player2 = players.get(j);
-
-                if (player2.isFold()) {
-                    continue; // Skip folded players
-                }
-
-                Hand hand2 = player2.getHand();
-
-                // You need to implement a compareHands method in your Hand class
-                int result = hand1.compareTo(hand2, river);
-
-                if (result > 0) {
-                    winning_player = player1;
-                } else if (result < 0) {
-                    winning_player = player2;
+            Hand hand = player.getHand();
+            if( i == 0) {
+                winning_player = player;
+                highest_hand = hand;
+                highest_value = hand.comparetoRiver(this.river);
+            }
+            else{
+                if (hand.comparetoRiver(this.river) > highest_value){
+                    winning_player = player;
+                    highest_hand = hand;
+                    highest_value = hand.comparetoRiver(this.river);
                 }
             }
         }
-        return winning_player;
+        return  winning_player;
     }
 
     public String river_string(){
