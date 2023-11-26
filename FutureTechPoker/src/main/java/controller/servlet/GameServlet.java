@@ -40,6 +40,8 @@ public class GameServlet extends HttpServlet {
         roundService.round.player_turn(5, "call", 0);
         roundService.round.update_round();
 
+        roundService.update_player_db();
+
         session.setAttribute("roundService", roundService);
         response.sendRedirect("table.jsp");
     }

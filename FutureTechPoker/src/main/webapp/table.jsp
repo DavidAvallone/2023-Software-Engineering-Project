@@ -9,13 +9,15 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@page import="Poker.*" %>
+<%@ page import="model.entity.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     session = request.getSession();
+    User u = (User) session.getAttribute("User");
     RoundService rs = (RoundService) session.getAttribute("roundService");
 
     if(rs == null) {
-        rs = new RoundService();
+        rs = new RoundService(u);
         session.setAttribute("roundService", rs);
         rs.game_create_test();
     }
@@ -180,11 +182,10 @@
     String river4 = "images/cardbacks.png";
     String river5 = "images/cardbacks.png";
     List<Card> river = rs.round.getRiver();
-    int size = 0;
+
     try {
         if (river.size() == 3) {
             river_pngs = rs.extractCardNames(rs.round.getRiver().toString());
-            size = river_pngs.size();
             river1 = "images/Playing Cards/PNG-cards-1.3/" + river_pngs.get(0);
             river2 = "images/Playing Cards/PNG-cards-1.3/" + river_pngs.get(1);
             river3 = "images/Playing Cards/PNG-cards-1.3/" + river_pngs.get(2);
@@ -234,10 +235,10 @@
     catch (Exception ex){
     }
 %>
-<%--This is my hand the rest should be card backs--%>
+<%--This is my hand the rest should be card backs 480 515--%>
 <div class="centered">
-    <p style="position: absolute; top: 480px;"><%=p1_string%></p>
-    <div class="hand" style="position: absolute; top: 515px;">
+    <p style="position: absolute; top: 560px;"><%=p1_string%></p>
+    <div class="hand" style="position: absolute; top: 600px;">
         <img src="<%= card1 %>" alt="Card 1">
         <img src="<%= card2 %>" alt="Card 2">
     </div>
