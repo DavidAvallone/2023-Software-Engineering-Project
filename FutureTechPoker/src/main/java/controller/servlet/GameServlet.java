@@ -22,15 +22,21 @@ public class GameServlet extends HttpServlet {
         roundService = (RoundService) session.getAttribute("roundService");
 
         String action = request.getParameter("action");
-        String exit = request.getParameter("exit");
-
-        if (exit.equals("leave")){
-            //roundService.update_player_db();
-            //make a function in round that removes a player midround and takes care of that logic
-            //action = "fold";
-            response.sendRedirect("home.jsp");
-            return;
+        String exit = "no exit";
+        try {
+            exit = request.getParameter("exit");
+            if (exit.equals("leave")){
+                //roundService.update_player_db();
+                //make a function in round that removes a player midround and takes care of that logic
+                //action = "fold";
+                response.sendRedirect("home.jsp");
+                return;
+            }
         }
+        catch (Exception ex){
+        }
+
+
         double bet = 0.0;
 
         try{
