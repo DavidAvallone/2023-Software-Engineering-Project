@@ -69,6 +69,10 @@ p {
     background-color: #6c757d;
     color: #fff;
 }
+.poker-buttons button[value="leave"] {
+    background-color: #b719b7;
+    color: #fff;
+}
 
 .river-container {
     width: 400px; /* Adjust the width as needed */

@@ -235,14 +235,19 @@
     catch (Exception ex){
     }
 %>
-<%--This is my hand the rest should be card backs 480 515--%>
+<%--This is my hand the rest should be card backs 480 515 or 560 600--%>
 <div class="centered">
-    <p style="position: absolute; top: 560px;"><%=p1_string%></p>
-    <div class="hand" style="position: absolute; top: 600px;">
+    <p style="position: absolute; top: 480px;"><%=p1_string%></p>
+    <div class="hand" style="position: absolute; top: 515px;">
         <img src="<%= card1 %>" alt="Card 1">
         <img src="<%= card2 %>" alt="Card 2">
     </div>
 </div>
+<form action="GameServlet" method="post">
+    <div class="poker-buttons" style="position: absolute; top: 580px; left: 83%;">
+        <button type="submit" name="exit" value="leave">Leave Table</button>
+    </div>
+</form>
 
 <%
     String playerStatus = "";
