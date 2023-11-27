@@ -14,47 +14,56 @@
 <% if(logged!=null){ %>
 <head>
     <title>FutureTech Poker User Home</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 
 <body>
-<div class="banner">
-    <h1>FutureTech Poker</h1>
-</div>
-<br/>
+    <div class="banner">
+        <h1>FutureTech Poker</h1>
+    </div>
+    <br/>
 
-<div class="centered">
-    <h2>Available Games</h2>
-</div>
-<div style="column-gap: 10px; column-count: 4; align-content: center">
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 1</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 5</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 9</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 2</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 6</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 10</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 3</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 7</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 11</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 4</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 8</a>
-    <a href="table.jsp" style="background-color: #3498db; color: #000; padding: 10px; border-radius: 10px; border: 2px solid #000; cursor: pointer; margin: 10px; text-decoration: none;">Table 12</a>
-</div>
+    <div class="centered">
+        <h2>Available Games</h2>
 
-<div class="centered">
-    <form action="logoutServlet" method="post">
-        <button type="submit">Log Out</button>
-    </form>
-    <a href="user_profile_information.jsp" class="home-button">User Settings / Information</a>
-    <% if(logged.getPermission()!=User.GUEST_PERMISSION){ %>
-    <a href="user_friends.jsp" class="home-button">Manage Friends</a>
-    <% } //end-else-if %>
+        <div class="button-container table-buttons">
+            <button onclick="window.location.href='table.jsp'"> Table 1</button>
+            <button onclick="window.location.href='table.jsp'"> Table 2</button>
+            <button onclick="window.location.href='table.jsp'"> Table 3</button>
+            <button onclick="window.location.href='table.jsp'"> Table 4</button>
+            <button onclick="window.location.href='table.jsp'"> Table 5</button>
+            <button onclick="window.location.href='table.jsp'"> Table 6</button>
+            <button onclick="window.location.href='table.jsp'"> Table 7</button>
+            <button onclick="window.location.href='table.jsp'"> Table 8</button>
+            <button onclick="window.location.href='table.jsp'"> Table 9</button>
+            <button onclick="window.location.href='table.jsp'"> Table 10</button>
+            <button onclick="window.location.href='table.jsp'"> Table 11</button>
+            <button onclick="window.location.href='table.jsp'"> Table 12</button>
+        </div>
 
-    <% if(logged.getPermission()==User.ADMIN_PERMISSION){ %>
-    <a href="admin.jsp" class="home-button">Admin Settings</a>
-    <% } //end-else-if %>
+        <br>
 
-</div>
+        <form action="logoutServlet" method="post">
+            <div class="table-buttons">
+                <button type="submit">Log Out</button>
+            </div>
+        </form>
+
+        <div class="table-buttons">
+            <button onclick="window.location.href='user_profile_information.jsp'">User Settings / Information</button>
+        </div>
+        <% if(logged.getPermission()!=User.GUEST_PERMISSION){ %>
+            <div class="table-buttons">
+                <button onclick="window.location.href='user_friends.jsp'">Manage Friends</button>
+            </div>
+        <% } //end-else-if %>
+
+        <% if(logged.getPermission()==User.ADMIN_PERMISSION){ %>
+            <div class="table-buttons">
+                <button onclick="window.location.href='admin.jsp'">Admin Settings</button>
+            </div>
+        <% } //end-else-if %>
+    </div>
 
 <%--<img src="logo.jpeg" alt="FutureTech Logo" width="574" height="223" style="position: fixed; bottom: 0px; left: 50%; transform: translateX(-50%)">--%>
 </body>
