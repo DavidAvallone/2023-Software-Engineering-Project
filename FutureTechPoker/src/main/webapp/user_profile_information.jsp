@@ -12,17 +12,19 @@
 %>
 
 <html>
-<link rel="stylesheet" type="text/css" href="styles.css">
+<link rel="stylesheet" type="text/css" href="home.css">
 <body>
 <div class="banner">
     <h1><%= "FutureTech Poker" %></h1>
 </div>
 <% if(logged != null && logged.getPermission() != User.GUEST_PERMISSION){ %>
 <title><%= ((User) session.getAttribute("User")).getEmail()%>'s Profile</title>
-<div id="userInformation">
+<div class="centered">
     <h2><%= ((User) session.getAttribute("User")).getEmail()%>'s Profile Settings & Statistics</h2>
     <p><%= ((User) session.getAttribute("User")).getWins()%>W-<%= ((User) session.getAttribute("User")).getLosses()%>L</p>
     <p>Balance: <%= ((User) session.getAttribute("User")).getBalance()%></p>
+    <br>
+
     <form action="resetPasswordServlet" method="post">
         <div class="row mb-2">
             <label class="col-form-label col-md-3 col-lg-1" for="txt_pass"> Password: </label>
@@ -31,6 +33,7 @@
                        minlength="6" required/>
             </div>
         </div>
+        <br>
         <div class="row mb-2">
             <label class="col-form-label col-md-3 col-lg-1" for="txt_conf"> Confirm Password: </label>
             <div class="col-12 col-md-6">
@@ -38,19 +41,23 @@
                        minlength="6" required/>
             </div>
         </div>
-        <button type="submit" onclick="return checkRegisterForm()">Reset Password</button>
-
+        <br>
+        <div class="table-buttons">
+            <button type="submit" onclick="return checkRegisterForm()">Reset Password</button>
+        </div>
     </form>
 
     <form action="deleteUserServlet" method="post">
-        <button type="submit">Delete Account</button>
+        <div class="table-buttons">
+            <button type="submit">Delete Account</button>
+        </div>
     </form>
-    <a href="home.jsp" class="home-button">Home Page</a>
+
+    <div class="table-buttons">
+        <button onclick="window.location.href='home.jsp'">Home</button>
+    </div>
 </div>
 <%} else if(logged != null && logged.getPermission() == User.GUEST_PERMISSION) {%>
-    <div class="banner">
-        <h1><%= "FutureTech Poker" %></h1>
-    </div>
     <h2>Guests do not have profile information or settings.</h2>
 <%} else {%>
 <%

@@ -25,7 +25,7 @@ h2 {
 }
 
 p {
-    color: #ffffff;
+    color: #000000;
     font-family: "Copperplate Gothic Light", fantasy;
 }
 
@@ -36,8 +36,9 @@ p {
     gap: 10px;
     max-width: 400px; /* Adjust the width as needed */
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     border-radius: 8px;
+    background-color: #3498db;
 }
 
 .table-buttons button{

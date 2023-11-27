@@ -61,16 +61,16 @@ p {
 }
 
 .poker-buttons button[value="fold"] {
-    background-color: #dc3545;
+    background-color: #b719b7;
     color: #fff;
 }
 
 .poker-buttons button[value="all in"] {
-    background-color: #6c757d;
+    background-color: #717e7b;
     color: #fff;
 }
 .poker-buttons button[value="leave"] {
-    background-color: #b719b7;
+    background-color: #dc3545;
     color: #fff;
 }
 

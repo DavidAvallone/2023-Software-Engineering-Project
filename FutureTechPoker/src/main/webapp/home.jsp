@@ -52,12 +52,13 @@
         <div class="table-buttons">
             <button onclick="window.location.href='user_profile_information.jsp'">User Settings / Information</button>
         </div>
+        <br>
         <% if(logged.getPermission()!=User.GUEST_PERMISSION){ %>
             <div class="table-buttons">
                 <button onclick="window.location.href='user_friends.jsp'">Manage Friends</button>
             </div>
         <% } //end-else-if %>
-
+        <br>
         <% if(logged.getPermission()==User.ADMIN_PERMISSION){ %>
             <div class="table-buttons">
                 <button onclick="window.location.href='admin.jsp'">Admin Settings</button>
