@@ -21,6 +21,8 @@
     <div class="banner">
         <h1>FutureTech Poker</h1>
     </div>
+
+    <div class="animated-background"></div>
     <br/>
 
     <div class="centered">

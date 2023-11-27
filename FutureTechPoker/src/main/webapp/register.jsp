@@ -24,12 +24,14 @@
 <html>
 <head>
     <title>FutureTech Poker Registration</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 <body>
 <div class="banner">
     <h1>FutureTech Poker</h1>
 </div>
+<div class="animated-background"></div>
+
 <br/>
 <div class="centered">
     <h2 class="center text-primary"> Register Account </h2>
