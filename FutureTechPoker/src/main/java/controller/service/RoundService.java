@@ -135,8 +135,8 @@ public class RoundService {
     }
 
     public void update_player_db(){
-
-        u.setBalance(player.getCurrency());
-        dao.update(u);
+        User found = dao.findUserByLogin(u.getLogin());
+        found.setBalance(player.getCurrency());
+        dao.update(found);
     }
 }
