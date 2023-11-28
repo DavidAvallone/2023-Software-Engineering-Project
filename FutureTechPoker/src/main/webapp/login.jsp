@@ -28,16 +28,17 @@
 
 
   <div class="centered">
-    <h3 class="center text-primary"> Login </h3>
+    <h2> Login </h2>
     <form method="post" action="loginServlet">
       <div class="row mb-2">
-        <label class="col-form-label col-md-3 col-lg-1" for="txt_login"> Login: </label>
+        <label class="col-form-label col-md-3 col-lg-1" for="txt_login" style="font-family: Copperplate Gothic Light, fantasy;"> Login: </label>
         <div class="col-12 col-md-6">
           <input class="form-control" type="email" name="txt_login" id="txt_login" required/>
         </div>
       </div>
+      <br>
       <div class="row mb-2">
-        <label class="col-form-label col-md-3 col-lg-1" for="txt_pass"> Password: </label>
+        <label class="col-form-label col-md-3 col-lg-1" for="txt_pass" style="font-family: Copperplate Gothic Light, fantasy;"> Password: </label>
         <div class="col-12 col-md-6">
           <input class="form-control" type="password" name="txt_pass" id="txt_pass" autocomplete="off"
                  minlength="6" required/>
