@@ -44,6 +44,10 @@
         </div>
 
         <br>
+        <div class="table-buttons">
+            <button onclick="window.location.href='table.jsp'">Single Player</button>
+        </div>
+        <br>
 
         <form action="logoutServlet" method="post">
             <div class="table-buttons">

@@ -34,6 +34,26 @@
     String current_player = rs.round.getPlayers().get(curr).getName();
 %>
 <h2>Current Turn: <%= current_player%> Current Round: <%=rs.round.getRound_num()%> Game Seed: <%=rs.round.getSeed()%></h2>
+
+<div class="poker-buttons">
+    <button style="background-color: #11e5d7;color: #fff;" onclick="openPopup('imagePopup')">Open Cheat Sheet</button>
+</div>
+
+<div class="popup1" id="imagePopup">
+    <span class="close-btn1" onclick="closePopup('imagePopup')">&times;</span>
+    <img src="images/cheat_sheet.png" alt="Popup 1 Image">
+</div>
+
+<script>
+    function openPopup(popupId) {
+        document.getElementById(popupId).classList.add('active');
+    }
+
+    function closePopup(popupId) {
+        document.getElementById(popupId).classList.remove('active');
+    }
+</script>
+
 <div class="centered">
     <%
         //Player 4
