@@ -39,7 +39,7 @@
 <h2>Current Turn: <%= current_player%> Current Round: <%=rs.round.getRound_num()%> Game Seed: <%=rs.round.getSeed()%></h2>
 
 <div class="poker-buttons">
-    <button style="background-color: #11e5d7;color: #fff;" onclick="openPopup('imagePopup')">Open Cheat Sheet</button>
+    <button style="background-color: #11e5d7;color: #fff;left: 5%;position: absolute" onclick="openPopup('imagePopup')">Open Cheat Sheet</button>
 </div>
 
 <div class="popup1" id="imagePopup">
