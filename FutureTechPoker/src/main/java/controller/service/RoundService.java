@@ -18,17 +18,23 @@ public class RoundService {
     public Player player;
     private User u;
 
+    private int current_small;
+
+    private int current_big;
+
     public RoundService(){
         this.round = null;
         this.game_started = false;
-
+        this.current_small = 0;
+        this.current_big = 1;
     }
     public RoundService(User u){
         this.u = u;
         this.round = null;
         this.game_started = false;
         this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), 0);
-
+        this.current_small = 0;
+        this.current_big = 1;
     }
 
     public void game_create_test(){
@@ -49,7 +55,7 @@ public class RoundService {
         this.round.add_player(p4,"playing");
         this.round.add_player(p5,"playing");
         this.round.add_player(p6,"playing");
-        this.round.start_game();
+        this.round.start_game(current_small, current_big);
         this.game_started = true;
     }
 
@@ -62,7 +68,13 @@ public class RoundService {
         for (Player p : players){
             this.round.add_player(p, "playing");
         }
-        this.round.start_game();
+        this.current_small++;
+        this.current_big++;
+        if( this.current_big > 5)
+            this.current_big = 0;
+        if( this.current_small > 5)
+            this.current_small = 0;
+        this.round.start_game(this.current_small, this.current_big);
     }
 
     public ArrayList<String> extractCardNames(String inputString) {

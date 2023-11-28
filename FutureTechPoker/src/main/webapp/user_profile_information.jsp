@@ -24,7 +24,7 @@
     <div class="centered">
         <h2><%= ((User) session.getAttribute("User")).getEmail()%>'s Profile Settings & Statistics</h2>
         <p><%= ((User) session.getAttribute("User")).getWins()%>W-<%= ((User) session.getAttribute("User")).getLosses()%>L</p>
-        <p>Balance: <%= ((User) session.getAttribute("User")).getBalance()%></p>
+        <p>Balance: $<%= ((User) session.getAttribute("User")).getBalance()%></p>
         <br>
 
         <form action="resetPasswordServlet" method="post">

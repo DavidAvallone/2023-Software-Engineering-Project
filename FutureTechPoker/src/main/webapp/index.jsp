@@ -21,11 +21,11 @@
   <div class="animated-background"></div>
 
   <br/>
-  <img src="poker-chips.png" alt="Poker Chips" width="50" height="50" style="position: absolute; left: 44%;top: 220px">
-  <img src="poker-chips.png" alt="Poker Chips" width="50" height="50" style="position: absolute; left: 53%;top: 220px">
+  <img src="images/poker-chips.png" alt="Poker Chips" width="50" height="50" style="position: absolute; left: 44%;top: 220px">
+  <img src="images/poker-chips.png" alt="Poker Chips" width="50" height="50" style="position: absolute; left: 53%;top: 220px">
 
-  <img src="cards.png" alt="Cards" width="50" height="50" style="position: absolute; left: 43%;top: 140px">
-  <img src="cards.png" alt="Cards" width="50" height="50" style="position: absolute; left: 54%;top: 140px">
+  <img src="images/cards.png" alt="Cards" width="50" height="50" style="position: absolute; left: 43%;top: 140px">
+  <img src="images/cards.png" alt="Cards" width="50" height="50" style="position: absolute; left: 54%;top: 140px">
 
   <div class="centered">
     <div class="table-buttons">

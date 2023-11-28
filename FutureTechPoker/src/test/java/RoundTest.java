@@ -22,7 +22,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
         //System.out.println(round);
         assertEquals(50, starting_bet);
@@ -43,7 +43,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -69,7 +69,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "fold", 0);
@@ -95,7 +95,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "fold", 0);
         round.player_turn(p3.getTurnOrder(), "fold", 0);
@@ -121,7 +121,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -146,7 +146,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -174,7 +174,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -203,7 +203,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -235,7 +235,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -272,7 +272,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
         round.player_turn(p3.getTurnOrder(), "call", 0);
@@ -309,7 +309,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         round.player_turn(p1.getTurnOrder(), "call", 0); // 50
         round.player_turn(p2.getTurnOrder(), "check", 0); //50
         round.player_turn(p3.getTurnOrder(), "call", 0); // 50
@@ -341,7 +341,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         round.player_turn(p1.getTurnOrder(), "call", 0); // 50
         round.player_turn(p2.getTurnOrder(), "check", 0); //50
         round.player_turn(p3.getTurnOrder(), "call", 0); // 50
@@ -374,7 +374,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         //round 1
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -413,7 +413,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         //round 1
         round.player_turn(p1.getTurnOrder(), "call", 0);
 
@@ -441,7 +441,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         //round 1
         round.player_turn(p1.getTurnOrder(), "fold", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -470,7 +470,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         //round 1
         round.player_turn(p1.getTurnOrder(), "call", 0);
         round.player_turn(p2.getTurnOrder(), "check", 0);
@@ -516,7 +516,7 @@ public class RoundTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         System.out.println("BEFORE ROUND ONE");
         System.out.println(round);
 
