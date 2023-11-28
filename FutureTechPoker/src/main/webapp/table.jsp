@@ -34,6 +34,26 @@
     String current_player = rs.round.getPlayers().get(curr).getName();
 %>
 <h2>Current Turn: <%= current_player%> Current Round: <%=rs.round.getRound_num()%> Game Seed: <%=rs.round.getSeed()%></h2>
+
+<div class="poker-buttons">
+    <button style="background-color: #11e5d7;color: #fff;" onclick="openPopup('imagePopup')">Open Cheat Sheet</button>
+</div>
+
+<div class="popup1" id="imagePopup">
+    <span class="close-btn1" onclick="closePopup('imagePopup')">&times;</span>
+    <img src="images/cheat_sheet.png" alt="Popup 1 Image">
+</div>
+
+<script>
+    function openPopup(popupId) {
+        document.getElementById(popupId).classList.add('active');
+    }
+
+    function closePopup(popupId) {
+        document.getElementById(popupId).classList.remove('active');
+    }
+</script>
+
 <div class="centered">
     <%
         //Player 4
@@ -86,7 +106,7 @@
     String p5_card1 = "images/cardbacks.png";
     String p5_card2 = "images/cardbacks.png";
     try {
-        Player p3 = rs.round.getPlayers().get(4);
+        Player p3 = rs.round.getPlayers().get(2);
         p5_string = p3.getName() + " $" + p3.getCurrentBet() + " $" + p3.getCurrency();
     }
     catch (Exception ex){
@@ -94,7 +114,7 @@
     if(rs.round.getGameOver()) {
         try {
 
-            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(4).getHand().toString());
+            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(2).getHand().toString());
             p5_card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
             p5_card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
         } catch (Exception ex) {
@@ -110,7 +130,7 @@
     boolean small5 = false;
     boolean big5 = false;
     try {
-        Player p1 = rs.round.getPlayers().get(4);
+        Player p1 = rs.round.getPlayers().get(2);
         small5 = p1.isSmallBlind();
         big5 = p1.isBigBlind();
 
@@ -130,7 +150,7 @@
     String p6_card1 = "images/cardbacks.png";
     String p6_card2 = "images/cardbacks.png";
     try {
-        Player p3 = rs.round.getPlayers().get(5);
+        Player p3 = rs.round.getPlayers().get(1);
         p6_string = p3.getName() + " $" + p3.getCurrentBet() + " $" + p3.getCurrency();
     }
     catch (Exception ex){
@@ -138,7 +158,7 @@
     if(rs.round.getGameOver()) {
         try {
 
-            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(5).getHand().toString());
+            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(1).getHand().toString());
             p6_card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
             p6_card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
         } catch (Exception ex) {
@@ -154,7 +174,7 @@
     boolean small6 = false;
     boolean big6 = false;
     try {
-        Player p1 = rs.round.getPlayers().get(5);
+        Player p1 = rs.round.getPlayers().get(1);
         small6 = p1.isSmallBlind();
         big6 = p1.isBigBlind();
 
@@ -174,7 +194,7 @@
     String p3_card1 = "images/cardbacks.png";
     String p3_card2 = "images/cardbacks.png";
     try {
-        Player p3 = rs.round.getPlayers().get(2);
+        Player p3 = rs.round.getPlayers().get(4);
         p3_string = p3.getName() + " $" + p3.getCurrentBet() + " $" + p3.getCurrency();
     }
     catch (Exception ex){
@@ -182,7 +202,7 @@
     if(rs.round.getGameOver()) {
         try {
 
-            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(2).getHand().toString());
+            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(4).getHand().toString());
             p3_card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
             p3_card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
         } catch (Exception ex) {
@@ -198,7 +218,7 @@
     boolean small2 = false;
     boolean big2 = false;
     try {
-        Player p1 = rs.round.getPlayers().get(2);
+        Player p1 = rs.round.getPlayers().get(4);
         small2 = p1.isSmallBlind();
         big2 = p1.isBigBlind();
 
@@ -213,12 +233,12 @@
 } %>
 
 <%
-    //Player 2
+    //Player 6
     String p2_string = "None"; // Default value
     String p2_card1 = "images/cardbacks.png";
     String p2_card2 = "images/cardbacks.png";
     try {
-        Player p2 = rs.round.getPlayers().get(1);
+        Player p2 = rs.round.getPlayers().get(5);
         p2_string = p2.getName() + " $" + p2.getCurrentBet() + " $" + p2.getCurrency();
     }
     catch (Exception ex){
@@ -226,7 +246,7 @@
     if(rs.round.getGameOver()) {
         try {
 
-            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(1).getHand().toString());
+            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(5).getHand().toString());
             p2_card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
             p2_card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
         } catch (Exception ex) {
@@ -242,7 +262,7 @@
     boolean small1 = false;
     boolean big1 = false;
     try {
-        Player p1 = rs.round.getPlayers().get(1);
+        Player p1 = rs.round.getPlayers().get(5);
         small1 = p1.isSmallBlind();
         big1 = p1.isBigBlind();
 

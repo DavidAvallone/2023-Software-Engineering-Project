@@ -29,6 +29,9 @@ public class GameServlet extends HttpServlet {
                 //roundService.update_player_db();
                 //make a function in round that removes a player midround and takes care of that logic
                 //action = "fold";
+                roundService = null;
+                session.setAttribute("roundService", roundService);
+
                 response.sendRedirect("home.jsp");
                 return;
             }
