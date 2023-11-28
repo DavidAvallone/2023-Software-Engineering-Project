@@ -10,11 +10,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 @WebServlet(name = "GameServlet", value = "/GameServlet")
 public class GameServlet extends HttpServlet {
 
-    public RoundService roundService;
+    public RoundService roundService = new RoundService();
+    //public HashMap<String, RoundService> hsmRound = new HashMap<>();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

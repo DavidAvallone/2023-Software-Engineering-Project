@@ -91,6 +91,7 @@ public class RoundService {
     }
 
     public void update_player_db(){
+
         u.setBalance(player.getCurrency());
         dao.update(u);
     }
