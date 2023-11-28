@@ -6,26 +6,38 @@
 %>
 
 <html>
-<link rel="stylesheet" type="text/css" href="styles.css">
+<link rel="stylesheet" type="text/css" href="home.css">
 <% if(logged!=null && logged.getPermission()==User.ADMIN_PERMISSION){ %>
-<div class="banner">
-    <h1><%= "FutureTech Poker" %></h1>
-</div>
+
 <body>
-<h2>ADMIN PAGE</h2>
-<div class="container mt-2">
-    <div class="col-12 col-md-6">
-        <label class="col-form-label col-md-3 col-lg-1" for="ban_email"> Ban Player: </label>
-        <input class="form-control" type="email" name="ban_email" id="ban_email" required/>
-        <button class="btn btn-success me-2"> Ban </button>
-        <a href="home.jsp" class="home-button">Home Page</a>
+    <div class="banner">
+        <h1>FutureTech Poker</h1>
     </div>
-<% } else { %>
-<%
-    // If access is denied, send a redirect to another page
-    response.sendRedirect("home.jsp");
-%>
-<% } %>
-</div>
+    <div class="animated-background"></div>
+
+
+    <h2>ADMIN PAGE</h2>
+    <div class="centered">
+        <div class="col-12 col-md-6">
+            <label class="col-form-label col-md-3 col-lg-1" for="ban_email" style="font-family: Copperplate Gothic Light, fantasy;"> Ban Player: </label>
+            <input class="form-control" type="email" name="ban_email" id="ban_email" required/>
+        </div>
+
+            <br>
+            <div class="table-buttons">
+                <button class="btn btn-success me-2"> Ban </button>
+            </div>
+            <br>
+            <div class="table-buttons">
+                <button onclick="window.location.href='home.jsp'">Home</button>
+            </div>
+
+        <% } else { %>
+        <%
+            // If access is denied, send a redirect to another page
+            response.sendRedirect("home.jsp");
+        %>
+        <% } %>
+    </div>
 </body>
 </html>

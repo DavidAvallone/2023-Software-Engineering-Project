@@ -39,7 +39,7 @@
     <br>
     <br>
     <img src="images/poker_chip.png" alt="poker_chip" width="200" height="200">
-    <p>Welcome to FutureTech Poker!</p>
+    <h2>Welcome to FutureTech Poker!</h2>
 
   </div>
 
