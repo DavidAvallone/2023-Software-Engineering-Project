@@ -400,7 +400,14 @@
     }
 %>
 
-<% if (rs.round.getGameOver()) { %>
+<% if (rs.round.getGameOver()) {
+    User user = (User) session.getAttribute("User");
+    Player current = new Player(user.getID(), user.getUsername(), user.getBalance(), 0);
+    if (rs.round.who_won().getId() == current.getId())
+        rs.update_player_outcome(true);
+    else
+        rs.update_player_outcome(false);
+%>
     <script>
     function dragElement(elmnt) {
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;

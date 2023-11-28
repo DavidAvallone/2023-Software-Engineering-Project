@@ -51,6 +51,12 @@ public class m_gameServlet extends HttpServlet {
             bet = 25.0;
         roundService.round.player_turn(0, action, bet);
 
+        roundService.round.player_turn(1, "call", 0);
+        roundService.round.player_turn(2, "call", 0);
+        roundService.round.player_turn(3, "call", 0);
+        roundService.round.player_turn(4, "call", 0);
+        roundService.round.player_turn(5, "call", 0);
+
         roundService.round.update_round();
 
         roundService.update_player_db();

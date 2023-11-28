@@ -139,4 +139,12 @@ public class RoundService {
         found.setBalance(player.getCurrency());
         dao.update(found);
     }
+    public void update_player_outcome(boolean o){
+        User found = dao.findUserByLogin(u.getLogin());
+        if(o)
+            found.setWins(found.getWins()+1);
+        else
+            found.setLosses(found.getLosses()+1);
+        dao.update(found);
+    }
 }
