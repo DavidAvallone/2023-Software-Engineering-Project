@@ -15,8 +15,7 @@ import java.util.HashMap;
 @WebServlet(name = "GameServlet", value = "/GameServlet")
 public class GameServlet extends HttpServlet {
 
-    public RoundService roundService = new RoundService();
-    //public HashMap<String, RoundService> hsmRound = new HashMap<>();
+    public RoundService roundService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -28,9 +27,6 @@ public class GameServlet extends HttpServlet {
         try {
             exit = request.getParameter("exit");
             if (exit.equals("leave")){
-                //roundService.update_player_db();
-                //make a function in round that removes a player midround and takes care of that logic
-                //action = "fold";
                 roundService = null;
                 session.setAttribute("roundService", roundService);
 
@@ -65,9 +61,11 @@ public class GameServlet extends HttpServlet {
         roundService.round.player_turn(5, "call", 0);
         roundService.round.update_round();
 
-        //roundService.update_player_db();
-
         session.setAttribute("roundService", roundService);
-        response.sendRedirect("table.jsp");
+        if(roundService.game_type.equals("single"))
+            response.sendRedirect("table.jsp");
+        else
+            response.sendRedirect("tutorial.jsp");
+
     }
 }

@@ -43,8 +43,8 @@
 
         <br>
         <div class="table-buttons">
-            <button onclick="window.location.href='table.jsp?n=1'">Single Player</button>
-            <button onclick="window.location.href='table.jsp?n=2'">Tutorial</button>
+            <button onclick="window.location.href='table.jsp?'">Single Player</button>
+            <button onclick="window.location.href='tutorial.jsp?'">Tutorial</button>
         </div>
         <br>
 
