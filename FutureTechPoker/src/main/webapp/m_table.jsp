@@ -12,15 +12,15 @@
 <%@ page import="model.entity.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String n = request.getParameter("n");
     session = request.getSession();
-
     User u = (User) session.getAttribute("User");
     RoundService rs = (RoundService) session.getAttribute("roundService");
 
     if(rs == null) {
         rs = new RoundService(u);
         session.setAttribute("roundService", rs);
-        rs.create_game();
+        rs.game_create_test();
     }
 %>
 <html>

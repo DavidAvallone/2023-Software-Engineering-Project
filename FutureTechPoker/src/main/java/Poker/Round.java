@@ -727,4 +727,23 @@ public class Round {
     public double getStarting_bet() {
         return this.starting_bet;
     }
+
+    public void remove_player(Player p){
+        int removed = p.getTurnOrder();
+        for(Player player : players){
+            if( p.getId() == player.getId()){
+                players.remove(p);
+                break;
+            }
+        }
+        update_turn_order();
+    }
+
+    public void update_turn_order(){
+        int i = 0;
+        for(Player player : players){
+            player.setTurnOrder(i);
+            i++;
+        }
+    }
 }

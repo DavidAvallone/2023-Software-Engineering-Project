@@ -23,35 +23,34 @@
     </div>
 
     <div class="animated-background"></div>
-    <br/>
 
     <div class="centered">
         <h2>Available Games</h2>
-
         <div class="button-container table-buttons">
-            <button onclick="window.location.href='table.jsp'"> Table 1</button>
-            <button onclick="window.location.href='table.jsp'"> Table 2</button>
-            <button onclick="window.location.href='table.jsp'"> Table 3</button>
-            <button onclick="window.location.href='table.jsp'"> Table 4</button>
-            <button onclick="window.location.href='table.jsp'"> Table 5</button>
-            <button onclick="window.location.href='table.jsp'"> Table 6</button>
-            <button onclick="window.location.href='table.jsp'"> Table 7</button>
-            <button onclick="window.location.href='table.jsp'"> Table 8</button>
-            <button onclick="window.location.href='table.jsp'"> Table 9</button>
-            <button onclick="window.location.href='table.jsp'"> Table 10</button>
-            <button onclick="window.location.href='table.jsp'"> Table 11</button>
-            <button onclick="window.location.href='table.jsp'"> Table 12</button>
+            <button onclick="window.location.href='m_table.jsp?n=1'"> Table 1</button>
+            <button onclick="window.location.href='m_table.jsp?n=2'"> Table 2</button>
+            <button onclick="window.location.href='m_table.jsp?n=3'"> Table 3</button>
+            <button onclick="window.location.href='m_table.jsp?n=4'"> Table 4</button>
+            <button onclick="window.location.href='m_table.jsp?n=5'"> Table 5</button>
+            <button onclick="window.location.href='m_table.jsp?n=6'"> Table 6</button>
+            <button onclick="window.location.href='m_table.jsp?n=7'"> Table 7</button>
+            <button onclick="window.location.href='m_table.jsp?n=8'"> Table 8</button>
+            <button onclick="window.location.href='m_table.jsp?n=9'"> Table 9</button>
+            <button onclick="window.location.href='m_table.jsp?n=10'"> Table 10</button>
+            <button onclick="window.location.href='m_table.jsp?n=11'"> Table 11</button>
+            <button onclick="window.location.href='m_table.jsp?n=12'"> Table 12</button>
         </div>
 
         <br>
         <div class="table-buttons">
-            <button onclick="window.location.href='table.jsp'">Single Player</button>
+            <button onclick="window.location.href='table.jsp?'">Single Player</button>
+            <button onclick="window.location.href='tutorial.jsp?'">Tutorial</button>
         </div>
         <br>
 
         <form action="logoutServlet" method="post">
             <div class="table-buttons">
-                <button type="submit">Log Out</button>
+                <button type="submit" style="position: absolute; left: 85%; top: 125px;">Log Out</button>
             </div>
         </form>
 
