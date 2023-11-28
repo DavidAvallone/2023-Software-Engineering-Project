@@ -1,6 +1,5 @@
 package controller.servlet;
 
-import Poker.Round;
 import controller.service.RoundService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,11 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 @WebServlet(name = "m_GameServlet", value = "/m_GameServlet")
-
-public class m_gamerServlet  extends HttpServlet {
+public class m_gameServlet extends HttpServlet {
     public RoundService roundService = new RoundService();
     //public HashMap<String, RoundService> hsmRound = new HashMap<>();
 
@@ -54,9 +51,15 @@ public class m_gamerServlet  extends HttpServlet {
             bet = 25.0;
         roundService.round.player_turn(0, action, bet);
 
+        roundService.round.player_turn(1, "call", 0);
+        roundService.round.player_turn(2, "call", 0);
+        roundService.round.player_turn(3, "call", 0);
+        roundService.round.player_turn(4, "call", 0);
+        roundService.round.player_turn(5, "call", 0);
+
         roundService.round.update_round();
 
-        //roundService.update_player_db();
+        roundService.update_player_db();
 
         session.setAttribute("roundService", roundService);
         response.sendRedirect("m_table.jsp");

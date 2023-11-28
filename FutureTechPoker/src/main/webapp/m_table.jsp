@@ -12,7 +12,8 @@
 <%@ page import="model.entity.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String n = request.getParameter("n");
+    String table_id = request.getParameter("n");
+
     session = request.getSession();
     User u = (User) session.getAttribute("User");
     RoundService rs = (RoundService) session.getAttribute("roundService");
@@ -20,7 +21,7 @@
     if(rs == null) {
         rs = new RoundService(u);
         session.setAttribute("roundService", rs);
-        rs.game_create_test();
+        rs.create_game();
     }
 %>
 <html>
@@ -385,7 +386,7 @@
 
     if (!("fold".equals(playerStatus) || "all in".equals(playerStatus))) {
 %>
-<form action="GameServlet" method="post">
+<form action="m_GameServlet" method="post">
     <div class="button-container poker-buttons">
         <button type="submit" name="action" value="raise">Raise</button>
         <input type="number" step="25.0" id="raiseAmount" name="raiseAmount" placeholder="Enter Raise" min="0.0" aria-placeholder="0.0" value="0.0">
@@ -399,7 +400,14 @@
     }
 %>
 
-<% if (rs.round.getGameOver()) { %>
+<% if (rs.round.getGameOver()) {
+    User user = (User) session.getAttribute("User");
+    Player current = new Player(user.getID(), user.getUsername(), user.getBalance(), 0);
+    if (rs.round.who_won().getId() == current.getId())
+        rs.update_player_outcome(true);
+    else
+        rs.update_player_outcome(false);
+%>
     <script>
     function dragElement(elmnt) {
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
