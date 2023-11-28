@@ -48,8 +48,8 @@ public class Round {
 
 
 
-    public void start_game(){
-        deal_out();
+    public void start_game(int small_blind, int big_blind){
+        deal_out(small_blind, big_blind);
         gameStarted = true;
     }
 
@@ -92,29 +92,30 @@ public class Round {
     /**
      * This updates the blinds depending on the turn order.
      */
-    public void update_blinds() {
-        Player p1 = players.get(0);
-        p1.setSmallBlind(true);
-        p1.setCurrentBet(small_blind);
-        p1.setCurrency(p1.getCurrency()-small_blind);
-        Player p2 = players.get(1);
-        p2.setCurrentBet(big_blind);
-        p2.setCurrency(p2.getCurrency()-big_blind);
-        p2.setBigBlind(true);
-        for (int i = 2; i < players.size(); i++) {
+    public void update_blinds(int small, int big) {
+        for (int i = 0; i < players.size(); i++) {
             Player temp = players.get(i);
             temp.setSmallBlind(false);
             temp.setBigBlind(false);
         }
+        Player p1 = players.get(small);
+        p1.setSmallBlind(true);
+        p1.setCurrentBet(small_blind);
+        p1.setCurrency(p1.getCurrency()-small_blind);
+
+        Player p2 = players.get(big);
+        p2.setCurrentBet(big_blind);
+        p2.setCurrency(p2.getCurrency()-big_blind);
+        p2.setBigBlind(true);
     }
 
     /**
      * this simulates the beginning of a poker match and sorts players
      * deals out the cards to each players hands
      */
-    public void deal_out() {
+    public void deal_out(int small_blind, int big_blind) {
         sort_players();
-        update_blinds();
+        update_blinds(small_blind, big_blind);
         int all_drew = 0;
         players.get(0).addCardToHand(deck.draw());
         for (int i = 0; i < players.size(); i++) {

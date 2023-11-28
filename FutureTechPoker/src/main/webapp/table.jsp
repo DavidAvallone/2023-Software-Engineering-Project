@@ -61,6 +61,23 @@
         <img src="<%=p4_card1%>" alt="Card 1">
         <img src="<%=p4_card2%>" alt="Card 2">
     </div>
+    <%
+        boolean small4 = false;
+        boolean big4 = false;
+        try {
+            Player p1 = rs.round.getPlayers().get(3);
+            small4 = p1.isSmallBlind();
+            big4 = p1.isBigBlind();
+
+            if (small4) { %>
+    <img src="images/small_blind.png" alt="Small Blind" height="30" width="30" style="position: absolute; top: 50px;left: 55%">
+    <% }
+        if (big4) { %>
+    <img src="images/big_blind.png" alt="Big Blind" height="35" width="35" style="position: absolute; top: 50px;left: 55%">
+    <% }
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    } %>
 </div>
 
 <%
@@ -90,6 +107,24 @@
     <img src="<%=p5_card2%>" alt="Card 2">
 </div>
 <%
+    boolean small5 = false;
+    boolean big5 = false;
+    try {
+        Player p1 = rs.round.getPlayers().get(4);
+        small5 = p1.isSmallBlind();
+        big5 = p1.isBigBlind();
+
+        if (small5) { %>
+<img src="images/small_blind.png" alt="Small Blind" height="30" width="30" style="position: absolute; top: 200px;left: 25%">
+<% }
+    if (big5) { %>
+<img src="images/big_blind.png" alt="Big Blind" height="35" width="35" style="position: absolute; top: 200px;left: 25%">
+<% }
+} catch (Exception ex) {
+    ex.printStackTrace();
+} %>
+
+<%
     //Player 6
     String p6_string = "None"; // Default value
     String p6_card1 = "images/cardbacks.png";
@@ -115,6 +150,23 @@
     <img src="<%=p6_card1%>" alt="Card 1">
     <img src="<%=p6_card2%>" alt="Card 2">
 </div>
+<%
+    boolean small6 = false;
+    boolean big6 = false;
+    try {
+        Player p1 = rs.round.getPlayers().get(5);
+        small6 = p1.isSmallBlind();
+        big6 = p1.isBigBlind();
+
+        if (small6) { %>
+<img src="images/small_blind.png" alt="Small Blind" height="30" width="30" style="position: absolute; top: 450px;left: 25%">
+<% }
+    if (big6) { %>
+<img src="images/big_blind.png" alt="Big Blind" height="35" width="35" style="position: absolute; top: 450px;left: 25%">
+<% }
+} catch (Exception ex) {
+    ex.printStackTrace();
+} %>
 
 <%
     //Player 3
@@ -142,6 +194,23 @@
     <img src="<%=p3_card1%>" alt="Card 1">
     <img src="<%=p3_card2%>" alt="Card 2">
 </div>
+<%
+    boolean small2 = false;
+    boolean big2 = false;
+    try {
+        Player p1 = rs.round.getPlayers().get(2);
+        small2 = p1.isSmallBlind();
+        big2 = p1.isBigBlind();
+
+        if (small2) { %>
+<img src="images/small_blind.png" alt="Small Blind" height="30" width="30" style="position: absolute; top: 200px;left: 85%">
+<% }
+    if (big2) { %>
+<img src="images/big_blind.png" alt="Big Blind" height="35" width="35" style="position: absolute; top: 200px;left: 85%">
+<% }
+} catch (Exception ex) {
+    ex.printStackTrace();
+} %>
 
 <%
     //Player 2
@@ -169,6 +238,23 @@
     <img src="<%=p2_card1%>" alt="Card 1">
     <img src="<%=p2_card2%>" alt="Card 2">
 </div>
+<%
+    boolean small1 = false;
+    boolean big1 = false;
+    try {
+        Player p1 = rs.round.getPlayers().get(1);
+        small1 = p1.isSmallBlind();
+        big1 = p1.isBigBlind();
+
+        if (small1) { %>
+<img src="images/small_blind.png" alt="Small Blind" height="30" width="30" style="position: absolute; top: 450px;left: 85%">
+<% }
+    if (big1) { %>
+<img src="images/big_blind.png" alt="Big Blind" height="35" width="35" style="position: absolute; top: 450px;left: 85%">
+<% }
+} catch (Exception ex) {
+    ex.printStackTrace();
+} %>
 
 <div class="river-text-container">
     <h2>Current Pot: $<%= rs.round.getCurrent_pot() %></h2>
@@ -242,7 +328,25 @@
         <img src="<%= card1 %>" alt="Card 1">
         <img src="<%= card2 %>" alt="Card 2">
     </div>
+    <%
+        boolean small0 = false;
+        boolean big0 = false;
+        try {
+        Player p1 = rs.round.getPlayers().get(0);
+        small0 = p1.isSmallBlind();
+        big0 = p1.isBigBlind();
+
+        if (small0) { %>
+    <img src="images/small_blind.png" alt="Small Blind" height="30" width="30" style="position: absolute; top: 515px;left: 55%">
+    <% }
+        if (big0) { %>
+    <img src="images/big_blind.png" alt="Big Blind" height="35" width="35" style="position: absolute; top: 515px;left: 55%">
+    <% }
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    } %>
 </div>
+
 <form action="GameServlet" method="post">
     <div class="poker-buttons" style="position: absolute; top: 580px; left: 83%;">
         <button type="submit" name="exit" value="leave">Leave Table</button>

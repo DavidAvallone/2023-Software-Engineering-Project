@@ -20,7 +20,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
         ArrayList<Player> expected = new ArrayList<>();
         expected.add(p3);
@@ -45,7 +45,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
         ArrayList<Player> expected = new ArrayList<>();
         expected.add(p3);
@@ -70,7 +70,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         // p3 is small blind
@@ -92,7 +92,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         // p2 is big blind
@@ -114,7 +114,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         // p1 is neither
@@ -136,7 +136,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         // p1 is neither
@@ -158,7 +158,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
         boolean two_cards_per_player = true;
         ArrayList<Player> dealt_cards = round.getPlayers();
@@ -185,7 +185,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         round.player_turn(0, "fold",0);
@@ -207,7 +207,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         round.player_turn(0, "fold",0);
@@ -232,7 +232,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         round.player_turn(0, "raise",10);
@@ -256,7 +256,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         round.player_turn(0, "all in",10);
@@ -280,7 +280,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         round.player_turn(0, "all in",10);
@@ -302,7 +302,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         round.player_turn(0, "call",10);
@@ -325,7 +325,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         String choice = "hello";
@@ -354,7 +354,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         round.player_turn(0, "call",0);
@@ -381,7 +381,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
 
         round.player_turn(0, "call",0);
@@ -408,7 +408,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
         round.player_turn(0, "fold",0);
         round.player_turn(1, "check",0);
@@ -434,7 +434,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
         round.player_turn(0, "call",0);
         round.player_turn(1, "check",0);
@@ -460,7 +460,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
         round.player_turn(0, "call",0);
         round.player_turn(1, "check",0);
@@ -485,7 +485,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
 
         round.player_turn(0, "fold",0);
         round.player_turn(1, "check",0);
@@ -511,7 +511,7 @@ public class RoundHelperTest {
         round.add_player(p2, "playing");
         round.add_player(p3, "playing");
         round.add_player(p4, "playing");
-        round.start_game();
+        round.start_game(0,1);
         round.player_turn(0, "call",0);
         round.player_turn(1, "check",0);
         round.player_turn(2, "fold",0);
