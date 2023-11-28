@@ -25,11 +25,11 @@ public class m_gameServlet extends HttpServlet {
         try {
             exit = request.getParameter("exit");
             if (exit.equals("leave")){
-                //roundService.update_player_db();
+                roundService.update_player_db();
+                roundService.update_player_outcome(false);
                 //make a function in round that removes a player midround and takes care of that logic
                 //action = "fold";
-                roundService = null;
-                session.setAttribute("roundService", roundService);
+
 
                 response.sendRedirect("home.jsp");
                 return;
