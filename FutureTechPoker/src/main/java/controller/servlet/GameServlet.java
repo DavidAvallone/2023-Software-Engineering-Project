@@ -50,15 +50,15 @@ public class GameServlet extends HttpServlet {
             bet = 25.0;
         roundService.round.player_turn(0, action, bet);
 
-        roundService.round.player_turn(1, "call", 0);
+        roundService.round.player_turn(1, "call", 0);// add bot
 
-        roundService.round.player_turn(2, "call", 0);
+        roundService.round.player_turn(2, "call", 0);// add bot
 
-        roundService.round.player_turn(3, "call", 0);
+        roundService.round.player_turn(3, "call", 0);// add bot
 
-        roundService.round.player_turn(4, "call", 0);
+        roundService.round.player_turn(4, "call", 0);// add bot
 
-        roundService.round.player_turn(5, "call", 0);
+        roundService.round.player_turn(5, "call", 0);// add bot
         roundService.round.update_round();
 
         session.setAttribute("roundService", roundService);

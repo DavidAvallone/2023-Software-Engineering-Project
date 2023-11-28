@@ -29,11 +29,15 @@ public class RoundService {
         this.current_small = 0;
         this.current_big = 1;
     }
-    public RoundService(User u){
+
+    public RoundService(User u, boolean single){
         this.u = u;
         this.round = null;
         this.game_started = false;
-        this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), 0);
+        if (single)
+            this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), 0);
+        else
+            this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), determine_turn());
         this.current_small = 0;
         this.current_big = 1;
     }
@@ -101,6 +105,38 @@ public class RoundService {
         this.round.start_game(current_small, current_big);
         this.game_started = true;
     }
+
+    public void create_multiplayer_game(){
+        //Player p1 = new Player(0, "dave", 5000,0);
+//        Player p2 = new Player(1, "bolden", 5000,1);
+//        Player p3 = new Player(2, "alex", 5000,2);
+//        Player p4 = new Player(3, "neil", 5000,3);
+//        Player p5 = new Player(4, "kelly", 5000, 4);
+//        Player p6 = new Player(5, "jules", 5000, 5);
+
+        int starting_bet = 50;
+        Random rand = new Random();
+
+        long seed = rand.nextLong();
+        this.round = new Round(starting_bet, seed);
+        this.round.add_player(player, "playing");
+//        this.round.add_player(p2,"playing");
+//        this.round.add_player(p3,"playing");
+//        this.round.add_player(p4,"playing");
+//        this.round.add_player(p5,"playing");
+//        this.round.add_player(p6,"playing");
+
+    }
+
+    public static int determine_turn(){
+        return 0;
+    }
+
+    public void start_multiplayer_game(){
+        this.round.start_game(current_small, current_big);
+        this.game_started = true;
+    }
+
 
 
     public void new_game(){
