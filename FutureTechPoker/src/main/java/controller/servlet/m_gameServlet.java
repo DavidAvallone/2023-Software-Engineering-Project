@@ -16,7 +16,6 @@ import java.util.HashMap;
 
 @WebServlet(name = "m_GameServlet", value = "/m_GameServlet")
 public class m_gameServlet extends HttpServlet {
-    public RoundService roundService;
     private TableManager tableManager;
 
     public void init() throws ServletException {
@@ -26,6 +25,8 @@ public class m_gameServlet extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String table_id = request.getParameter("n");
+        RoundService roundService = tableManager.getTable(table_id);
         String action = request.getParameter("action");
         String exit = "no exit";
         try {
@@ -55,7 +56,7 @@ public class m_gameServlet extends HttpServlet {
         roundService.round.update_round();
         roundService.update_player_db();
 
-
+        request.setAttribute("n", table_id);
         response.sendRedirect("m_table.jsp");
     }
 }

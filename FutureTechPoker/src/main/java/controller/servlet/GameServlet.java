@@ -62,6 +62,7 @@ public class GameServlet extends HttpServlet {
         roundService.round.update_round();
 
         session.setAttribute("roundService", roundService);
+
         if(roundService.game_type.equals("single"))
             response.sendRedirect("table.jsp");
         else

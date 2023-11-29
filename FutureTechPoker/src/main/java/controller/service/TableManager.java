@@ -32,9 +32,4 @@ public class TableManager {
         RoundService roundService = new RoundService();
         tables.put(tableId, roundService);
     }
-
-    public void addPlayerToTable(String tableId, Player player) {
-        RoundService roundService = tables.get(tableId);
-        roundService.addPlayer(player);
-    }
 }
