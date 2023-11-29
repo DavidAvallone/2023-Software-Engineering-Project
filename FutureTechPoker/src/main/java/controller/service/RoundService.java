@@ -24,7 +24,10 @@ public class RoundService {
     private int current_big;
 
     public RoundService(){
-        this.round = null;
+        int starting_bet = 50;
+        Random rand = new Random();
+        long seed = rand.nextLong();
+        this.round = new Round(starting_bet, seed);
         this.game_started = false;
         this.current_small = 0;
         this.current_big = 1;
@@ -37,7 +40,15 @@ public class RoundService {
         if (single)
             this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), 0);
         else
-            this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), determine_turn());
+            this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), -1);
+        this.current_small = 0;
+        this.current_big = 1;
+    }
+    public RoundService(Player p){
+        this.u = null;
+        this.round = null;
+        this.game_started = false;
+        this.player = p;
         this.current_small = 0;
         this.current_big = 1;
     }
@@ -106,38 +117,44 @@ public class RoundService {
         this.game_started = true;
     }
 
-    public void create_multiplayer_game(){
-        //Player p1 = new Player(0, "dave", 5000,0);
-//        Player p2 = new Player(1, "bolden", 5000,1);
-//        Player p3 = new Player(2, "alex", 5000,2);
-//        Player p4 = new Player(3, "neil", 5000,3);
-//        Player p5 = new Player(4, "kelly", 5000, 4);
-//        Player p6 = new Player(5, "jules", 5000, 5);
-
-        int starting_bet = 50;
-        Random rand = new Random();
-
-        long seed = rand.nextLong();
-        this.round = new Round(starting_bet, seed);
-        this.round.add_player(player, "playing");
-//        this.round.add_player(p2,"playing");
-//        this.round.add_player(p3,"playing");
-//        this.round.add_player(p4,"playing");
-//        this.round.add_player(p5,"playing");
-//        this.round.add_player(p6,"playing");
-
+    public int determine_turn(){
+        int turn = 0;
+        if (round.getPlayers().isEmpty())
+            return turn;
+        else
+            return round.getPlayers().size();
     }
 
-    public static int determine_turn(){
-        return 0;
+    public boolean is_player_in(Player p){
+        for(Player player : round.getPlayers()){
+            if (player.getId() == p.getId())
+                return true;
+        }
+        return false;
+    }
+
+    public int player_turn(Player p){
+        int t = -1;
+        for(Player player : round.getPlayers()){
+            if (player.getId() == p.getId())
+                t = player.getTurnOrder();
+        }
+        return t;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
+    }
+
+    public void addPlayer(Player p){
+        p.setTurnOrder(determine_turn());
+        this.round.add_player(p,"playing");
     }
 
     public void start_multiplayer_game(){
         this.round.start_game(current_small, current_big);
         this.game_started = true;
     }
-
-
 
     public void new_game(){
         Random rand = new Random();
@@ -170,13 +187,13 @@ public class RoundService {
         return cardNames;
     }
 
-    public void update_player_db(){
-        User found = dao.findUserByLogin(u.getLogin());
-        found.setBalance(player.getCurrency());
+    public void update_player_db(User user, Player p){
+        User found = dao.findUserByLogin(user.getLogin());
+        found.setBalance(p.getCurrency());
         dao.update(found);
     }
-    public void update_player_outcome(boolean o){
-        User found = dao.findUserByLogin(u.getLogin());
+    public void update_player_outcome(User user, boolean o){
+        User found = dao.findUserByLogin(user.getLogin());
         if(o)
             found.setWins(found.getWins()+1);
         else

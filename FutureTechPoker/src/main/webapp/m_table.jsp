@@ -10,20 +10,76 @@
 <%@ page import="java.util.List" %>
 <%@page import="Poker.*" %>
 <%@ page import="model.entity.User" %>
+<%@ page import="controller.servlet.m_gameServlet" %>
+<%@ page import="controller.service.TableManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--<%--%>
+<%--    String table_id = request.getParameter("n");--%>
+
+<%--    session = request.getSession();--%>
+<%--    User u = (User) session.getAttribute("User");--%>
+<%--    RoundService rs = (RoundService) session.getAttribute("roundService");--%>
+
+<%--    if(rs == null) {--%>
+<%--        rs = new RoundService(u, false);--%>
+<%--        session.setAttribute("roundService", rs);--%>
+<%--        rs.create_multiplayer_game();--%>
+<%--        rs.start_multiplayer_game();--%>
+<%--    }--%>
+<%--%>--%>
 <%
     String table_id = request.getParameter("n");
 
-    session = request.getSession();
-    User u = (User) session.getAttribute("User");
-    RoundService rs = (RoundService) session.getAttribute("roundService");
+    TableManager tableManager = TableManager.getInstance();
 
-    if(rs == null) {
-        rs = new RoundService(u, false);
-        session.setAttribute("roundService", rs);
-        rs.create_multiplayer_game();
+    if (tableManager.getTable(table_id) == null) {
+        tableManager.createTable(table_id);
+    }
+
+    RoundService rs = tableManager.getTable(table_id);
+
+
+    if (session.getAttribute("playerCreationDone") == null) {
+        User u = (User) session.getAttribute("User");
+        Player player = new Player(u.getID(), u.getUsername(), u.getBalance());
+
+        if (!rs.is_player_in(player))
+            rs.addPlayer(player);
+
+        int player_turn = rs.player_turn(player);
+
+        session.setAttribute("my_player", player);
+        session.setAttribute("playerCreationDone", true);
+        session.setAttribute("player_turn", player_turn);
+        session.setAttribute("table_id", table_id);
+    }
+
+
+    if (rs.round.getPlayers().size() >= 2 && !rs.game_started) {
         rs.start_multiplayer_game();
     }
+    int my_int = (int) session.getAttribute("player_turn");
+
+    int next1 = my_int + 1;
+    if( next1 == 6)
+        next1 = 0;
+
+    int next2 = next1 + 1;
+    if( next2 == 6)
+        next2 = 0;
+
+    int next3 = next2 + 1;
+    if( next3 == 6)
+        next3 = 0;
+
+    int next4 = next3 + 1;
+    if( next4 == 6)
+        next4 = 0;
+
+    int next5 = next4 + 1;
+    if( next5 == 6)
+        next5 = 0;
+
 %>
 <html>
 <head>
@@ -39,7 +95,7 @@
 <h2>Current Turn: <%= current_player%> Current Round: <%=rs.round.getRound_num()%> Game Seed: <%=rs.round.getSeed()%></h2>
 
 <div class="poker-buttons">
-    <button style="background-color: #11e5d7;color: #fff;" onclick="openPopup('imagePopup')">Open Cheat Sheet</button>
+    <button style="background-color: #11e5d7;color: #fff;left: 5%;position: absolute" onclick="openPopup('imagePopup')">Open Cheat Sheet</button>
 </div>
 
 <div class="popup1" id="imagePopup">
@@ -64,7 +120,7 @@
         String p4_card1 = "images/cardbacks.png";
         String p4_card2 = "images/cardbacks.png";
         try {
-            Player p3 = rs.round.getPlayers().get(3);
+            Player p3 = rs.round.getPlayers().get(next3);
             p4_string = p3.getName() + " $" + p3.getCurrentBet() + " $" + p3.getCurrency();
         }
         catch (Exception ex){
@@ -72,7 +128,7 @@
         if(rs.round.getGameOver()) {
             try {
 
-                List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(3).getHand().toString());
+                List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(next3).getHand().toString());
                 p4_card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
                 p4_card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
             } catch (Exception ex) {
@@ -88,7 +144,7 @@
         boolean small4 = false;
         boolean big4 = false;
         try {
-            Player p1 = rs.round.getPlayers().get(3);
+            Player p1 = rs.round.getPlayers().get(next3);
             small4 = p1.isSmallBlind();
             big4 = p1.isBigBlind();
 
@@ -104,12 +160,13 @@
 </div>
 
 <%
-    //Player 5
+    //Player 2
     String p5_string = "None"; // Default value
     String p5_card1 = "images/cardbacks.png";
     String p5_card2 = "images/cardbacks.png";
+
     try {
-        Player p3 = rs.round.getPlayers().get(2);
+        Player p3 = rs.round.getPlayers().get(next2);
         p5_string = p3.getName() + " $" + p3.getCurrentBet() + " $" + p3.getCurrency();
     }
     catch (Exception ex){
@@ -117,7 +174,7 @@
     if(rs.round.getGameOver()) {
         try {
 
-            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(2).getHand().toString());
+            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(next2).getHand().toString());
             p5_card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
             p5_card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
         } catch (Exception ex) {
@@ -133,7 +190,7 @@
     boolean small5 = false;
     boolean big5 = false;
     try {
-        Player p1 = rs.round.getPlayers().get(2);
+        Player p1 = rs.round.getPlayers().get(next2);
         small5 = p1.isSmallBlind();
         big5 = p1.isBigBlind();
 
@@ -148,12 +205,13 @@
 } %>
 
 <%
-    //Player 6
+    //Player 2
     String p6_string = "None"; // Default value
     String p6_card1 = "images/cardbacks.png";
     String p6_card2 = "images/cardbacks.png";
+
     try {
-        Player p3 = rs.round.getPlayers().get(1);
+        Player p3 = rs.round.getPlayers().get(next1);
         p6_string = p3.getName() + " $" + p3.getCurrentBet() + " $" + p3.getCurrency();
     }
     catch (Exception ex){
@@ -161,7 +219,7 @@
     if(rs.round.getGameOver()) {
         try {
 
-            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(1).getHand().toString());
+            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(next1).getHand().toString());
             p6_card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
             p6_card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
         } catch (Exception ex) {
@@ -177,7 +235,7 @@
     boolean small6 = false;
     boolean big6 = false;
     try {
-        Player p1 = rs.round.getPlayers().get(1);
+        Player p1 = rs.round.getPlayers().get(next1);
         small6 = p1.isSmallBlind();
         big6 = p1.isBigBlind();
 
@@ -192,12 +250,12 @@
 } %>
 
 <%
-    //Player 3
+    //Player 5
     String p3_string = "None"; // Default value
     String p3_card1 = "images/cardbacks.png";
     String p3_card2 = "images/cardbacks.png";
     try {
-        Player p3 = rs.round.getPlayers().get(4);
+        Player p3 = rs.round.getPlayers().get(next4);
         p3_string = p3.getName() + " $" + p3.getCurrentBet() + " $" + p3.getCurrency();
     }
     catch (Exception ex){
@@ -205,7 +263,7 @@
     if(rs.round.getGameOver()) {
         try {
 
-            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(4).getHand().toString());
+            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(next4).getHand().toString());
             p3_card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
             p3_card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
         } catch (Exception ex) {
@@ -221,7 +279,7 @@
     boolean small2 = false;
     boolean big2 = false;
     try {
-        Player p1 = rs.round.getPlayers().get(4);
+        Player p1 = rs.round.getPlayers().get(next4);
         small2 = p1.isSmallBlind();
         big2 = p1.isBigBlind();
 
@@ -241,7 +299,7 @@
     String p2_card1 = "images/cardbacks.png";
     String p2_card2 = "images/cardbacks.png";
     try {
-        Player p2 = rs.round.getPlayers().get(5);
+        Player p2 = rs.round.getPlayers().get(next5);
         p2_string = p2.getName() + " $" + p2.getCurrentBet() + " $" + p2.getCurrency();
     }
     catch (Exception ex){
@@ -249,7 +307,7 @@
     if(rs.round.getGameOver()) {
         try {
 
-            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(5).getHand().toString());
+            List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(next5).getHand().toString());
             p2_card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
             p2_card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
         } catch (Exception ex) {
@@ -265,7 +323,7 @@
     boolean small1 = false;
     boolean big1 = false;
     try {
-        Player p1 = rs.round.getPlayers().get(5);
+        Player p1 = rs.round.getPlayers().get(next5);
         small1 = p1.isSmallBlind();
         big1 = p1.isBigBlind();
 
@@ -335,9 +393,9 @@
     String card1 = "images/cardbacks.png";
     String card2 = "images/cardbacks.png";
     try {
-        Player p1 = rs.round.getPlayers().get(0);
+        Player p1 = rs.round.getPlayers().get(my_int);
         p1_string = p1.getName() + " $" + p1.getCurrentBet() + " $" + p1.getCurrency();
-        List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(0).getHand().toString());
+        List<String> cards = rs.extractCardNames(rs.round.getPlayers().get(my_int).getHand().toString());
         card1 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(0);
         card2 = "images/Playing Cards/PNG-cards-1.3/" + cards.get(1);
     }
@@ -355,7 +413,7 @@
         boolean small0 = false;
         boolean big0 = false;
         try {
-        Player p1 = rs.round.getPlayers().get(0);
+        Player p1 = rs.round.getPlayers().get(my_int);
         small0 = p1.isSmallBlind();
         big0 = p1.isBigBlind();
 
@@ -379,13 +437,14 @@
 <%
     String playerStatus = "";
     try {
-        Player p1 = rs.round.getPlayers().get(0);
+        Player p1 = rs.round.getPlayers().get(my_int);
         playerStatus = p1.getStatus(); // Replace this with your actual logic to get the player's status
     }
     catch (Exception ex){
     }
-
-    if (!("fold".equals(playerStatus) || "all in".equals(playerStatus))) {
+    int current_turn = rs.round.getCurrent_player_turn();
+    if (my_int == current_turn){
+        if (!("fold".equals(playerStatus) || "all in".equals(playerStatus))) {
 %>
 <form action="m_GameServlet" method="post">
     <div class="button-container poker-buttons">
@@ -398,6 +457,7 @@
     </div>
 </form>
 <%
+        }
     }
 %>
 
@@ -405,9 +465,9 @@
     User user = (User) session.getAttribute("User");
     Player current = new Player(user.getID(), user.getUsername(), user.getBalance(), 0);
     if (rs.round.who_won().getId() == current.getId())
-        rs.update_player_outcome(true);
+        rs.update_player_outcome(user, true);
     else
-        rs.update_player_outcome(false);
+        rs.update_player_outcome(user, false);
 %>
     <script>
     function dragElement(elmnt) {
