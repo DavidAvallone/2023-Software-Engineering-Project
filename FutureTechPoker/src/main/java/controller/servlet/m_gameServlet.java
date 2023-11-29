@@ -1,25 +1,31 @@
 package controller.servlet;
 
+import Poker.Player;
 import controller.service.RoundService;
+import controller.service.TableManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.entity.User;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 @WebServlet(name = "m_GameServlet", value = "/m_GameServlet")
 public class m_gameServlet extends HttpServlet {
-    public RoundService roundService = new RoundService();
-    //public HashMap<String, RoundService> hsmRound = new HashMap<>();
+    public RoundService roundService;
+    private TableManager tableManager;
+
+    public void init() throws ServletException {
+        super.init();
+        tableManager = TableManager.getInstance();
+    }
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-        roundService = (RoundService) session.getAttribute("roundService");
-
         String action = request.getParameter("action");
         String exit = "no exit";
         try {
@@ -27,10 +33,7 @@ public class m_gameServlet extends HttpServlet {
             if (exit.equals("leave")){
                 roundService.update_player_db();
                 roundService.update_player_outcome(false);
-                //make a function in round that removes a player midround and takes care of that logic
-                //action = "fold";
-
-
+                roundService.round.remove_player(roundService.player);
                 response.sendRedirect("home.jsp");
                 return;
             }
@@ -38,9 +41,7 @@ public class m_gameServlet extends HttpServlet {
         catch (Exception ex){
         }
 
-
         double bet = 0.0;
-
         try{
             bet = Double.parseDouble(request.getParameter("raiseAmount"));
         }
@@ -49,19 +50,12 @@ public class m_gameServlet extends HttpServlet {
 
         if (bet == 0 && action.equals("raise"))
             bet = 25.0;
+
         roundService.round.player_turn(0, action, bet);
-
-        roundService.round.player_turn(1, "call", 0);
-        roundService.round.player_turn(2, "call", 0);
-        roundService.round.player_turn(3, "call", 0);
-        roundService.round.player_turn(4, "call", 0);
-        roundService.round.player_turn(5, "call", 0);
-
         roundService.round.update_round();
-
         roundService.update_player_db();
 
-        session.setAttribute("roundService", roundService);
+
         response.sendRedirect("m_table.jsp");
     }
 }

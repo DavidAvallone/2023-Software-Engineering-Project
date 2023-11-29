@@ -10,20 +10,42 @@
 <%@ page import="java.util.List" %>
 <%@page import="Poker.*" %>
 <%@ page import="model.entity.User" %>
+<%@ page import="controller.servlet.m_gameServlet" %>
+<%@ page import="controller.service.TableManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--<%--%>
+<%--    String table_id = request.getParameter("n");--%>
+
+<%--    session = request.getSession();--%>
+<%--    User u = (User) session.getAttribute("User");--%>
+<%--    RoundService rs = (RoundService) session.getAttribute("roundService");--%>
+
+<%--    if(rs == null) {--%>
+<%--        rs = new RoundService(u, false);--%>
+<%--        session.setAttribute("roundService", rs);--%>
+<%--        rs.create_multiplayer_game();--%>
+<%--        rs.start_multiplayer_game();--%>
+<%--    }--%>
+<%--%>--%>
 <%
     String table_id = request.getParameter("n");
 
     session = request.getSession();
     User u = (User) session.getAttribute("User");
-    RoundService rs = (RoundService) session.getAttribute("roundService");
+    Player player = new Player(u.getID(), u.getUsername(), u.getBalance());
 
-    if(rs == null) {
-        rs = new RoundService(u, false);
-        session.setAttribute("roundService", rs);
+    TableManager tableManager = TableManager.getInstance();
+    RoundService rs = tableManager.getTable(table_id);
+    if (!rs.is_player_in(player))
+        rs.addPlayer(player);
+
+    if (rs.round == null)
         rs.create_multiplayer_game();
+
+    if (rs.round.getPlayers().size() >= 2) {
         rs.start_multiplayer_game();
     }
+
 %>
 <html>
 <head>
