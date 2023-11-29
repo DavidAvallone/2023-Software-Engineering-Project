@@ -728,6 +728,9 @@ public class Round {
         return this.starting_bet;
     }
 
+    public int getCurrent_player_turn(){
+        return current_player_turn;
+    }
     public void remove_player(Player p){
         int removed = p.getTurnOrder();
         for(Player player : players){

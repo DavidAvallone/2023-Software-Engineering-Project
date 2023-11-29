@@ -29,6 +29,7 @@
 <%--%>--%>
 <%
     String table_id = request.getParameter("n");
+
     TableManager tableManager = TableManager.getInstance();
 
     if (tableManager.getTable(table_id) == null) {
@@ -46,9 +47,11 @@
             rs.addPlayer(player);
 
         int player_turn = rs.player_turn(player);
-        // Set the flag to indicate that the logic has been executed
+
+        session.setAttribute("my_player", player);
         session.setAttribute("playerCreationDone", true);
         session.setAttribute("player_turn", player_turn);
+        session.setAttribute("table_id", table_id);
     }
 
 
@@ -57,7 +60,7 @@
     }
     int my_int = (int) session.getAttribute("player_turn");
 
-    int next1 = (int) session.getAttribute("player_turn") +1;
+    int next1 = my_int + 1;
     if( next1 == 6)
         next1 = 0;
 
@@ -439,8 +442,9 @@
     }
     catch (Exception ex){
     }
-
-    if (!("fold".equals(playerStatus) || "all in".equals(playerStatus))) {
+    int current_turn = rs.round.getCurrent_player_turn();
+    if (my_int == current_turn){
+        if (!("fold".equals(playerStatus) || "all in".equals(playerStatus))) {
 %>
 <form action="m_GameServlet" method="post">
     <div class="button-container poker-buttons">
@@ -453,6 +457,7 @@
     </div>
 </form>
 <%
+        }
     }
 %>
 
@@ -460,9 +465,9 @@
     User user = (User) session.getAttribute("User");
     Player current = new Player(user.getID(), user.getUsername(), user.getBalance(), 0);
     if (rs.round.who_won().getId() == current.getId())
-        rs.update_player_outcome(true);
+        rs.update_player_outcome(user, true);
     else
-        rs.update_player_outcome(false);
+        rs.update_player_outcome(user, false);
 %>
     <script>
     function dragElement(elmnt) {

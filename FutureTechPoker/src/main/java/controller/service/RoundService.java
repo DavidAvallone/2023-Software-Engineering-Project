@@ -117,10 +117,6 @@ public class RoundService {
         this.game_started = true;
     }
 
-    public void addPlayer(Player player){
-        this.round.add_player(player, "playing");
-    }
-
     public int determine_turn(){
         int turn = 0;
         if (round.getPlayers().isEmpty())
@@ -150,17 +146,15 @@ public class RoundService {
         this.round = round;
     }
 
-    public void add_player(){
-        this.player.setTurnOrder(determine_turn());
-        this.round.add_player(player,"playing");
+    public void addPlayer(Player p){
+        p.setTurnOrder(determine_turn());
+        this.round.add_player(p,"playing");
     }
 
     public void start_multiplayer_game(){
         this.round.start_game(current_small, current_big);
         this.game_started = true;
     }
-
-
 
     public void new_game(){
         Random rand = new Random();
@@ -193,13 +187,13 @@ public class RoundService {
         return cardNames;
     }
 
-    public void update_player_db(){
-        User found = dao.findUserByLogin(u.getLogin());
-        found.setBalance(player.getCurrency());
+    public void update_player_db(User user, Player p){
+        User found = dao.findUserByLogin(user.getLogin());
+        found.setBalance(p.getCurrency());
         dao.update(found);
     }
-    public void update_player_outcome(boolean o){
-        User found = dao.findUserByLogin(u.getLogin());
+    public void update_player_outcome(User user, boolean o){
+        User found = dao.findUserByLogin(user.getLogin());
         if(o)
             found.setWins(found.getWins()+1);
         else
