@@ -13,20 +13,6 @@
 <%@ page import="controller.servlet.m_gameServlet" %>
 <%@ page import="controller.service.TableManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%--%>
-<%--    String table_id = request.getParameter("n");--%>
-
-<%--    session = request.getSession();--%>
-<%--    User u = (User) session.getAttribute("User");--%>
-<%--    RoundService rs = (RoundService) session.getAttribute("roundService");--%>
-
-<%--    if(rs == null) {--%>
-<%--        rs = new RoundService(u, false);--%>
-<%--        session.setAttribute("roundService", rs);--%>
-<%--        rs.create_multiplayer_game();--%>
-<%--        rs.start_multiplayer_game();--%>
-<%--    }--%>
-<%--%>--%>
 <script>
     // Function to refresh the page every three seconds
     function refreshPage() {
@@ -34,7 +20,7 @@
     }
 
     // Set the interval for page refresh (3000 milliseconds = 3 seconds)
-    setInterval(refreshPage, 3000);
+    setInterval(refreshPage, 5000);
 </script>
 <%
     String table_id = request.getParameter("n");
@@ -48,7 +34,7 @@
     RoundService rs = tableManager.getTable(table_id);
 
 
-    if (session.getAttribute("playerCreationDone") == null) {
+    if (session.getAttribute("playerCreationDone") == null || (boolean) session.getAttribute("playerCreationDone") == false) {
         User u = (User) session.getAttribute("User");
         Player player = new Player(u.getID(), u.getUsername(), u.getBalance());
 

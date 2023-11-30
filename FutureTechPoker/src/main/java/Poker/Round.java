@@ -388,6 +388,11 @@ public class Round {
         if(everyone_folded()){
             return true;
         }
+        for(Player p : players){
+           if (p.getStatus().equals("playing"))
+               return false;
+        }
+
         int active_players = 0;
         int folded_players = 0;
         // find folded players
