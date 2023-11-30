@@ -27,6 +27,7 @@ public class m_gameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String table_id = (String) session.getAttribute("table_id");
+        init();
         User user = (User) session.getAttribute("User");
         Player player = (Player) session.getAttribute("my_player");
         RoundService roundService = tableManager.getTable(table_id);
@@ -55,12 +56,19 @@ public class m_gameServlet extends HttpServlet {
         if (bet == 0 && action.equals("raise"))
             bet = 25.0;
 
-        roundService.round.player_turn(player.getTurnOrder(), action, bet);
-        roundService.round.update_round();
-        player = roundService.round.getPlayers().get(player.getTurnOrder());
-        roundService.update_player_db(user, player);
+        try{
+            roundService.round.player_turn(player.getTurnOrder(), action, bet);
+
+            roundService.round.update_round();
+            
+            player = roundService.round.getPlayers().get(player.getTurnOrder());
+            roundService.update_player_db(user, player);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
         session.setAttribute("my_player", player);
         request.setAttribute("n", table_id);
-        response.sendRedirect("m_table.jsp");
+        response.sendRedirect("m_table.jsp?n=" + table_id);
     }
 }

@@ -171,6 +171,11 @@ public class RoundService {
             this.current_big = 0;
         if( this.current_small > 5)
             this.current_small = 0;
+
+        if( this.current_big >= players.size())
+            this.current_big = 0;
+        if( this.current_small >= players.size())
+            this.current_small = 0;
         this.round.start_game(this.current_small, this.current_big);
     }
 

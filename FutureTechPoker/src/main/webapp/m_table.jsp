@@ -27,6 +27,15 @@
 <%--        rs.start_multiplayer_game();--%>
 <%--    }--%>
 <%--%>--%>
+<script>
+    // Function to refresh the page every three seconds
+    function refreshPage() {
+        location.reload(true); // Set to true to force a reload from the server, ignoring the cache
+    }
+
+    // Set the interval for page refresh (3000 milliseconds = 3 seconds)
+    setInterval(refreshPage, 3000);
+</script>
 <%
     String table_id = request.getParameter("n");
 
@@ -443,6 +452,7 @@
     catch (Exception ex){
     }
     int current_turn = rs.round.getCurrent_player_turn();
+    if(rs.game_started){
     if (my_int == current_turn){
         if (!("fold".equals(playerStatus) || "all in".equals(playerStatus))) {
 %>
@@ -457,6 +467,7 @@
     </div>
 </form>
 <%
+            }
         }
     }
 %>
