@@ -39,6 +39,7 @@ public class m_gameServlet extends HttpServlet {
                 roundService.update_player_db(user,player);
                 roundService.update_player_outcome(user,false);
                 roundService.round.remove_player(player);
+                session.setAttribute("playerCreationDone", false);
                 response.sendRedirect("home.jsp");
                 return;
             }

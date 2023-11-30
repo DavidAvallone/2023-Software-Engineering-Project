@@ -33,14 +33,11 @@ public class RoundService {
         this.current_big = 1;
     }
 
-    public RoundService(User u, boolean single){
+    public RoundService(User u){
         this.u = u;
         this.round = null;
         this.game_started = false;
-        if (single)
-            this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), 0);
-        else
-            this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), -1);
+        this.player = new Player(u.getID(), u.getUsername(),u.getBalance(), 0);
         this.current_small = 0;
         this.current_big = 1;
     }

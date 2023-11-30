@@ -18,7 +18,7 @@
     RoundService rs = (RoundService) session.getAttribute("roundService");
 
     if(rs == null) {
-        rs = new RoundService(u, true);
+        rs = new RoundService(u);
         session.setAttribute("roundService", rs);
         rs.create_game();
     }
