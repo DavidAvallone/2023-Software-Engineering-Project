@@ -44,6 +44,7 @@ public class m_gameServlet extends HttpServlet {
             }
         }
         catch (Exception ex){
+            ex.printStackTrace();
         }
 
         double bet = 0.0;
