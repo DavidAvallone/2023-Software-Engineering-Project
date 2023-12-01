@@ -39,18 +39,21 @@ public class User extends BaseEntity {
 //            inverseJoinColumns = @JoinColumn(name = "friend")
 //    )
     private List<User> friends = new ArrayList<>();
+
+    private boolean banned;
  
     
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
-    public transient static final int GUEST_PERMISSION = 3; // Correct/best way to make a guest profile?
+    public transient static final int GUEST_PERMISSION = 3;
 
     public User(){
         this.Permission = NORMAL_PERMISSION;
         Balance = 5000.0;
         Wins = 0;
         Losses = 0;
+        banned = false;
     }
 
     public User(Integer ID, String name, String login, String password, int permission) {
@@ -59,6 +62,7 @@ public class User extends BaseEntity {
         Login = login;
         Password = password;
         Permission = permission;
+        banned = false;
     }
 
     public static User createGuest(){
@@ -66,6 +70,7 @@ public class User extends BaseEntity {
         guest.Username = "GuestUsername";
         guest.Permission = GUEST_PERMISSION;
         guest.Login = "Guest";
+        guest.banned = false;
         return guest;
     }
 
@@ -91,6 +96,8 @@ public class User extends BaseEntity {
 
         return this.Username;
     }
+
+
     /***
      * Returns the email which should be same as the Login
      *
@@ -166,4 +173,15 @@ public class User extends BaseEntity {
     public void setFriends(List<User> friends) {
         this.friends = friends;
     }
+
+
+    public boolean getBanned(){
+        return this.banned;
+    }
+
+    public void setBanned(boolean banned){
+        this.banned = banned;
+    }
 }
+
+
