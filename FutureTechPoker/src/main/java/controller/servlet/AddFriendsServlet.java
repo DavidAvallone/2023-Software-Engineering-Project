@@ -22,11 +22,11 @@ public class AddFriendsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String friendName = request.getParameter("newFriend");
         User owner = (User) session.getAttribute("User");
-        if(UserService.findUserByName(friendName) != null && !friendName.equals(owner.getName())) {
+        if(UserService.findUserByName(friendName) != null && !friendName.equals(owner.getUsername())) {
             User newFriend = UserService.findUserByName(friendName);
             List<Friends> friendList = FriendsService.getFriendsList(owner);
 
-            if(friendList.stream().anyMatch(friends -> friends.getFriend().getName().equals(friendName))){
+            if(friendList.stream().anyMatch(friends -> friends.getFriend().getUsername().equals(friendName))){
                 response.sendRedirect("user_friends.jsp?msg=1");
             }
             else {
