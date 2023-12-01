@@ -16,7 +16,8 @@ Password VARCHAR(255),
 Permission INT,
 Balance DOUBLE,
 Wins INT,
-Losses INT
+Losses INT,
+Banned BOOLEAN
 );
  */
 @Entity
