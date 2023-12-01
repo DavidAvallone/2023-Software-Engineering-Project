@@ -97,10 +97,10 @@ button {
     transform: translate(-50%, -50%);
 }
 
-/*.image-container {*/
-/*    display: inline-block; !* Allows elements to appear side by side *!*/
-/*    margin: 10px; !* Adjust spacing between elements *!*/
-/*}*/
+.image-container {
+    display: inline-block; /* Allows elements to appear side by side */
+    margin: 10px; /* Adjust spacing between elements */
+}
 
 .poker-chips {
     width: 100px; /* Set the desired width for the left image */
@@ -170,52 +170,4 @@ button {
     padding: 10px;
     background-color: #f1f1f1; /* Optional: Add a background color */
     border-top: 1px solid #ccc; /* Optional: Add a border at the top */
-}
-
-/* Style for the poker buttons */
-.poker-buttons button,
-.poker-buttons .input-container input {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.poker-buttons button[value="raise"],
-.poker-buttons .input-container input {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.poker-buttons button[value="call"] {
-    background-color: #28a745;
-    color: #fff;
-}
-
-.poker-buttons button[value="check"] {
-    background-color: #ffc107;
-    color: #000;
-}
-
-.poker-buttons button[value="fold"] {
-    background-color: #dc3545;
-    color: #fff;
-}
-
-.poker-buttons button[value="all in"] {
-    background-color: #6c757d;
-    color: #fff;
-}
-
-.river-container {
-    width: 350px; /* Adjust the width as needed */
-    height: 100px; /* Adjust the height as needed */
-    border: 2px solid #000000;
-    padding: 40px;
-    text-align: center;
-    background-color: #555353;
-}
-
-.river-container img {
-    display: inline-block;
-    margin: 0 5px; /* Add some space between images */
 }

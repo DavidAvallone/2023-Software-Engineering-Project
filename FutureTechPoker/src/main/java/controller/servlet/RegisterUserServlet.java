@@ -17,10 +17,10 @@ public class RegisterUserServlet extends HttpServlet {
         String strPass = request.getParameter("txt_pass");
 
         User newUser = new User();
-        newUser.setName(strName);
+        newUser.setUsername(strName);
         newUser.setLogin(strLogin);
         newUser.setPassword(strPass);
-        newUser.setName(strName);
+        newUser.setUsername(strName);
 
         User registered = UserService.registerUser(newUser);
         if(registered==null) {

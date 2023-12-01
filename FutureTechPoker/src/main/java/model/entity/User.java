@@ -16,8 +16,7 @@ Password VARCHAR(255),
 Permission INT,
 Balance DOUBLE,
 Wins INT,
-Losses INT,
-Banned BOOLEAN
+Losses INT
 );
  */
 @Entity
@@ -39,22 +38,17 @@ public class User extends BaseEntity {
 //            joinColumns = @JoinColumn(name = "owner"),
 //            inverseJoinColumns = @JoinColumn(name = "friend")
 //    )
-    private List<User> friends = new ArrayList<>();
-
-    private boolean banned;
- 
-    
+    //private List<User> friends = new ArrayList<>();
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
-    public transient static final int GUEST_PERMISSION = 3;
+    public transient static final int GUEST_PERMISSION = 3; // Correct/best way to make a guest profile?
 
     public User(){
         this.Permission = NORMAL_PERMISSION;
         Balance = 5000.0;
         Wins = 0;
         Losses = 0;
-        banned = false;
     }
 
     public User(Integer ID, String name, String login, String password, int permission) {
@@ -63,7 +57,6 @@ public class User extends BaseEntity {
         Login = login;
         Password = password;
         Permission = permission;
-        banned = false;
     }
 
     public static User createGuest(){
@@ -71,7 +64,6 @@ public class User extends BaseEntity {
         guest.Username = "GuestUsername";
         guest.Permission = GUEST_PERMISSION;
         guest.Login = "Guest";
-        guest.banned = false;
         return guest;
     }
 
@@ -88,14 +80,6 @@ public class User extends BaseEntity {
 
     public void setLogin(String login) {
         Login = login;
-    }
-
-    public void setName(String name){
-        this.Username =name;
-    }
-    public String getName(){
-
-        return this.Username;
     }
 
 
@@ -156,6 +140,14 @@ public class User extends BaseEntity {
         return Wins;
     }
 
+    public void setLosses(Integer losses) {
+        Losses = losses;
+    }
+
+    public void setWins(Integer wins) {
+        Wins = wins;
+    }
+
     public int getLosses() {
         return Losses;
     }
@@ -164,25 +156,17 @@ public class User extends BaseEntity {
         return Balance;
     }
 
+    public void setBalance(Double balance) {
+        Balance = balance;
+    }
 
     //Be careful using getFriends(). The fetch type is lazy so this will often be inaccurate or empty
     //May want to use getFriendsList(User owner) in FriendsService instead
-    public List<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
-    }
-
-
-    public boolean getBanned(){
-        return this.banned;
-    }
-
-    public void setBanned(boolean banned){
-        this.banned = banned;
-    }
+//    public List<User> getFriends() {
+//        return friends;
+//    }
+//
+//    public void setFriends(List<User> friends) {
+//        this.friends = friends;
+//    }
 }
-
-

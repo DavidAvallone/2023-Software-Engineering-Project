@@ -12,31 +12,36 @@
 <html>
 <head>
   <title>FutureTech Poker</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 <body>
-<div class="banner">
-  <h1><%= "FutureTech Poker" %></h1>
-</div>
-<br/>
-<div class="centered">
-  <div class="image-container">
-    <img src="poker-chips.png" alt="Poker Chips" class="poker-chips" width="40" height="40">
-    <a href="register.jsp" class="home-button">Register Page</a>
+  <div class="banner">
+    <h1><%= "FutureTech Poker" %></h1>
   </div>
-  <br>
-  <br>
-  <div class="image-container">
-    <a href="login.jsp" class="home-button">Login Page</a>
-    <img src="cards.png" alt="Cards" class="cards-image">
+  <div class="animated-background"></div>
+
+  <br/>
+  <img src="images/poker-chips.png" alt="Poker Chips" width="50" height="50" style="position: absolute; left: 44%;top: 220px">
+  <img src="images/poker-chips.png" alt="Poker Chips" width="50" height="50" style="position: absolute; left: 53%;top: 220px">
+
+  <img src="images/cards.png" alt="Cards" width="50" height="50" style="position: absolute; left: 43%;top: 140px">
+  <img src="images/cards.png" alt="Cards" width="50" height="50" style="position: absolute; left: 54%;top: 140px">
+
+  <div class="centered">
+    <div class="table-buttons">
+        <button style="background-color: #498ed5; color: #fff;" onclick="window.location.href='register.jsp'">Register</button>
+    </div>
+    <br>
+    <br>
+    <div class="table-buttons">
+      <button style="background-color: #498ed5; color: #fff;" onclick="window.location.href='login.jsp'">Login</button>
+    </div>
+    <br>
+    <br>
+    <img src="images/poker_chip.png" alt="poker_chip" width="200" height="200">
+    <h2>Welcome to FutureTech Poker!</h2>
+
   </div>
-  <br>
-  <a href="home.jsp" class="home-button">Home Page</a>
-  <br>
-  <a href="gametestpage.jsp" class="home-button">Game Test Page</a>
-  <br>
-  <a href="table.jsp" class="home-button">Table Page</a>
-</div>
-<%--<img src="logo.jpeg" alt="FutureTech Logo" width="574" height="223" style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%)">--%>
+
 </body>
 </html>
