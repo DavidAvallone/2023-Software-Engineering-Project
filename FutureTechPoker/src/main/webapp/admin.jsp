@@ -6,38 +6,30 @@
 %>
 
 <html>
-<link rel="stylesheet" type="text/css" href="home.css">
+<link rel="stylesheet" type="text/css" href="styles.css">
 <% if(logged!=null && logged.getPermission()==User.ADMIN_PERMISSION){ %>
-
+<div class="banner">
+    <h1><%= "FutureTech Poker" %></h1>
+</div>
 <body>
-    <div class="banner">
-        <h1>FutureTech Poker</h1>
-    </div>
-    <div class="animated-background"></div>
-
-
-    <h2>ADMIN PAGE</h2>
-    <div class="centered">
+<h2>ADMIN PAGE</h2>
+<form>
+    <div class="container mt-2">
         <div class="col-12 col-md-6">
-            <label class="col-form-label col-md-3 col-lg-1" for="ban_email" style="font-family: Copperplate Gothic Light, fantasy;"> Ban Player: </label>
-            <input class="form-control" type="email" name="ban_email" id="ban_email" required/>
+            <label class="col-form-label col-md-3 col-lg-1" for="ban_username"> Ban Player: </label>
+            <input class="form-control" name="ban_username" id="ban_username" required/>
+            <button type="submit" class="btn btn-success me-2">Ban/Unban</button>
+            <a href="home.jsp" class="home-button">Home Page</a>
         </div>
-
-            <br>
-            <div class="table-buttons">
-                <button class="btn btn-success me-2"> Ban </button>
-            </div>
-            <br>
-            <div class="table-buttons">
-                <button onclick="window.location.href='home.jsp'">Home</button>
-            </div>
-
-        <% } else { %>
-        <%
-            // If access is denied, send a redirect to another page
-            response.sendRedirect("home.jsp");
-        %>
-        <% } %>
     </div>
+</form>
 </body>
 </html>
+
+<% } else { %>
+<%
+    // If access is denied, send a redirect to another page
+    response.sendRedirect("home.jsp");
+%>
+<% } %>
+

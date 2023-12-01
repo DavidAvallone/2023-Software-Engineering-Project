@@ -16,7 +16,8 @@ Password VARCHAR(255),
 Permission INT,
 Balance DOUBLE,
 Wins INT,
-Losses INT
+Losses INT,
+Banned BOOLEAN
 );
  */
 @Entity
@@ -31,6 +32,8 @@ public class User extends BaseEntity {
     private Double Balance;
     private Integer Wins;
     private Integer Losses;
+
+    private boolean Banned;
 
 //    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JoinTable(
@@ -49,6 +52,7 @@ public class User extends BaseEntity {
         Balance = 5000.0;
         Wins = 0;
         Losses = 0;
+        Banned = false;
     }
 
     public User(Integer ID, String name, String login, String password, int permission) {
@@ -57,6 +61,7 @@ public class User extends BaseEntity {
         Login = login;
         Password = password;
         Permission = permission;
+        Banned = false;
     }
 
     public static User createGuest(){
@@ -64,6 +69,7 @@ public class User extends BaseEntity {
         guest.Username = "GuestUsername";
         guest.Permission = GUEST_PERMISSION;
         guest.Login = "Guest";
+        guest.Banned = false;
         return guest;
     }
 
@@ -97,6 +103,13 @@ public class User extends BaseEntity {
         setLogin(email);
     }
 
+    public void setName(String name){
+        this.Username = name;
+    }
+
+    public String getName(){
+        return this.Username;
+    }
 
     /***
      * Returns the email which should be same as the Login
@@ -158,6 +171,14 @@ public class User extends BaseEntity {
 
     public void setBalance(Double balance) {
         Balance = balance;
+    }
+
+    public boolean getBanned(){
+        return this.Banned;
+    }
+
+    public void setBanned(boolean banned){
+        this.Banned = banned;
     }
 
     //Be careful using getFriends(). The fetch type is lazy so this will often be inaccurate or empty
