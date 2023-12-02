@@ -13,29 +13,30 @@ CREATE TABLE Friends (
 
 @Entity
 @Table(name = "Friends")
-public class Friends extends BaseEntity {
+
+public class Friends extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
 //    @ManyToOne
 //    @JoinColumn(name = "owner")
-    private User owner;
+    private Integer owner;
 //
 //    @ManyToOne
 //    @JoinColumn(name = "friend")
-    private User friend;
+    private Integer friend;
 
 
     public Friends() {
     }
 
-    public Friends(User owner, User friend) {
+    public Friends(Integer owner, Integer friend) {
         this.owner = owner;
         this.friend = friend;
     }
 
-    public Friends(Integer id, User owner, User friend) {
+    public Friends(Integer id, Integer owner, Integer friend) {
         this.id = id;
         this.owner = owner;
         this.friend = friend;
@@ -48,19 +49,19 @@ public class Friends extends BaseEntity {
         this.id = id;
     }
 
-    public User getOwner() {
+    public Integer getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(Integer owner) {
         this.owner = owner;
     }
 
-    public User getFriend() {
+    public Integer getFriend() {
         return friend;
     }
 
-    public void setFriend(User friend) {
+    public void setFriend(Integer friend) {
         this.friend = friend;
     }
 }

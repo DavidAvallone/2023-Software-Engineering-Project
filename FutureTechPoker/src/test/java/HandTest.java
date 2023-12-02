@@ -92,7 +92,7 @@ public class HandTest {
         cards1.add(new Card(1, 3));
         Hand hand = new Hand(cards1);
         System.out.println(hand);
-        assertEquals("| 4 of Hearts | | 3 of Hearts | " ,hand.toString());
+        assertEquals("| 4 of Hearts | 3 of Hearts | " ,hand.toString());
     }
 }
 
