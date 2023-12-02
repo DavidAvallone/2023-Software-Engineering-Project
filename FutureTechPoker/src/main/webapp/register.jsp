@@ -12,7 +12,7 @@
     if(error != null) {
         switch (error) {
             case "1":
-                errorMessage = "Email is already registered..";
+                errorMessage = "Email is already registered.";
                 break;
             case "2":
                 errorMessage = "Unexpected error.";
@@ -24,56 +24,68 @@
 <html>
 <head>
     <title>FutureTech Poker Registration</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 <body>
 <div class="banner">
-    <h1><%= "FutureTech Poker" %></h1>
+    <h1>FutureTech Poker</h1>
 </div>
+<div class="animated-background"></div>
+
 <br/>
 <div class="centered">
-    <h3 class="center text-primary"> Register New User </h3>
+    <h2> Register Account </h2>
     <form method="post" action="registerUserServlet">
         <div class="row mb-2">
-            <label class="col-form-label col-md-3 col-lg-1" for="txt_name"> Name: </label>
+            <label class="col-form-label col-md-3 col-lg-1" for="txt_name" style="font-family: Copperplate Gothic Light, fantasy;"> Name: </label>
             <div class="col-12 col-md-6">
                 <input class="form-control" type="text" name="txt_name" id="txt_name" />
             </div>
         </div>
+        <br>
         <div class="row mb-2">
             <label class="col-form-label col-md-3 col-lg-1" for="txt_login"> Login: </label>
             <div class="col-12 col-md-6">
                 <input class="form-control" type="email" name="txt_login" id="txt_login" required/>
             </div>
         </div>
+        <br>
         <div class="row mb-2">
-            <label class="col-form-label col-md-3 col-lg-1" for="txt_pass"> Password: </label>
+            <label class="col-form-label col-md-3 col-lg-1" for="txt_pass" style="font-family: Copperplate Gothic Light, fantasy;"> Password: </label>
             <div class="col-12 col-md-6">
                 <input class="form-control" type="password" name="txt_pass" id="txt_pass" autocomplete="off"
                        minlength="6" required/>
             </div>
         </div>
+        <br>
         <div class="row mb-2">
-            <label class="col-form-label col-md-3 col-lg-1" for="txt_conf"> Confirm Password: </label>
+            <label class="col-form-label col-md-3 col-lg-1" for="txt_conf" style="font-family: Copperplate Gothic Light, fantasy;"> Confirm Password: </label>
             <div class="col-12 col-md-6">
                 <input class="form-control" type="password" name="txt_conf" id="txt_conf" autocomplete="off"
                        minlength="6" required/>
             </div>
         </div>
         <div class="centered">
-            <div>
+            <br>
+            <div class="table-buttons">
                 <button type="submit" onclick="return checkRegisterForm()">Register</button>
             </div>
-            <div>
-                <button type="reset" id="clear_button">Clear</button>
+            <br>
+            <div class="table-buttons">
+                <button type="reset" class="btn btn-warning me-2" id="clear_button"> Clear</button>
             </div>
-            <div>
-                <a type="button" href="index.jsp">Cancel</a>
+            <br>
+            <div class="table-buttons">
+                <button onclick="window.location.href='index.jsp'">Cancel</button>
             </div>
         </div>
     </form>
+
     <form action="guestAccountServlet" method="post">
-        <button type="submit">Continue as Guest</button>
+        <br>
+        <div class="table-buttons">
+            <button type="submit">Continue as Guest</button>
+        </div>
     </form>
 </div>
 
@@ -82,7 +94,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+<%--                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>--%>
                 <strong>Error!</strong> <%= errorMessage %>
             </div>
         </div>

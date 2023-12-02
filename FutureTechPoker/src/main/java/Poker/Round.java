@@ -46,13 +46,17 @@ public class Round {
         last_raise = 1;
     }
 
-    public void start_game(){
-        deal_out();
+
+
+    public void start_game(int small_blind, int big_blind){
+        deal_out(small_blind, big_blind);
         gameStarted = true;
     }
 
     public void add_player(Player p, String status){
         p.setStatus(status);
+        p.clearHand();
+        p.setCurrentBet(0);
         this.players.add(p);
     }
 
@@ -88,29 +92,30 @@ public class Round {
     /**
      * This updates the blinds depending on the turn order.
      */
-    public void update_blinds() {
-        Player p1 = players.get(0);
-        p1.setSmallBlind(true);
-        p1.setCurrentBet(small_blind);
-        p1.setCurrency(p1.getCurrency()-small_blind);
-        Player p2 = players.get(1);
-        p2.setCurrentBet(big_blind);
-        p2.setCurrency(p2.getCurrency()-big_blind);
-        p2.setBigBlind(true);
-        for (int i = 2; i < players.size(); i++) {
+    public void update_blinds(int small, int big) {
+        for (int i = 0; i < players.size(); i++) {
             Player temp = players.get(i);
             temp.setSmallBlind(false);
             temp.setBigBlind(false);
         }
+        Player p1 = players.get(small);
+        p1.setSmallBlind(true);
+        p1.setCurrentBet(small_blind);
+        p1.setCurrency(p1.getCurrency()-small_blind);
+
+        Player p2 = players.get(big);
+        p2.setCurrentBet(big_blind);
+        p2.setCurrency(p2.getCurrency()-big_blind);
+        p2.setBigBlind(true);
     }
 
     /**
      * this simulates the beginning of a poker match and sorts players
      * deals out the cards to each players hands
      */
-    public void deal_out() {
+    public void deal_out(int small_blind, int big_blind) {
         sort_players();
-        update_blinds();
+        update_blinds(small_blind, big_blind);
         int all_drew = 0;
         players.get(0).addCardToHand(deck.draw());
         for (int i = 0; i < players.size(); i++) {
@@ -155,6 +160,9 @@ public class Round {
         return gameover;
     }
 
+    public Player getWinning_player(){
+        return winning_player;
+    }
     /**
      * A setter to set the game to over
      * @param b the boolean to set the game to over or still in play
@@ -285,7 +293,7 @@ public class Round {
         for(int i = 0; i < players.size(); i++){
             pot += players.get(i).getCurrentBet();
         }
-        current_pot = pot;
+        this.current_pot = pot;
     }
 
     /**
@@ -380,6 +388,11 @@ public class Round {
         if(everyone_folded()){
             return true;
         }
+        for(Player p : players){
+           if (p.getStatus().equals("playing"))
+               return false;
+        }
+
         int active_players = 0;
         int folded_players = 0;
         // find folded players
@@ -600,36 +613,37 @@ public class Round {
      */
     public Player who_won(){
         Player winning_player = null;
-
+        Hand highest_hand = null;
+        int highest_value = 0;
         for (int i = 0; i < players.size(); i++) {
-            Player player1 = players.get(i);
+            Player player = players.get(i);
 
-            if (player1.isFold()) {
+            if (player.isFold()) {
                 continue; // Skip folded players
             }
-
-            Hand hand1 = player1.getHand();
-
-            for (int j = i + 1; j < players.size(); j++) {
-                Player player2 = players.get(j);
-
-                if (player2.isFold()) {
-                    continue; // Skip folded players
-                }
-
-                Hand hand2 = player2.getHand();
-
-                // You need to implement a compareHands method in your Hand class
-                int result = hand1.compareTo(hand2, river);
-
-                if (result > 0) {
-                    winning_player = player1;
-                } else if (result < 0) {
-                    winning_player = player2;
+            Hand hand = player.getHand();
+            if( i == 0) {
+                winning_player = player;
+                highest_hand = hand;
+                highest_value = hand.comparetoRiver(this.river);
+            }
+            else{
+                if (hand.comparetoRiver(this.river) > highest_value){
+                    winning_player = player;
+                    highest_hand = hand;
+                    highest_value = hand.comparetoRiver(this.river);
                 }
             }
         }
-        return winning_player;
+        return  winning_player;
+    }
+
+    public String river_string(){
+        String result = "| ";
+        for(Card card : river){
+            result += card + " | ";
+        }
+        return result;
     }
 
     /**
@@ -683,5 +697,27 @@ public class Round {
 
     public double getStarting_bet() {
         return this.starting_bet;
+    }
+
+    public int getCurrent_player_turn(){
+        return current_player_turn;
+    }
+    public void remove_player(Player p){
+        int removed = p.getTurnOrder();
+        for(Player player : players){
+            if( p.getId() == player.getId()){
+                players.remove(p);
+                break;
+            }
+        }
+        update_turn_order();
+    }
+
+    public void update_turn_order(){
+        int i = 0;
+        for(Player player : players){
+            player.setTurnOrder(i);
+            i++;
+        }
     }
 }

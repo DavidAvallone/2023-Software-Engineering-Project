@@ -41,39 +41,46 @@
 <html>
 <head>
   <title>FutureTech Poker User Friends</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="home.css">
 </head>
+
 <body>
-<div class="banner">
-  <h1>FutureTech Poker</h1>
-</div>
-<h2><%=logged.getName()%>'s Friends</h2>
+    <div class="banner">
+      <h1>FutureTech Poker</h1>
+    </div>
+    <div class="animated-background"></div>
 
-<%
-  List<Friends> friendList = FriendsService.getFriendsList(logged);
-  for (Friends friend : friendList) {
-%>
-<p><%= friend.getFriend().getName() %></p>
-<%
-  }
-%>
-<div>
-  <h2>Add a Friend:</h2>
-   <form action="AddFriendsServlet" method="post">
-      <input type="text" name="newFriend" id="newFriend" placeholder="Enter friend's name" required>
-      <button type="submit" style="text-align: center"> Add Friend</button>
-    </form>
-  <p><%=message%></p>
-</div>
+    <div class="centered">
+        <h2><%=logged.getUsername()%>'s Friends</h2>
 
-<h2>Delete a Friend:</h2>
-<form action="DeleteFriendsServlet" method="post">
-  <input type="text" name="deleteFriend" id="deleteFriend" placeholder="Enter friend's name" required>
-  <button type="submit"> Delete Friend</button>
-</form>
+        <%--<%--%>
+        <%--  List<Friends> friendList = FriendsService.getFriendsList(logged);--%>
+        <%--  for (Friends friend : friendList) {--%>
+        <%--%>--%>
+        <%--<p><%= friend.getFriend().getName() %></p>--%>
+        <%--<%--%>
+        <%--  }--%>
+        <%--%>--%>
+        <div>
+            <h2>Add a Friend:</h2>
+            <form action="AddFriendsServlet" method="post">
+                <input type="text" name="newFriend" id="newFriend" placeholder="Enter friend's name" required>
+                <button type="submit" style="text-align: center"> Add Friend</button>
+            </form>
+            <p><%=message%></p>
+        </div>
 
-<p><%=deleteMessage%></p>
+        <h2>Delete a Friend:</h2>
+        <form action="DeleteFriendsServlet" method="post">
+            <input type="text" name="deleteFriend" id="deleteFriend" placeholder="Enter friend's name" required>
+            <button type="submit"> Delete Friend</button>
+        </form>
 
-<a href="home.jsp" class="home-button">Home Button</a>
+        <p><%=deleteMessage%></p>
+
+        <div class="table-buttons">
+            <button onclick="window.location.href='home.jsp'">Home</button>
+        </div>
+    </div>
 </body>
 </html>

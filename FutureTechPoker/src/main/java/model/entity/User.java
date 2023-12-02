@@ -16,7 +16,8 @@ Password VARCHAR(255),
 Permission INT,
 Balance DOUBLE,
 Wins INT,
-Losses INT
+Losses INT,
+Banned BOOLEAN
 );
  */
 @Entity
@@ -32,19 +33,15 @@ public class User extends BaseEntity {
     private Integer Wins;
     private Integer Losses;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id_player", referencedColumnName = "id_player")
-//    private Player player;
+    private boolean Banned;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "Friends",
-            joinColumns = @JoinColumn(name = "owner"),
-            inverseJoinColumns = @JoinColumn(name = "friend")
-    )
-    private List<User> friends = new ArrayList<>();
- 
-    
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "Friends",
+//            joinColumns = @JoinColumn(name = "owner"),
+//            inverseJoinColumns = @JoinColumn(name = "friend")
+//    )
+    //private List<User> friends = new ArrayList<>();
 
     public transient static final int NORMAL_PERMISSION = 1;
     public transient static final int ADMIN_PERMISSION = 2;
@@ -55,6 +52,7 @@ public class User extends BaseEntity {
         Balance = 5000.0;
         Wins = 0;
         Losses = 0;
+        Banned = false;
     }
 
     public User(Integer ID, String name, String login, String password, int permission) {
@@ -63,6 +61,7 @@ public class User extends BaseEntity {
         Login = login;
         Password = password;
         Permission = permission;
+        Banned = false;
     }
 
     public static User createGuest(){
@@ -70,6 +69,7 @@ public class User extends BaseEntity {
         guest.Username = "GuestUsername";
         guest.Permission = GUEST_PERMISSION;
         guest.Login = "Guest";
+        guest.Banned = false;
         return guest;
     }
 
@@ -88,13 +88,7 @@ public class User extends BaseEntity {
         Login = login;
     }
 
-    public void setName(String name){
-        this.Username =name;
-    }
-    public String getName(){
 
-        return this.Username;
-    }
     /***
      * Returns the email which should be same as the Login
      *
@@ -109,6 +103,13 @@ public class User extends BaseEntity {
         setLogin(email);
     }
 
+    public void setName(String name){
+        this.Username = name;
+    }
+
+    public String getName(){
+        return this.Username;
+    }
 
     /***
      * Returns the email which should be same as the Login
@@ -152,6 +153,14 @@ public class User extends BaseEntity {
         return Wins;
     }
 
+    public void setLosses(Integer losses) {
+        Losses = losses;
+    }
+
+    public void setWins(Integer wins) {
+        Wins = wins;
+    }
+
     public int getLosses() {
         return Losses;
     }
@@ -160,14 +169,25 @@ public class User extends BaseEntity {
         return Balance;
     }
 
+    public void setBalance(Double balance) {
+        Balance = balance;
+    }
+
+    public boolean getBanned(){
+        return this.Banned;
+    }
+
+    public void setBanned(boolean banned){
+        this.Banned = banned;
+    }
 
     //Be careful using getFriends(). The fetch type is lazy so this will often be inaccurate or empty
     //May want to use getFriendsList(User owner) in FriendsService instead
-    public List<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
-    }
+//    public List<User> getFriends() {
+//        return friends;
+//    }
+//
+//    public void setFriends(List<User> friends) {
+//        this.friends = friends;
+//    }
 }

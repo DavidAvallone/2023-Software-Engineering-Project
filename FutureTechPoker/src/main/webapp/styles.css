@@ -10,6 +10,14 @@ h1 {
     font-family: "Copperplate Gothic Light", fantasy;
 }
 
+h2 {
+    font-size: 24px;
+    color: #000;
+    text-align: center;
+    font-family: "Copperplate Gothic Light", fantasy;
+}
+
+
 a {
     background-color: #fff;
     color: #000;
@@ -111,4 +119,55 @@ button {
 
 .hand img {
     margin-right: 10px; /* Add some spacing between the images (adjust as needed) */
+}
+
+.input-container {
+    position: relative;
+    margin: 20px;
+}
+
+/* Style for the input */
+.custom-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+/* Style for the input on focus */
+.custom-input:focus {
+    border-color: #007bff; /* Change the border color on focus */
+}
+
+/* Optional: Add some styling for a label */
+.label {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    font-size: 14px;
+    color: #555;
+    pointer-events: none; /* Ensures the label doesn't interfere with input focus */
+    transition: top 0.3s ease, font-size 0.3s ease;
+}
+
+/* Move the label up when the input is focused */
+.custom-input:focus + .label, .custom-input:not(:placeholder-shown) + .label {
+    top: -12px;
+    font-size: 12px;
+}
+
+/* Style for the container */
+.button-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #f1f1f1; /* Optional: Add a background color */
+    border-top: 1px solid #ccc; /* Optional: Add a border at the top */
 }

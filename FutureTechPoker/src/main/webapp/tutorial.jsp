@@ -18,9 +18,9 @@
     RoundService rs = (RoundService) session.getAttribute("roundService");
 
     if(rs == null) {
-        rs = new RoundService(u);
+        rs = new RoundService(u, true);
         session.setAttribute("roundService", rs);
-        rs.create_game();
+        rs.game_tutorial();
     }
 %>
 <html>
@@ -34,7 +34,7 @@
     int curr = rs.round.getCurrent_player();
     String current_player = rs.round.getPlayers().get(curr).getName();
 %>
-<h2>Current Turn: <%= current_player%> Current Round: <%=rs.round.getRound_num()%> Game Seed: <%=rs.round.getSeed()%></h2>
+<h2>Current Turn: <%= current_player%> Current Round: <%=rs.round.getRound_num()%> Game Seed: Tutorial</h2>
 
 <div class="poker-buttons">
     <button style="background-color: #11e5d7;color: #fff;left: 5%;position: absolute" onclick="openPopup('imagePopup')">Open Cheat Sheet</button>
@@ -353,11 +353,11 @@
         boolean small0 = false;
         boolean big0 = false;
         try {
-        Player p1 = rs.round.getPlayers().get(0);
-        small0 = p1.isSmallBlind();
-        big0 = p1.isBigBlind();
+            Player p1 = rs.round.getPlayers().get(0);
+            small0 = p1.isSmallBlind();
+            big0 = p1.isBigBlind();
 
-        if (small0) { %>
+            if (small0) { %>
     <img src="images/small_blind.png" alt="Small Blind" height="30" width="30" style="position: absolute; top: 515px;left: 55%">
     <% }
         if (big0) { %>
@@ -400,7 +400,7 @@
 %>
 
 <% if (rs.round.getGameOver()) { %>
-    <script>
+<script>
     function dragElement(elmnt) {
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         if (document.getElementById(elmnt.id + "-header")) {
@@ -464,24 +464,24 @@
 
     // Call openPopup function when the page loads (you can modify this based on your requirement)
     // window.onload = openPopup;
-    </script>
+</script>
 
-    <!-- The overlay and pop-up -->
-    <div class="overlay" id="overlay">
-        <div class="popup">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <h2>Game Over!</h2>
-            <br>
-            <p>Winner: <%=rs.round.getWinning_player().getName()%></p>
-            <br>
-            <p>Winnings: $<%=rs.round.getCurrent_pot()%></p>
-        </div>
+<!-- The overlay and pop-up -->
+<div class="overlay" id="overlay">
+    <div class="popup">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h2>Game Over!</h2>
+        <br>
+        <p>Winner: <%=rs.round.getWinning_player().getName()%></p>
+        <br>
+        <p>Winnings: $<%=rs.round.getCurrent_pot()%></p>
     </div>
+</div>
 <% } %>
 
 <%
     if(rs.round.getGameOver()){
-        rs.new_game();
+        rs.reset_tutorial();
     }
 %>
 </body>

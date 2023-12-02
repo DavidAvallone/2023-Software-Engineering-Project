@@ -60,6 +60,10 @@ public class Player {
         return id == otherPlayer.id;
     }
 
+    public void clearHand(){
+        this.hand = new Hand();
+    }
+
     public Hand getHand() {
         return hand;
     }

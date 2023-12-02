@@ -13,19 +13,23 @@
 </div>
 <body>
 <h2>ADMIN PAGE</h2>
-<div class="container mt-2">
-    <div class="col-12 col-md-6">
-        <label class="col-form-label col-md-3 col-lg-1" for="ban_email"> Ban Player: </label>
-        <input class="form-control" type="email" name="ban_email" id="ban_email" required/>
-        <button class="btn btn-success me-2"> Ban </button>
-        <a href="home.jsp" class="home-button">Home Page</a>
+<form>
+    <div class="container mt-2">
+        <div class="col-12 col-md-6">
+            <label class="col-form-label col-md-3 col-lg-1" for="ban_username"> Ban Player: </label>
+            <input class="form-control" name="ban_username" id="ban_username" required/>
+            <button type="submit" class="btn btn-success me-2">Ban/Unban</button>
+            <a href="home.jsp" class="home-button">Home Page</a>
+        </div>
     </div>
+</form>
+</body>
+</html>
+
 <% } else { %>
 <%
     // If access is denied, send a redirect to another page
     response.sendRedirect("home.jsp");
 %>
 <% } %>
-</div>
-</body>
-</html>
+
