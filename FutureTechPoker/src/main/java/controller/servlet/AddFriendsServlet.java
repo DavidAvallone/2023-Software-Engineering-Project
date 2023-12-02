@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.dao.UserDAO;
 import model.entity.Friends;
 import model.entity.User;
 
@@ -24,15 +25,15 @@ public class AddFriendsServlet extends HttpServlet {
         User owner = (User) session.getAttribute("User");
         if(UserService.findUserByName(friendName) != null && !friendName.equals(owner.getUsername())) {
             User newFriend = UserService.findUserByName(friendName);
-            List<Friends> friendList = FriendsService.getFriendsList(owner);
-
-            if(friendList.stream().anyMatch(friends -> friends.getFriend().getUsername().equals(friendName))){
+           // List<Friends> friendList = FriendsService.getFriendsList(owner);
+            if(FriendsService.hasFriend(owner, newFriend)){
+            //if(friendList.stream().anyMatch(friends -> UserService.findUserById(friends.getFriend()).getUsername().equals(friendName))){
                 response.sendRedirect("user_friends.jsp?msg=1");
             }
             else {
-                Friends friends = new Friends(owner, newFriend);
+                Friends friends = new Friends(owner.getID(), newFriend.getID());
                 FriendsService.addFriend(friends);
-                response.sendRedirect("user_friends.jsp");
+                response.sendRedirect("FriendsListServlet");
             }
         }
         else{

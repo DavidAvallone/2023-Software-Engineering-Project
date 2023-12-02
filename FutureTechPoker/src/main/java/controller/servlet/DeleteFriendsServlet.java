@@ -18,18 +18,21 @@ import java.util.stream.Collectors;
 
 public class DeleteFriendsServlet extends HttpServlet {
 
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        doPost(request, response);
+    }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String deleteFriendName = request.getParameter("deleteFriend");
+        int deleteFriend = Integer.parseInt(request.getParameter("deleteFriend"));
         User owner = (User) session.getAttribute("User");
-        List<Friends> deleteFriendsList = FriendsService.getFriendsList(owner).stream().filter(friends -> friends.getFriend().getName().equals(deleteFriendName)).collect(Collectors.toList());
-        if(!deleteFriendsList.isEmpty()){
-            FriendsService.deleteFriends(deleteFriendsList.get(0).getID());
-            response.sendRedirect("user_friends.jsp");
-        }
-        else{
+        User deleteUser = UserService.findUserById(deleteFriend);
+
+        if (deleteUser != null && FriendsService.hasFriend(owner, deleteUser)) {
+            Friends deleteFriends = FriendsService.getFriends(owner.getID(), deleteUser.getID());
+            FriendsService.deleteFriends(deleteFriends.getID());
+            response.sendRedirect("FriendsListServlet");
+        } else {
             response.sendRedirect("user_friends.jsp?delmsg=1");
         }
-
     }
 }

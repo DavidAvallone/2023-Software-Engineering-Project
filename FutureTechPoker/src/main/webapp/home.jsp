@@ -60,7 +60,7 @@
         <br>
         <% if(logged.getPermission()!=User.GUEST_PERMISSION){ %>
             <div class="table-buttons">
-                <button onclick="window.location.href='user_friends.jsp'">Manage Friends</button>
+                <button onclick="window.location.href='FriendsListServlet'">Manage Friends</button>
             </div>
         <% } //end-else-if %>
         <br>
