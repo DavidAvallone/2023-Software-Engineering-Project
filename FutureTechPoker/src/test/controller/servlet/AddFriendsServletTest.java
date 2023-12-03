@@ -60,7 +60,7 @@ public class AddFriendsServletTest {
 
                 assertAll(
                         () -> assertDoesNotThrow(
-                                () -> verify(response).sendRedirect("user_friends.jsp"))
+                                () -> verify(response).sendRedirect("FriendsListServlet"))
                 );
             }
         }

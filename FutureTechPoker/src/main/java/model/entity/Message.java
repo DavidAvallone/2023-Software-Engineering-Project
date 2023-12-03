@@ -17,21 +17,19 @@ CREATE TABLE Message (
 public class Message extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int sender;
-    private int receiver;
+    private Integer id;
+    private Integer sender;
+    private Integer receiver;
 
     private String message;
 
-   // private Date date;
+    public Message(Integer id, int sender, int receiver, String message){
+        this.id = id;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
+    }
 
-//    public Message(int id, int sender, int receiver, String message, Date date){
-//        this.id = id;
-//        this.sender = sender;
-//        this.receiver = receiver;
-//        this.message = message;
-//        this.date = date;
-//    }
     public Message(int sender, int receiver, String message){
         this.sender = sender;
         this.receiver = receiver;
@@ -47,7 +45,7 @@ public class Message extends BaseEntity{
         this.id = id;
     }
 
-    public int getSender() {
+    public Integer getSender() {
         return sender;
     }
 
@@ -55,7 +53,7 @@ public class Message extends BaseEntity{
         this.sender = sender;
     }
 
-    public int getReceiver() {
+    public Integer getReceiver() {
         return receiver;
     }
 
@@ -71,11 +69,5 @@ public class Message extends BaseEntity{
         this.message = message;
     }
 
-//    public Date getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(Date date) {
-//        this.date = date;
-//    }
+
 }

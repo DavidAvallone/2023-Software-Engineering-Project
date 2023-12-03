@@ -22,6 +22,9 @@ import java.util.List;
 public class AddMessageServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        doPost(request, response);
+    }
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         User owner = (User) session.getAttribute("User");
         int otherUserId = Integer.parseInt(request.getParameter("receiverId"));
@@ -30,9 +33,6 @@ public class AddMessageServlet extends HttpServlet{
         MessageService.addMessage(message);
 
         request.getRequestDispatcher("MessageListServlet?otherUser=" + otherUserId).forward(request, response);
-    }
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        doGet(request, response);
     }
 }
 
