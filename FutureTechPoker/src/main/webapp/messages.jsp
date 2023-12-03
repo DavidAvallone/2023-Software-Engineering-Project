@@ -12,8 +12,9 @@
 <%@ page import="controller.service.UserService" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%
-int otherUser = (int)request.getAttribute("otherUser");
+    User otherUser = (User)request.getAttribute("otherUser");
 %>
 
 <html>
@@ -21,23 +22,29 @@ int otherUser = (int)request.getAttribute("otherUser");
     <title></title>
 </head>
 <body>
-    <h1>Messages with </h1>
+    <h1>Messages with <%= otherUser.getName()%></h1>
 <%
     List<Message> messages = (List<Message>) request.getAttribute("messages");
 %>
     <%
         if(!messages.isEmpty() && messages != null){
             for(Message message: messages){
+                User sender = UserService.findUserById(message.getSender());
 
         %>
-            <p><%=message.getSender()%>: <%= message.getMessage()%></p>
+            <p><%=sender.getName()%>: <%= message.getMessage()%></p>
     <%
         }
         }
     %>
     <form action="AddMessageServlet" method="post">
         <input type="text" name="newMessage" id="newMessage" placeholder="New Message" required>
+        <input type="hidden" name="receiverId" value="<%= otherUser.getID() %>">
         <button type="submit" style="text-align: center"> Send Message</button>
     </form>
+
+    <div class="table-buttons">
+        <button onclick="window.location.href='FriendsListServlet'">Back</button>
+    </div>
 </body>
 </html>

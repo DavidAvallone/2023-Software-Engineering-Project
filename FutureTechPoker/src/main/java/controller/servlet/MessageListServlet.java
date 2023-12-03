@@ -26,11 +26,13 @@ public class MessageListServlet extends HttpServlet{
         HttpSession session = request.getSession();
         User owner = (User) session.getAttribute("User");
         int otherUserId = Integer.parseInt(request.getParameter("otherUser"));
+        User otherUser = UserService.findUserById(otherUserId);
         List<Message> messageList = new ArrayList<>();
         if(owner != null) {
              messageList = MessageService.getToAndFromMessages(owner.getID(),otherUserId );
         }
         request.setAttribute("messages", messageList);
+        request.setAttribute("otherUser", otherUser);
         RequestDispatcher dispatcher =  request.getRequestDispatcher("messages.jsp");
         dispatcher.forward(request, response);
     }

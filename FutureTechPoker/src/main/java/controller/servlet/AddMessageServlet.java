@@ -24,12 +24,12 @@ public class AddMessageServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         User owner = (User) session.getAttribute("User");
-        int otherUserId = (int) request.getAttribute("otherUserId");
-        String newMessage = (String) request.getAttribute("newMessage");
+        int otherUserId = Integer.parseInt(request.getParameter("receiverId"));
+        String newMessage = request.getParameter("newMessage");
         Message message = new Message(owner.getID(), otherUserId, newMessage);
         MessageService.addMessage(message);
 
-        request.getRequestDispatcher("MessageListServlet").forward(request, response);
+        request.getRequestDispatcher("MessageListServlet?otherUser=" + otherUserId).forward(request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doGet(request, response);

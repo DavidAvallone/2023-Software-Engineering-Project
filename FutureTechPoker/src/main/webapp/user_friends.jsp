@@ -60,7 +60,6 @@
                 <tr>
                     <th>User Name</th>
                     <th>UserId</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>

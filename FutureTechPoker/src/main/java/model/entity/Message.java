@@ -37,6 +37,8 @@ public class Message extends BaseEntity{
         this.receiver = receiver;
         this.message = message;
     }
+    public Message(){
+    }
     public Integer getID() {
         return id;
     }
