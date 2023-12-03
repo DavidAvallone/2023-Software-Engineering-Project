@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > FriendsService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">controller.service</a>
+</div>
+
+<h1>Coverage Summary for Class: FriendsService (controller.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FriendsService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package controller.service;
+&nbsp;
+&nbsp;import model.dao.FriendsDAO;
+&nbsp;import model.entity.Friends;
+&nbsp;import model.entity.User;
+&nbsp;
+&nbsp;import javax.transaction.Transactional;
+&nbsp;import java.beans.Transient;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;public class FriendsService {</b>
+&nbsp;
+<b class="nc">&nbsp;    public static FriendsDAO dao = new FriendsDAO();</b>
+&nbsp;
+&nbsp;    public static void setDAO(FriendsDAO dao){
+<b class="nc">&nbsp;        FriendsService.dao = dao;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Friends addFriend(Friends f){
+<b class="nc">&nbsp;        return dao.create(f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Friends getFriends(int owner, int friend){
+<b class="nc">&nbsp;        return dao.getFriendsByFriendPair(owner, friend);</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;
+&nbsp;    public static List&lt;Friends&gt; getFriendsList(User owner){
+<b class="nc">&nbsp;        return dao.getFriendsByUserId(owner.getID());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;</b>
+&nbsp;    public static boolean hasFriend(User owner, User friend){
+<b class="nc">&nbsp;        List&lt;Friends&gt; friendsList = dao.getFriendsByUserId(owner.getID());</b>
+<b class="nc">&nbsp;        for(int i = 0; i &lt; friendsList.size(); i++){</b>
+<b class="nc">&nbsp;            if(friendsList.get(i).getFriend() == friend.getID()) {</b>
+<b class="nc">&nbsp;                return true;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Friends updateFriends(Friends f){
+<b class="nc">&nbsp;        return dao.update(f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void deleteFriends(int id){
+<b class="nc">&nbsp;        dao.delete(id);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-03 17:59</div>
+</div>
+</body>
+</html>
