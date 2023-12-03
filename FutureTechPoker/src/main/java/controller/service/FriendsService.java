@@ -21,9 +21,25 @@ public class FriendsService {
         return dao.create(f);
     }
 
-    @Transactional
+    public static Friends getFriends(int owner, int friend){
+        return dao.getFriendsByFriendPair(owner, friend);
+    }
+
+
     public static List<Friends> getFriendsList(User owner){
         return dao.getFriendsByUserId(owner.getID());
+    }
+
+
+
+    public static boolean hasFriend(User owner, User friend){
+        List<Friends> friendsList = dao.getFriendsByUserId(owner.getID());
+        for(int i = 0; i < friendsList.size(); i++){
+            if(friendsList.get(i).getFriend() == friend.getID()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static Friends updateFriends(Friends f){

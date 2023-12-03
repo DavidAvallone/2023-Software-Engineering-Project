@@ -54,7 +54,13 @@ public class UserService {
         return dao.findUserByName(name);
     }
 
+
     public static User findUserByLogin(String login) { return dao.findUserByLogin(login); }
+
+    public static User findUserById(int id){
+        return dao.read(id);
+    }
+
     public static void deleteUser(int id){
         dao.delete(id);
     }

@@ -27,8 +27,8 @@ public class FriendsDaoTest {
 
     @BeforeEach
     public void deleteAll() {
-        udao.deleteAll();
         dao.deleteAll();
+        udao.deleteAll();
     }
 
     @AfterAll
@@ -39,7 +39,7 @@ public class FriendsDaoTest {
     public static Friends createNewFriendsEntity() {
         User u1 = createNewUserEntity("test@test.com","Bob", "111", User.NORMAL_PERMISSION );
         User u2 = createNewUserEntity("email@test.com","Timmy","222", User.NORMAL_PERMISSION );
-        return new Friends(u1, u2);
+        return new Friends(u1.getID(), u2.getID());
     }
     public static User createNewUserEntity(String login, String name, String password, int permission){
         User u = new User();
@@ -60,8 +60,8 @@ public class FriendsDaoTest {
         assertAll("Grouped Assertions of Create Friends",
                 () -> assertNotNull(newFriends.getID(), "ID should not be null after creation"),
                 () -> assertNotNull(found, "Found Friends after reading should not be null"),
-                () -> assertEquals(found.getOwner().getID(), newFriends.getOwner().getID()),
-                () -> assertEquals(found.getFriend().getID(), newFriends.getFriend().getID())
+                () -> assertEquals(found.getOwner(), newFriends.getOwner()),
+                () -> assertEquals(found.getFriend(), newFriends.getFriend())
         );
     }
 
@@ -80,7 +80,7 @@ public class FriendsDaoTest {
     }
     @Test public void testGetFriendsByUserIdEmpty(){
         Friends newFriends = createNewFriendsEntity();
-        List<Friends> friendsList = dao.getFriendsByUserId(newFriends.getOwner().getID());
+        List<Friends> friendsList = dao.getFriendsByUserId(newFriends.getOwner());
         assertTrue(friendsList.isEmpty());
     }
 
@@ -88,13 +88,13 @@ public class FriendsDaoTest {
         Friends newFriends = createNewFriendsEntity();
         dao.create(newFriends);
         User newUser = createNewUserEntity("altered", "Danny", "password", User.NORMAL_PERMISSION);
-        newFriends.setFriend(newUser);
+        newFriends.setFriend(newUser.getID());
         Friends updated = dao.update(newFriends);
         Friends found = dao.read(newFriends.getID());
         assertAll("Grouped Assertions of Updated User",
                 () -> assertEquals(updated.getID(), found.getID()),
-                () -> assertEquals(updated.getFriend().getID(),newFriends.getFriend().getID()),
-                () -> assertEquals(updated.getOwner().getID(),found.getOwner().getID())
+                () -> assertEquals(updated.getFriend(),newFriends.getFriend()),
+                () -> assertEquals(updated.getOwner(),found.getOwner())
         );
     }
 
@@ -106,9 +106,9 @@ public class FriendsDaoTest {
         User u5 = createNewUserEntity("login5", "name5", "password5", User.NORMAL_PERMISSION);
         User u6 = createNewUserEntity("login6", "name6", "password6", User.NORMAL_PERMISSION);
 
-        Friends friend1 = new Friends(u1, u2);
-        Friends friend2 = new Friends(u3, u4);
-        Friends friend3= new Friends(u5, u6);
+        Friends friend1 = new Friends(u1.getID(), u2.getID());
+        Friends friend2 = new Friends(u3.getID(), u4.getID());
+        Friends friend3= new Friends(u5.getID(), u6.getID());
         dao.create(friend1);
         dao.create(friend2);
         dao.create(friend3);
@@ -119,13 +119,23 @@ public class FriendsDaoTest {
     @Test public void testGetFriendsByUserId(){
         Friends newFriends = createNewFriendsEntity();
         dao.create(newFriends);
-        List<Friends> friendsList = dao.getFriendsByUserId(newFriends.getOwner().getID());
+        List<Friends> friendsList = dao.getFriendsByUserId(newFriends.getOwner());
         assertAll(
                 () -> assertFalse(friendsList.isEmpty()),
-                () -> assertEquals(friendsList.get(0).getOwner().getID(), newFriends.getOwner().getID()),
-                () -> assertEquals(friendsList.get(0).getFriend().getID(), newFriends.getFriend().getID())
+                () -> assertEquals(friendsList.get(0).getOwner(), newFriends.getOwner()),
+                () -> assertEquals(friendsList.get(0).getFriend(), newFriends.getFriend())
                 );
     }
 
+    @Test public void testGetFriendsByFriendPair(){
+        Friends newFriends = createNewFriendsEntity();
+        dao.create(newFriends);
+        Friends friends = dao.getFriendsByFriendPair(newFriends.getOwner(), newFriends.getFriend());
+        assertAll(
+                () -> assertNotNull(friends),
+                () -> assertEquals(friends.getOwner(), newFriends.getOwner()),
+                () -> assertEquals(friends.getFriend(), newFriends.getFriend())
+        );
+    }
 }
 

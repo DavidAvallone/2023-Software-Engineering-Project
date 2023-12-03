@@ -9,6 +9,9 @@
 <%@ page import="model.entity.User" %>
 <%@ page import="model.entity.Friends" %>
 <%@ page import="controller.service.FriendsService" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Iterator" %>
+
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -49,18 +52,47 @@
       <h1>FutureTech Poker</h1>
     </div>
     <div class="animated-background"></div>
+    <h2><%=logged.getUsername()%>'s Friends</h2>
 
-    <div class="centered">
-        <h2><%=logged.getUsername()%>'s Friends</h2>
+        <br>
+        <table border='1' width='300' cellpadding='1' cellspacing='0' align = 'center'>
+           <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>UserId</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
 
-        <%--<%--%>
-        <%--  List<Friends> friendList = FriendsService.getFriendsList(logged);--%>
-        <%--  for (Friends friend : friendList) {--%>
-        <%--%>--%>
-        <%--<p><%= friend.getFriend().getName() %></p>--%>
-        <%--<%--%>
-        <%--  }--%>
-        <%--%>--%>
+
+            <%
+
+                List<User> friends = (List<User>) request.getAttribute("friends");
+                %>
+
+            <%
+                if(friends != null && !friends.isEmpty()){
+                    for(User user : friends)
+                    {
+
+            %>
+            <tr>
+                <td><%=user.getName()%></td>
+                <td> <%=user.getID()%></td>
+
+                <td>
+                    <input type="button" name="message" value="Message">
+                    <input type="button" value ="Delete" onclick="window.location.href='DeleteFriendsServlet?deleteFriend=<%=user.getID()%>'" name="delete">
+                </td>
+            </tr>
+            <%
+                }
+                }
+            %>
+            </tbody>
+        </table>
+
         <div>
             <h2>Add a Friend:</h2>
             <form action="AddFriendsServlet" method="post">
@@ -70,17 +102,8 @@
             <p><%=message%></p>
         </div>
 
-        <h2>Delete a Friend:</h2>
-        <form action="DeleteFriendsServlet" method="post">
-            <input type="text" name="deleteFriend" id="deleteFriend" placeholder="Enter friend's name" required>
-            <button type="submit"> Delete Friend</button>
-        </form>
-
-        <p><%=deleteMessage%></p>
-
         <div class="table-buttons">
             <button onclick="window.location.href='home.jsp'">Home</button>
         </div>
-    </div>
 </body>
 </html>

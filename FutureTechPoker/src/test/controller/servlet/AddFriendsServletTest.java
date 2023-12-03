@@ -40,9 +40,9 @@ public class AddFriendsServletTest {
         User friend2 = new User(102, "Logged2", "Login2", "pword", User.NORMAL_PERMISSION);
         User friend3 = new User(103, "FriendName", "Login3", "pword", User.NORMAL_PERMISSION);
 
-        Friends friends1 = new Friends(11, owner, friend);
-        Friends friends2 = new Friends(12, owner, friend2);
-        Friends friends3 = new Friends(13, owner, friend3);
+        Friends friends1 = new Friends(11, owner.getID(), friend.getID());
+        Friends friends2 = new Friends(12, owner.getID(), friend2.getID());
+        Friends friends3 = new Friends(13, owner.getID(), friend3.getID());
         List<Friends> friendsList = new ArrayList<>();
         friendsList.add(friends1);
         friendsList.add(friends2);
@@ -51,6 +51,7 @@ public class AddFriendsServletTest {
             try (MockedStatic<UserService> userService = mockStatic(UserService.class)) {
                 service.when(() -> FriendsService.addFriend(any(Friends.class))).thenReturn(new Friends());
                 service.when(() -> FriendsService.getFriendsList(any(User.class))).thenReturn(friendsList);
+                service.when(()-> FriendsService.hasFriend(any(User.class), any(User.class))).thenReturn(false);
 
                 userService.when(() -> UserService.findUserByName(any(String.class))).thenReturn(friend3);
 
@@ -84,9 +85,9 @@ public class AddFriendsServletTest {
         User friend2 = new User(102, "Logged2", "Login2", "pword", User.NORMAL_PERMISSION);
         User friend3 = new User(103, "FriendName", "Login3", "pword", User.NORMAL_PERMISSION);
 
-        Friends friends1 = new Friends(11, owner, friend);
-        Friends friends2 = new Friends(12, owner, friend2);
-        Friends friends3 = new Friends(13, owner, friend3);
+        Friends friends1 = new Friends(11, owner.getID(), friend.getID());
+        Friends friends2 = new Friends(12, owner.getID(), friend2.getID());
+        Friends friends3 = new Friends(13, owner.getID(), friend3.getID());
         List<Friends> friendsList = new ArrayList<>();
         friendsList.add(friends1);
         friendsList.add(friends2);
@@ -96,6 +97,7 @@ public class AddFriendsServletTest {
             try (MockedStatic<UserService> userService = mockStatic(UserService.class)) {
                 service.when(() -> FriendsService.addFriend(any(Friends.class))).thenReturn(new Friends());
                 service.when(() -> FriendsService.getFriendsList(any(User.class))).thenReturn(friendsList);
+                service.when(()-> FriendsService.hasFriend(any(User.class), any(User.class))).thenReturn(false);
 
                 userService.when(() -> UserService.findUserByName(any(String.class))).thenReturn(null);
 
@@ -128,9 +130,9 @@ public class AddFriendsServletTest {
         User friend2 = new User(102, "Logged2", "Login2", "pword", User.NORMAL_PERMISSION);
         User friend3 = new User(103, "FriendName", "Login3", "pword", User.NORMAL_PERMISSION);
 
-        Friends friends1 = new Friends(11, owner, friend);
-        Friends friends2 = new Friends(12, owner, friend2);
-        Friends friends3 = new Friends(13, owner, friend3);
+        Friends friends1 = new Friends(11, owner.getID(), friend.getID());
+        Friends friends2 = new Friends(12, owner.getID(), friend2.getID());
+        Friends friends3 = new Friends(13, owner.getID(), friend3.getID());
         List<Friends> friendsList = new ArrayList<>();
         friendsList.add(friends1);
         friendsList.add(friends2);
@@ -140,6 +142,7 @@ public class AddFriendsServletTest {
             try (MockedStatic<UserService> userService = mockStatic(UserService.class)) {
                 service.when(() -> FriendsService.addFriend(any(Friends.class))).thenReturn(new Friends());
                 service.when(() -> FriendsService.getFriendsList(any(User.class))).thenReturn(friendsList);
+                service.when(()-> FriendsService.hasFriend(any(User.class), any(User.class))).thenReturn(true);
 
                 userService.when(() -> UserService.findUserByName(any(String.class))).thenReturn(friend3);
 
@@ -172,9 +175,9 @@ public class AddFriendsServletTest {
         User friend2 = new User(102, "Logged2", "Login2", "pword", User.NORMAL_PERMISSION);
         User friend3 = new User(103, "FriendName", "Login3", "pword", User.NORMAL_PERMISSION);
 
-        Friends friends1 = new Friends(11, owner, friend);
-        Friends friends2 = new Friends(12, owner, friend2);
-        Friends friends3 = new Friends(13, owner, friend3);
+        Friends friends1 = new Friends(11, owner.getID(), friend.getID());
+        Friends friends2 = new Friends(12, owner.getID(), friend2.getID());
+        Friends friends3 = new Friends(13, owner.getID(), friend3.getID());
         List<Friends> friendsList = new ArrayList<>();
         friendsList.add(friends1);
         friendsList.add(friends2);
@@ -184,6 +187,7 @@ public class AddFriendsServletTest {
             try (MockedStatic<UserService> userService = mockStatic(UserService.class)) {
                 service.when(() -> FriendsService.addFriend(any(Friends.class))).thenReturn(new Friends());
                 service.when(() -> FriendsService.getFriendsList(any(User.class))).thenReturn(friendsList);
+                service.when(()-> FriendsService.hasFriend(any(User.class), any(User.class))).thenReturn(false);
 
                 userService.when(() -> UserService.findUserByName(any(String.class))).thenReturn(owner);
 
