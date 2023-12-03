@@ -720,4 +720,12 @@ public class Round {
             i++;
         }
     }
+
+    public double getBigBlind(){
+        return this.big_blind;
+    }
+
+    public double getSmallBlind(){
+        return this.small_blind;
+    }
 }
