@@ -13,7 +13,7 @@
 </div>
 <body>
 <h2>ADMIN PAGE</h2>
-<form>
+<form method="post" action="banUserServlet">
     <div class="container mt-2">
         <div class="col-12 col-md-6">
             <label class="col-form-label col-md-3 col-lg-1" for="ban_username"> Ban Player: </label>
