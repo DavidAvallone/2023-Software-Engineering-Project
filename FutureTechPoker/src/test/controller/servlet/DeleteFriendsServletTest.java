@@ -32,7 +32,7 @@ public class DeleteFriendsServletTest {
         String friendName = "FriendName";
         User owner = new User(100, "Logged", "Login", "pword", User.NORMAL_PERMISSION);
 
-        when(request.getParameter("deleteFriend")).thenReturn(friendName);
+        when(request.getParameter("deleteFriend")).thenReturn("103");
         when(request.getSession()).thenReturn(sessionMock);
         when(sessionMock.getAttribute("User")).thenReturn(owner);
 
@@ -63,7 +63,7 @@ public class DeleteFriendsServletTest {
 
                 assertAll(
                         () -> assertDoesNotThrow(
-                                () -> verify(response).sendRedirect("user_friends.jsp"))
+                                () -> verify(response).sendRedirect("FriendsListServlet"))
                 );
             }
         }
@@ -80,7 +80,7 @@ public class DeleteFriendsServletTest {
         String friendName = "FriendName";
         User owner = new User(100, "Logged", "Login", "pword", User.NORMAL_PERMISSION);
 
-        when(request.getParameter("deleteFriend")).thenReturn(friendName);
+        when(request.getParameter("deleteFriend")).thenReturn("103");
         when(request.getSession()).thenReturn(sessionMock);
         when(sessionMock.getAttribute("User")).thenReturn(owner);
 

@@ -60,7 +60,6 @@
                 <tr>
                     <th>User Name</th>
                     <th>UserId</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,8 +81,10 @@
                 <td> <%=user.getID()%></td>
 
                 <td>
-                    <input type="button" name="message" value="Message">
-                    <input type="button" value ="Delete" onclick="window.location.href='DeleteFriendsServlet?deleteFriend=<%=user.getID()%>'" name="delete">
+                    <input type="button" value="Message" onclick="window.location.href = 'MessageListServlet?otherUser=<%=user.getID()%>'" name="message">
+                </td>
+                <td>
+                    <input type="button" value ="Delete" onclick="window.location.href = 'DeleteFriendsServlet?deleteFriend=<%=user.getID()%>'" name="delete">
                 </td>
             </tr>
             <%
