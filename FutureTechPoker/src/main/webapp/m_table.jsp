@@ -13,6 +13,7 @@
 <%@ page import="controller.servlet.m_gameServlet" %>
 <%@ page import="controller.service.TableManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <script>
     // Function to refresh the page every three seconds
     function refreshPage() {
@@ -23,6 +24,12 @@
     setInterval(refreshPage, 5000);
 </script>
 <%
+    User logged = (User) session.getAttribute("User");
+    if(logged.getBanned()){
+        response.sendRedirect("home.jsp");
+        return;
+    }
+
     String table_id = request.getParameter("n");
 
     TableManager tableManager = TableManager.getInstance();
