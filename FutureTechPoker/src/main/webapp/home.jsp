@@ -6,12 +6,21 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="model.entity.User" %>
+<%@ page import="controller.service.TableManager" %>
+<%@ page import="controller.service.RoundService" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="javax.persistence.Table" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     User logged = (User) session.getAttribute("User");
 %>
 <html>
 <% if(logged!=null){ %>
+
+
+
+
 <head>
     <title>FutureTech Poker User Home</title>
     <link rel="stylesheet" type="text/css" href="home.css">
@@ -25,7 +34,26 @@
     <div class="animated-background"></div>
 
     <div class="centered">
-        <h2>Available Games</h2>
+        <h2>Active Games</h2>
+        <form id="sortForm" action="home.jsp" method="get">
+            <select id="sortSelection" name="sortBy" onchange="document.getElementById('sortForm').submit();">
+                <option value=""></option>
+                <option value="players">Number of Players</option>
+                <option value="blind">Big Blind</option>
+                <option value="start_bet">Starting Bet</option>
+            </select>
+        </form>
+
+        <%
+            String sortBy = request.getParameter("sortBy");
+            if (sortBy == null || sortBy.isEmpty()) {
+                sortBy = "players";
+            }
+            String sortedHtml = TableManager.sortGames(sortBy);
+        %>
+        <%= sortedHtml %>
+
+        <h2>All Tables</h2>
         <div class="button-container table-buttons">
             <button onclick="window.location.href='m_table.jsp?n=1'"> Table 1</button>
             <button onclick="window.location.href='m_table.jsp?n=2'"> Table 2</button>
@@ -44,6 +72,7 @@
         <br>
         <div class="table-buttons">
             <button onclick="window.location.href='table.jsp?'">Single Player</button>
+            <button onclick="<%= TableManager.getMostFilledTable() %>">Auto Join</button>
             <button onclick="window.location.href='tutorial.jsp?'">Tutorial</button>
         </div>
         <br>
