@@ -91,10 +91,11 @@
                 <button type="submit" style="text-align: center"> Add Friend</button>
             </form>
             <p><%=message%></p>
+            <div class="table-buttons">
+                <button onclick="window.location.href='home.jsp'">Home</button>
+            </div>
         </div>
 
-        <div class="table-buttons">
-            <button onclick="window.location.href='home.jsp'">Home</button>
-        </div>
+
 </body>
 </html>

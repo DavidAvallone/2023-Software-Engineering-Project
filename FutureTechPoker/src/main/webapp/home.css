@@ -8,8 +8,7 @@
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
-}
+    overflow-y: scroll;}
 
 h1 {
     font-size: 48px;
