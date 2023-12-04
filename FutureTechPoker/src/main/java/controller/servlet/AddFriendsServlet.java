@@ -28,7 +28,7 @@ public class AddFriendsServlet extends HttpServlet {
            // List<Friends> friendList = FriendsService.getFriendsList(owner);
             if(FriendsService.hasFriend(owner, newFriend)){
             //if(friendList.stream().anyMatch(friends -> UserService.findUserById(friends.getFriend()).getUsername().equals(friendName))){
-                response.sendRedirect("user_friends.jsp?msg=1");
+                response.sendRedirect("FriendsListServlet?msg=1");
             }
             else {
                 Friends friends = new Friends(owner.getID(), newFriend.getID());
@@ -37,7 +37,7 @@ public class AddFriendsServlet extends HttpServlet {
             }
         }
         else{
-            response.sendRedirect("user_friends.jsp?msg=2");
+            response.sendRedirect("FriendsListServlet?msg=2");
         }
 
     }

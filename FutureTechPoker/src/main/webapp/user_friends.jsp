@@ -42,29 +42,23 @@
   User logged = (User) session.getAttribute("User");
 %>
 <html>
+    <link rel="stylesheet" type="text/css" href="home.css">
 <head>
   <title>FutureTech Poker User Friends</title>
-  <link rel="stylesheet" type="text/css" href="home.css">
+
 </head>
 
 <body>
+
+
     <div class="banner">
       <h1>FutureTech Poker</h1>
     </div>
     <div class="animated-background"></div>
     <h2><%=logged.getUsername()%>'s Friends</h2>
 
-        <br>
-        <table border='1' width='300' cellpadding='1' cellspacing='0' align = 'center'>
-           <thead>
-                <tr>
-                    <th>User Name</th>
-                    <th>UserId</th>
-                </tr>
-            </thead>
-            <tbody>
 
-
+    <div class="scrollContainer">
             <%
 
                 List<User> friends = (List<User>) request.getAttribute("friends");
@@ -75,27 +69,23 @@
                     for(User user : friends)
                     {
 
-            %>
-            <tr>
-                <td><%=user.getName()%></td>
-                <td> <%=user.getID()%></td>
 
-                <td>
-                    <input type="button" value="Message" onclick="window.location.href = 'MessageListServlet?otherUser=<%=user.getID()%>'" name="message">
-                </td>
-                <td>
-                    <input type="button" value ="Delete" onclick="window.location.href = 'DeleteFriendsServlet?deleteFriend=<%=user.getID()%>'" name="delete">
-                </td>
-            </tr>
+            %>
+
+        <div class="friendContainer">
+            <div class= "friendNameItem"> <%=user.getName()%></div>
+            <input class= "friendButtonItem" type="button" value="Message" onclick="window.location.href = 'MessageListServlet?otherUser=<%=user.getID()%>'" name="message">
+            <input class="friendButtonItem" type="button" value ="Delete" onclick="window.location.href = 'DeleteFriendsServlet?deleteFriend=<%=user.getID()%>'" name="delete">
+        </div>
+
+
             <%
                 }
                 }
             %>
-            </tbody>
-        </table>
-
-        <div>
-            <h2>Add a Friend:</h2>
+    </div>
+    <br>
+        <div class = "centered">
             <form action="AddFriendsServlet" method="post">
                 <input type="text" name="newFriend" id="newFriend" placeholder="Enter friend's name" required>
                 <button type="submit" style="text-align: center"> Add Friend</button>
