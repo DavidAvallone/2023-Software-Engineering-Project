@@ -1,0 +1,180 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > UserService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">controller.service</a>
+</div>
+
+<h1>Coverage Summary for Class: UserService (controller.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    63.6%
+  </span>
+  <span class="absValue">
+    (7/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (16/20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package controller.service;
+&nbsp;
+&nbsp;import model.dao.UserDAO;
+&nbsp;import model.entity.User;
+&nbsp;import util.PasswordUtil;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;public class UserService {</b>
+&nbsp;
+<b class="fc">&nbsp;    public static UserDAO dao = new UserDAO();</b>
+&nbsp;
+&nbsp;    public static void setDAO(UserDAO dao){
+<b class="fc">&nbsp;        UserService.dao = dao;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /***
+&nbsp;     * Registers new user in the DB by calling the DAO.
+&nbsp;     * Although you could put this method inside the Servlet,
+&nbsp;     *  by separating into another class, it is easier to test and mock
+&nbsp;     * @param newUser User entity to save (without ID)
+&nbsp;     * @return Saved User Entity (with ID) or null if Login already exists
+&nbsp;     */
+&nbsp;    public static User registerUser(User newUser){
+&nbsp;        try {
+<b class="fc">&nbsp;            String hashed = newUser.getPassword() == null ? &quot;&quot; : PasswordUtil.hash(newUser.getPassword()); // Determine if new user is a guest or real user</b>
+<b class="fc">&nbsp;            newUser.setPassword(hashed);</b>
+<b class="fc">&nbsp;            newUser = dao.create(newUser);</b>
+<b class="fc">&nbsp;        }catch(javax.persistence.PersistenceException ex){</b>
+&nbsp;            //Repeated login
+<b class="fc">&nbsp;            newUser = null;</b>
+<b class="fc">&nbsp;            System.out.println(ex);</b>
+&nbsp;        }
+&nbsp;        finally {
+<b class="fc">&nbsp;            return newUser;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /***
+&nbsp;     * Checks if Login &amp; Password matches the DB
+&nbsp;     * @param login The login (email)
+&nbsp;     * @param unhashedPassword Unhashed Password as String
+&nbsp;     * @return The User record if successful or null if Login/Password incorrect.
+&nbsp;     */
+&nbsp;    public static User loginUser(String login, String unhashedPassword){
+<b class="fc">&nbsp;        User found = dao.findUserByLogin(login);</b>
+<b class="fc">&nbsp;        if(found!=null &amp;&amp; PasswordUtil.compare(unhashedPassword,found.getPassword())){ // Found user by login</b>
+<b class="fc">&nbsp;            return found;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return null; // Login or Password incorrect</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static User findUserByName(String name){
+<b class="fc">&nbsp;        return dao.findUserByName(name);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;    public static User findUserByLogin(String login) { return dao.findUserByLogin(login); }</b>
+&nbsp;
+&nbsp;    public static User findUserById(int id){
+<b class="nc">&nbsp;        return dao.read(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void deleteUser(int id){
+<b class="fc">&nbsp;        dao.delete(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void updatePassword(User updatedUser) {
+<b class="nc">&nbsp;        dao.update(updatedUser);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void updateUsername(User updateUser){
+<b class="fc">&nbsp;        dao.update(updateUser);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-03 20:10</div>
+</div>
+</body>
+</html>

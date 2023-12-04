@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Message</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">model.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: Message (model.entity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Message</td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (10/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.4%
+  </span>
+  <span class="absValue">
+    (17/18)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Message$HibernateProxy$QpmNX7Ln</td>
+  </tr>
+  <tr>
+    <td class="name">Message$HibernateProxy$tlD8WcHz</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (10/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.4%
+  </span>
+  <span class="absValue">
+    (17/18)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package model.entity;
+&nbsp;
+&nbsp;import javax.persistence.*;
+&nbsp;import java.util.Date;
+&nbsp;/*
+&nbsp;CREATE TABLE Message (
+&nbsp;        id INT PRIMARY KEY AUTO_INCREMENT,
+&nbsp;        sender INT,
+&nbsp;        receiver INT,
+&nbsp;        message varchar(255),
+&nbsp;        FOREIGN KEY (sender) REFERENCES user(id_user),
+&nbsp;        FOREIGN KEY (receiver) REFERENCES user(id_user)
+&nbsp;        );
+&nbsp; */
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;Message&quot;)
+&nbsp;public class Message extends BaseEntity{
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private Integer id;
+&nbsp;    private Integer sender;
+&nbsp;    private Integer receiver;
+&nbsp;
+&nbsp;    private String message;
+&nbsp;
+<b class="fc">&nbsp;    public Message(Integer id, int sender, int receiver, String message){</b>
+<b class="fc">&nbsp;        this.id = id;</b>
+<b class="fc">&nbsp;        this.sender = sender;</b>
+<b class="fc">&nbsp;        this.receiver = receiver;</b>
+<b class="fc">&nbsp;        this.message = message;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Message(int sender, int receiver, String message){</b>
+<b class="fc">&nbsp;        this.sender = sender;</b>
+<b class="fc">&nbsp;        this.receiver = receiver;</b>
+<b class="fc">&nbsp;        this.message = message;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    public Message(){</b>
+&nbsp;    }
+&nbsp;    public Integer getID() {
+<b class="fc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setID(int id) {
+<b class="nc">&nbsp;        this.id = id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getSender() {
+<b class="fc">&nbsp;        return sender;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSender(int sender) {
+<b class="fc">&nbsp;        this.sender = sender;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getReceiver() {
+<b class="fc">&nbsp;        return receiver;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setReceiver(int receiver) {
+<b class="fc">&nbsp;        this.receiver = receiver;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getMessage() {
+<b class="fc">&nbsp;        return message;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setMessage(String message) {
+<b class="fc">&nbsp;        this.message = message;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-03 20:10</div>
+</div>
+</body>
+</html>

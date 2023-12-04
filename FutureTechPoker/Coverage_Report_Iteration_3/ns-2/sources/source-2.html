@@ -1,0 +1,144 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > MessageService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">controller.service</a>
+</div>
+
+<h1>Coverage Summary for Class: MessageService (controller.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MessageService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.9%
+  </span>
+  <span class="absValue">
+    (8/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.9%
+  </span>
+  <span class="absValue">
+    (8/9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package controller.service;
+&nbsp;
+&nbsp;import model.dao.FriendsDAO;
+&nbsp;import model.dao.MessageDAO;
+&nbsp;import model.entity.Message;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;public class MessageService {</b>
+&nbsp;
+<b class="fc">&nbsp;    public static MessageDAO dao = new MessageDAO();</b>
+&nbsp;    public static void setDAO(MessageDAO dao){
+<b class="fc">&nbsp;        MessageService.dao = dao;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Message addMessage(Message message){
+<b class="fc">&nbsp;        return dao.create(message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void deleteMessage(int id){
+<b class="fc">&nbsp;        dao.delete(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Message updateMessage(Message message){
+<b class="fc">&nbsp;        return dao.update(message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Message readMessage(int messageId){
+<b class="fc">&nbsp;        return dao.read(messageId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static List&lt;Message&gt; getMessages(int receiverId){
+<b class="fc">&nbsp;        return dao.getReceivedMessages(receiverId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static List&lt;Message&gt; getToAndFromMessages(int userId, int otherUserId){
+<b class="fc">&nbsp;        return dao.getToAndFromMessages(userId, otherUserId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-03 20:10</div>
+</div>
+</body>
+</html>

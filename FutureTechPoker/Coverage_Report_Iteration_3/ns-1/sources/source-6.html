@@ -1,0 +1,835 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Round</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Poker</a>
+</div>
+
+<h1>Coverage Summary for Class: Round (Poker)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Round</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    67.4%
+  </span>
+  <span class="absValue">
+    (29/43)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    82%
+  </span>
+  <span class="absValue">
+    (283/345)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Poker;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.Comparator;
+&nbsp;
+&nbsp;
+&nbsp;public class Round {
+&nbsp;    private ArrayList&lt;Player&gt; players;
+&nbsp;    private ArrayList&lt;Card&gt; river;
+&nbsp;    private Deck deck;
+<b class="fc">&nbsp;    private int round_num = 1;</b>
+<b class="fc">&nbsp;    private double current_bet = 0;</b>
+&nbsp;    private final double starting_bet;
+&nbsp;    private double small_blind;
+&nbsp;    private double big_blind;
+<b class="fc">&nbsp;    private double current_pot = 0;</b>
+&nbsp;    private int current_player_turn;
+&nbsp;    private ArrayList&lt;Player&gt; tied;
+&nbsp;    private int last_raise;
+<b class="fc">&nbsp;    private boolean gameover = false;</b>
+&nbsp;    private String[] player_status;
+&nbsp;    private double[] player_bets;
+<b class="fc">&nbsp;    private Player winning_player = null;</b>
+<b class="fc">&nbsp;    private boolean isTie = false;</b>
+&nbsp;    private boolean gameStarted;
+&nbsp;    private long seed;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This is the constructor for the round class: a round is the entire game of poker
+&nbsp;     * @param starting_bet the starting bet for the big blind and small blind
+&nbsp;     * @param seed the seed for the game which is randomly generated
+&nbsp;     */
+<b class="fc">&nbsp;    public Round(double starting_bet, Long seed) {</b>
+<b class="fc">&nbsp;        this.seed = seed;</b>
+<b class="fc">&nbsp;        this.players = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        this.starting_bet = starting_bet;</b>
+<b class="fc">&nbsp;        this.small_blind = starting_bet / 2;</b>
+<b class="fc">&nbsp;        this.big_blind = starting_bet;</b>
+<b class="fc">&nbsp;        deck = new Deck(seed);</b>
+<b class="fc">&nbsp;        deck.shuffle();</b>
+<b class="fc">&nbsp;        current_pot += small_blind + big_blind;</b>
+<b class="fc">&nbsp;        this.river = new ArrayList&lt;Card&gt;();</b>
+<b class="fc">&nbsp;        current_player_turn = 0;</b>
+<b class="fc">&nbsp;        this.current_bet = starting_bet;</b>
+<b class="fc">&nbsp;        last_raise = 1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    public void start_game(int small_blind, int big_blind){
+<b class="fc">&nbsp;        deal_out(small_blind, big_blind);</b>
+<b class="fc">&nbsp;        gameStarted = true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void add_player(Player p, String status){
+<b class="fc">&nbsp;        p.setStatus(status);</b>
+<b class="fc">&nbsp;        p.clearHand();</b>
+<b class="fc">&nbsp;        p.setCurrentBet(0);</b>
+<b class="fc">&nbsp;        this.players.add(p);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * this function is the getter for the river
+&nbsp;     * @return the array list of cards
+&nbsp;     */
+&nbsp;    public ArrayList&lt;Card&gt; getRiver(){
+<b class="fc">&nbsp;        return river;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function sorts the players by the turn order
+&nbsp;     */
+&nbsp;    public void sort_players() {
+<b class="fc">&nbsp;        Comparator&lt;Player&gt; byTurnOrder = Comparator.comparing(Player::getTurnOrder);// get turn order function of player</b>
+&nbsp;        // Sort the list of players using the custom comparator
+<b class="fc">&nbsp;        Collections.sort(players, byTurnOrder);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * this the getter for the players list in the round
+&nbsp;     * @return arraylist of the players in the round
+&nbsp;     */
+&nbsp;    public ArrayList&lt;Player&gt; getPlayers(){
+<b class="fc">&nbsp;        return this.players;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public long getSeed(){
+<b class="nc">&nbsp;        return this.seed;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This updates the blinds depending on the turn order.
+&nbsp;     */
+&nbsp;    public void update_blinds(int small, int big) {
+<b class="fc">&nbsp;        for (int i = 0; i &lt; players.size(); i++) {</b>
+<b class="fc">&nbsp;            Player temp = players.get(i);</b>
+<b class="fc">&nbsp;            temp.setSmallBlind(false);</b>
+<b class="fc">&nbsp;            temp.setBigBlind(false);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Player p1 = players.get(small);</b>
+<b class="fc">&nbsp;        p1.setSmallBlind(true);</b>
+<b class="fc">&nbsp;        p1.setCurrentBet(small_blind);</b>
+<b class="fc">&nbsp;        p1.setCurrency(p1.getCurrency()-small_blind);</b>
+&nbsp;
+<b class="fc">&nbsp;        Player p2 = players.get(big);</b>
+<b class="fc">&nbsp;        p2.setCurrentBet(big_blind);</b>
+<b class="fc">&nbsp;        p2.setCurrency(p2.getCurrency()-big_blind);</b>
+<b class="fc">&nbsp;        p2.setBigBlind(true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * this simulates the beginning of a poker match and sorts players
+&nbsp;     * deals out the cards to each players hands
+&nbsp;     */
+&nbsp;    public void deal_out(int small_blind, int big_blind) {
+<b class="fc">&nbsp;        sort_players();</b>
+<b class="fc">&nbsp;        update_blinds(small_blind, big_blind);</b>
+<b class="fc">&nbsp;        int all_drew = 0;</b>
+<b class="fc">&nbsp;        players.get(0).addCardToHand(deck.draw());</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; players.size(); i++) {</b>
+&nbsp;            //add a card to players hand
+<b class="fc">&nbsp;            players.get(i).addCardToHand(deck.draw());</b>
+<b class="fc">&nbsp;            if (i + 1 == players.size() &amp;&amp; all_drew == 0) {</b>
+<b class="fc">&nbsp;                i = 0;</b>
+<b class="fc">&nbsp;                all_drew++;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function returns each players hand in a string
+&nbsp;     * @return a human-readable way to print all hands
+&nbsp;     */
+&nbsp;    public String player_hands_toString(){
+<b class="fc">&nbsp;        String result = &quot;Player Hands: \n&quot;;</b>
+<b class="fc">&nbsp;        for(Player p : players){</b>
+<b class="fc">&nbsp;            result += p.getName() + &quot;: &quot; + p.getHand() + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * a getter for the current pot
+&nbsp;     * @return the current pot
+&nbsp;     */
+&nbsp;    public double getCurrent_pot(){
+<b class="fc">&nbsp;        return this.current_pot;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public double getCurrent_bet() {
+<b class="nc">&nbsp;        return current_bet;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This is a getter for the game over boolean
+&nbsp;     * @return a boolean if the game is over
+&nbsp;     */
+&nbsp;    public boolean getGameOver(){
+<b class="fc">&nbsp;        return gameover;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Player getWinning_player(){
+<b class="nc">&nbsp;        return winning_player;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * A setter to set the game to over
+&nbsp;     * @param b the boolean to set the game to over or still in play
+&nbsp;     */
+&nbsp;    public void setGameover(boolean b){
+<b class="nc">&nbsp;        this.gameover = b;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * this is a getter for the string array for the players status
+&nbsp;     * @return string array of statuses
+&nbsp;     */
+&nbsp;    public String[] getPlayer_status(){
+<b class="fc">&nbsp;        this.player_status = new String[players.size()];</b>
+<b class="fc">&nbsp;        for(int i = 0; i &lt; players.size(); i++){</b>
+<b class="fc">&nbsp;            this.player_status[i] = players.get(i).getStatus();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return this.player_status;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter for the double array of player bets
+&nbsp;     * @return double array of bets
+&nbsp;     */
+&nbsp;    public double[] getPlayer_bets(){
+<b class="nc">&nbsp;        this.player_bets = new double[players.size()];</b>
+<b class="nc">&nbsp;        for(int i = 0; i &lt; players.size(); i++){</b>
+<b class="nc">&nbsp;            this.player_bets[i] = players.get(i).getCurrentBet();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return this.player_bets;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function handles the logic for when a player folds
+&nbsp;     * @param p index in player arrays
+&nbsp;     * @param current_player the player object
+&nbsp;     */
+&nbsp;    public void fold(int p, Player current_player){
+<b class="fc">&nbsp;        current_player.setFold(true);</b>
+<b class="fc">&nbsp;        current_player.setStatus(&quot;fold&quot;);</b>
+<b class="fc">&nbsp;        if(p &lt; players.size()-1)</b>
+<b class="fc">&nbsp;            current_player_turn++;</b>
+<b class="fc">&nbsp;        else if(p == players.size()-1)</b>
+<b class="fc">&nbsp;            current_player_turn = 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function handles the logic for when a player checks
+&nbsp;     * @param p index in player arrays
+&nbsp;     * @param current_player the player object
+&nbsp;     */
+&nbsp;    public void check(int p, Player current_player){
+<b class="fc">&nbsp;        current_player.setStatus(&quot;check&quot;);</b>
+<b class="fc">&nbsp;        if(p &lt; players.size()-1)</b>
+<b class="fc">&nbsp;            current_player_turn++;</b>
+<b class="nc">&nbsp;        else if(p == players.size()-1)</b>
+<b class="nc">&nbsp;            current_player_turn = 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function handles the logic for when a player raise
+&nbsp;     * @param p index in player arrays
+&nbsp;     * @param current_player the player object
+&nbsp;     * @param bet this is how much they want to raise by
+&nbsp;     */
+&nbsp;    public void raise(int p, Player current_player, double bet){
+<b class="fc">&nbsp;        boolean after_raise = false;</b>
+<b class="fc">&nbsp;        boolean after_call = false;</b>
+<b class="fc">&nbsp;        boolean beginning = false;</b>
+<b class="fc">&nbsp;        double call = 0;</b>
+&nbsp;        int last_player;
+<b class="fc">&nbsp;        if(p == players.size() - 1){</b>
+<b class="fc">&nbsp;            last_player = 0;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        else if(p == 0){</b>
+<b class="fc">&nbsp;            last_player = players.size() - 1;</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="nc">&nbsp;            last_player = p -1;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        if(players.get(last_player).getStatus().equals(&quot;raise&quot;)){</b>
+<b class="fc">&nbsp;            call = current_bet - current_player.getCurrentBet();</b>
+<b class="fc">&nbsp;            after_raise = true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if(players.get(last_player).getStatus().equals(&quot;call&quot;)){</b>
+<b class="fc">&nbsp;            after_call = true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if(players.get(last_player).getStatus().equals(&quot;not played&quot;)){</b>
+<b class="fc">&nbsp;            beginning = true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if(bet &gt; current_player.getCurrency()){</b>
+<b class="nc">&nbsp;            bet = current_player.getCurrency();</b>
+<b class="nc">&nbsp;            current_player.setStatus(&quot;all in&quot;);</b>
+<b class="nc">&nbsp;            current_player.setCurrency(0.0);</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="fc">&nbsp;            current_player.setStatus(&quot;raise&quot;);</b>
+<b class="fc">&nbsp;            if(after_raise){</b>
+<b class="fc">&nbsp;                current_player.setCurrency(current_player.getCurrency() - (call + bet));</b>
+&nbsp;            }
+<b class="fc">&nbsp;            else if(after_call){</b>
+<b class="fc">&nbsp;                current_player.setCurrency(current_player.getCurrency() - bet);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            else if(beginning){</b>
+<b class="fc">&nbsp;                current_player.setCurrency(current_player.getCurrency() - bet);</b>
+&nbsp;            }
+&nbsp;            else{
+<b class="fc">&nbsp;                current_player.setCurrency(current_player.getCurrency() - (current_bet + bet));</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        this.current_bet += bet;</b>
+<b class="fc">&nbsp;        current_player.setCurrentBet(current_bet);</b>
+<b class="fc">&nbsp;        last_raise = p;</b>
+<b class="fc">&nbsp;        if(p &lt; players.size()-1)</b>
+<b class="fc">&nbsp;            current_player_turn++;</b>
+<b class="fc">&nbsp;        else if(p == players.size()-1)</b>
+<b class="fc">&nbsp;            current_player_turn = 0;</b>
+<b class="fc">&nbsp;        updatePot();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function updates the pot after each player turn
+&nbsp;     */
+&nbsp;    public void updatePot(){
+<b class="fc">&nbsp;        double pot = 0;</b>
+<b class="fc">&nbsp;        for(int i = 0; i &lt; players.size(); i++){</b>
+<b class="fc">&nbsp;            pot += players.get(i).getCurrentBet();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        this.current_pot = pot;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function handles the logic for when a player goes allin
+&nbsp;     * @param p index in player arrays
+&nbsp;     * @param current_player the player object
+&nbsp;     */
+&nbsp;    public void all_in(int p, Player current_player){
+<b class="fc">&nbsp;        players.get(p).setAllIn(true);</b>
+<b class="fc">&nbsp;        current_bet = current_player.getCurrency();</b>
+<b class="fc">&nbsp;        current_player.setCurrentBet(current_player.getCurrency());</b>
+<b class="fc">&nbsp;        current_player.setCurrency(0.0);</b>
+<b class="fc">&nbsp;        current_player.setStatus(&quot;all in&quot;);</b>
+<b class="fc">&nbsp;        last_raise = p;</b>
+<b class="fc">&nbsp;        if(p &lt; players.size()-1)</b>
+<b class="fc">&nbsp;            current_player_turn++;</b>
+<b class="nc">&nbsp;        else if(p == players.size()-1)</b>
+<b class="nc">&nbsp;            current_player_turn = 0;</b>
+<b class="fc">&nbsp;        updatePot();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function handles the logic for when a player calls the raise
+&nbsp;     * @param p index in player arrays
+&nbsp;     * @param current_player the player object
+&nbsp;     */
+&nbsp;    public void call(int p, Player current_player){
+<b class="fc">&nbsp;        double call = current_bet - current_player.getCurrentBet();</b>
+<b class="fc">&nbsp;        if(call &gt; current_player.getCurrency()){</b>
+<b class="nc">&nbsp;            call = current_player.getCurrency();</b>
+<b class="nc">&nbsp;            current_player.setStatus(&quot;all in&quot;);</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="fc">&nbsp;            current_player.setStatus(&quot;call&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        current_player.setCurrency(current_player.getCurrency() - call);</b>
+<b class="fc">&nbsp;        current_player.addtoCurrentBet(call);</b>
+&nbsp;        // current bet stays the same
+<b class="fc">&nbsp;        if(p &lt; players.size()-1)</b>
+<b class="fc">&nbsp;            current_player_turn++;</b>
+<b class="fc">&nbsp;        else if(p == players.size()-1)</b>
+<b class="fc">&nbsp;            current_player_turn = 0;</b>
+<b class="fc">&nbsp;        updatePot();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function handles the logic for a players turn
+&nbsp;     * @param p the player to play their turn
+&nbsp;     * @param choice a string to determine what they will do on their turn
+&nbsp;     * @param bet if they decide to raise this will be there bet
+&nbsp;     */
+&nbsp;    public void player_turn(int p, String choice, double bet) {
+<b class="fc">&nbsp;        Player current_player = players.get(p);</b>
+<b class="fc">&nbsp;        if(current_player_turn != p){</b>
+<b class="fc">&nbsp;            throw new IllegalStateException(&quot;Wrong Player! Current Turn is : &quot; + current_player_turn);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if(current_player.getStatus().equals(&quot;fold&quot;) || current_player.getStatus().equals(&quot;all in&quot;)){</b>
+<b class="fc">&nbsp;            if(current_player_turn + 1 == players.size()){</b>
+<b class="nc">&nbsp;                current_player_turn = 0;</b>
+&nbsp;            }
+&nbsp;            else{
+<b class="fc">&nbsp;                current_player_turn++;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            throw new IllegalStateException(&quot;Player Has Folded! Current Turn is : &quot; + current_player_turn);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        switch (choice) {</b>
+&nbsp;            case &quot;check&quot;:
+<b class="fc">&nbsp;                check(p, current_player);</b>
+&nbsp;                return;
+&nbsp;            case &quot;fold&quot;:
+<b class="fc">&nbsp;                fold(p, current_player);</b>
+&nbsp;                return;
+&nbsp;            case &quot;raise&quot;:
+<b class="fc">&nbsp;                raise(p, current_player, bet);</b>
+&nbsp;                return;
+&nbsp;            case &quot;all in&quot;:
+<b class="fc">&nbsp;                all_in(p, current_player);</b>
+&nbsp;                return;
+&nbsp;            case &quot;call&quot;:
+<b class="fc">&nbsp;                call(p, current_player);</b>
+&nbsp;                return;
+&nbsp;            default:
+<b class="fc">&nbsp;                throw new IllegalStateException(&quot;Unexpected value: &quot; + choice);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * this function checks to see if the round is over
+&nbsp;     * @return a boolean for whether or not the round is over
+&nbsp;     */
+&nbsp;    public boolean isRoundOver(){
+<b class="fc">&nbsp;        if(everyone_folded()){</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        for(Player p : players){</b>
+<b class="fc">&nbsp;           if (p.getStatus().equals(&quot;playing&quot;))</b>
+<b class="nc">&nbsp;               return false;</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+<b class="fc">&nbsp;        int active_players = 0;</b>
+<b class="fc">&nbsp;        int folded_players = 0;</b>
+&nbsp;        // find folded players
+<b class="fc">&nbsp;        for(int i = 0; i &lt; players.size();i++){</b>
+<b class="fc">&nbsp;            if(players.get(i).getStatus().equals(&quot;fold&quot;)){</b>
+<b class="nc">&nbsp;                folded_players++;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        active_players = players.size() - folded_players;</b>
+<b class="fc">&nbsp;        int i = last_raise + 1;</b>
+&nbsp;
+<b class="fc">&nbsp;        if(i == players.size()){// last raise was the last person in the array</b>
+<b class="fc">&nbsp;            i = 0;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        int called = 1;</b>
+&nbsp;        //everyone checks or calls after a raise
+<b class="fc">&nbsp;        while(i != last_raise){</b>
+<b class="fc">&nbsp;            if(i == players.size()){</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            if(players.get(i).getStatus().equals(&quot;fold&quot;) || players.get(i).getStatus().equals(&quot;all in&quot;)){</b>
+<b class="nc">&nbsp;                if(i + 1 == players.size()){</b>
+<b class="nc">&nbsp;                    i = 0;</b>
+&nbsp;                }
+&nbsp;                else{
+<b class="nc">&nbsp;                    i++;// we skip these</b>
+&nbsp;                }
+&nbsp;            }
+<b class="fc">&nbsp;            else if(players.get(i).getStatus().equals(&quot;call&quot;) &amp;&amp; players.get(i).getCurrentBet() == players.get(last_raise).getCurrentBet()){</b>
+<b class="fc">&nbsp;                called++;</b>
+<b class="fc">&nbsp;                if(i + 1 == players.size()){</b>
+<b class="fc">&nbsp;                    i = 0;</b>
+&nbsp;
+&nbsp;                }
+&nbsp;                else{
+<b class="fc">&nbsp;                    i++;// we skip these</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            else{
+<b class="fc">&nbsp;                if(i + 1 == players.size()){</b>
+<b class="nc">&nbsp;                    i = 0;</b>
+&nbsp;
+&nbsp;                }
+&nbsp;                else{
+<b class="fc">&nbsp;                    i++;// we skip these</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        if(active_players == called){</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function determines who will be the first person to play in the next round
+&nbsp;     * @return an integer to signify whos turn it is
+&nbsp;     */
+&nbsp;    public int determine_first_player(){
+<b class="fc">&nbsp;        int player = 0;</b>
+<b class="fc">&nbsp;        for(int i = 0; i &lt; players.size();i++){</b>
+<b class="fc">&nbsp;            if(!(players.get(i).getStatus().equals(&quot;fold&quot;) || players.get(i).getStatus().equals(&quot;all in&quot;))){</b>
+<b class="fc">&nbsp;                player = i;</b>
+<b class="fc">&nbsp;                break;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return player;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function updates the round to the next if the conditions are met.
+&nbsp;     * round 1 to round 2 etc. until the game is over at round 4 or if the game ends prior
+&nbsp;     */
+&nbsp;    public void update_round(){
+<b class="fc">&nbsp;        if(everyone_folded()){</b>
+<b class="fc">&nbsp;            gameover = true;</b>
+<b class="fc">&nbsp;            winning_player = last_player_standing();</b>
+&nbsp;
+&nbsp;        }
+<b class="fc">&nbsp;        if(isRoundOver() &amp;&amp; round_num == 1){// first round is over add 3 to the river</b>
+<b class="fc">&nbsp;            current_player_turn = determine_first_player();</b>
+<b class="fc">&nbsp;            this.round_num++;</b>
+<b class="fc">&nbsp;            for(int i = 0; i &lt; players.size(); i++){</b>
+<b class="fc">&nbsp;                if(!(players.get(i).getStatus().equals(&quot;fold&quot;) || players.get(i).getStatus().equals(&quot;all in&quot;))){</b>
+<b class="fc">&nbsp;                    players.get(i).setStatus(&quot;not played&quot;);</b>
+&nbsp;                }
+&nbsp;            }
+<b class="fc">&nbsp;            this.deck.draw();</b>
+<b class="fc">&nbsp;            river.add(deck.draw());</b>
+<b class="fc">&nbsp;            this.deck.draw();</b>
+<b class="fc">&nbsp;            river.add(deck.draw());</b>
+<b class="fc">&nbsp;            this.deck.draw();</b>
+<b class="fc">&nbsp;            river.add(deck.draw());</b>
+&nbsp;
+&nbsp;        }
+<b class="fc">&nbsp;        else if(isRoundOver() &amp;&amp; (round_num &gt; 1 &amp;&amp; round_num &lt; 4)){ // round 2 and 3 add one to river</b>
+<b class="fc">&nbsp;            current_player_turn = determine_first_player();</b>
+<b class="fc">&nbsp;            this.round_num++;</b>
+<b class="fc">&nbsp;            for(int i = 0; i &lt; players.size(); i++){</b>
+<b class="fc">&nbsp;                if(!(players.get(i).getStatus().equals(&quot;fold&quot;) || players.get(i).getStatus().equals(&quot;all in&quot;))){</b>
+<b class="fc">&nbsp;                    players.get(i).setStatus(&quot;not played&quot;);</b>
+&nbsp;                }
+&nbsp;            }
+<b class="fc">&nbsp;            this.deck.draw();</b>
+<b class="fc">&nbsp;            river.add(deck.draw());</b>
+&nbsp;        }
+<b class="fc">&nbsp;        else if(isRoundOver() &amp;&amp; round_num == 4){ // end of game</b>
+<b class="fc">&nbsp;            gameover = true;</b>
+<b class="fc">&nbsp;            if(tie() == null || tie().size() == 1) {</b>
+<b class="fc">&nbsp;                winning_player = who_won();</b>
+<b class="fc">&nbsp;                winning_player.setCurrency(winning_player.getCurrency() + current_pot);</b>
+&nbsp;            }
+&nbsp;            else{
+<b class="nc">&nbsp;                tied = tie();</b>
+<b class="nc">&nbsp;                isTie = true;</b>
+<b class="nc">&nbsp;                int split = tied.size();</b>
+<b class="nc">&nbsp;                double split_pot = current_pot/split;</b>
+<b class="nc">&nbsp;                for(Player p : tied){</b>
+<b class="nc">&nbsp;                    p.setCurrency(p.getCurrency() + current_pot);</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;            }
+&nbsp;            // hand evaluations and make a function to update all of the players information in the database
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public ArrayList&lt;Player&gt; tie(){
+<b class="fc">&nbsp;        ArrayList&lt;Player&gt; winningPlayers = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        int bestHandValue = -1;</b>
+&nbsp;
+<b class="fc">&nbsp;        for (Player player1 : players) {</b>
+<b class="fc">&nbsp;            if (player1.isFold()) {</b>
+<b class="nc">&nbsp;                continue; // Skip folded players</b>
+&nbsp;            }
+<b class="fc">&nbsp;            Hand hand1 = player1.getHand();</b>
+&nbsp;
+<b class="fc">&nbsp;            for (Player player2 : players) {</b>
+<b class="fc">&nbsp;                if (player2.isFold() || player1 == player2) {</b>
+<b class="fc">&nbsp;                    continue; // Skip folded players and self-comparisons</b>
+&nbsp;                }
+<b class="fc">&nbsp;                Hand hand2 = player2.getHand();</b>
+&nbsp;
+&nbsp;                // You need to implement a compareHands method in your Hand class
+<b class="fc">&nbsp;                int result = hand1.compareTo(hand2, river);</b>
+&nbsp;
+<b class="fc">&nbsp;                if (result &gt; 0 &amp;&amp; result &gt; bestHandValue) {</b>
+<b class="fc">&nbsp;                    bestHandValue = result;</b>
+<b class="fc">&nbsp;                    winningPlayers.clear();</b>
+<b class="fc">&nbsp;                    winningPlayers.add(player1);</b>
+<b class="fc">&nbsp;                } else if (result &gt; 0 &amp;&amp; result == bestHandValue) {</b>
+<b class="fc">&nbsp;                    winningPlayers.add(player1);</b>
+<b class="fc">&nbsp;                } else if (result &lt; 0 &amp;&amp; -result &gt; bestHandValue) {</b>
+<b class="fc">&nbsp;                    bestHandValue = -result;</b>
+<b class="fc">&nbsp;                    winningPlayers.clear();</b>
+<b class="fc">&nbsp;                    winningPlayers.add(player2);</b>
+<b class="fc">&nbsp;                } else if (result &lt; 0 &amp;&amp; -result == bestHandValue) {</b>
+<b class="fc">&nbsp;                    winningPlayers.add(player2);</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+<b class="fc">&nbsp;        if (bestHandValue == 0) {</b>
+&nbsp;            // No player had a better hand than any other; it&#39;s a tie
+<b class="nc">&nbsp;            return winningPlayers;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function checks to see if everyone folded except one player
+&nbsp;     * @return a boolean to see if the game is over or not
+&nbsp;     */
+&nbsp;    public boolean everyone_folded(){
+<b class="fc">&nbsp;        int num_players = players.size();</b>
+<b class="fc">&nbsp;        int folded = 0;</b>
+<b class="fc">&nbsp;        for(int i = 0; i &lt; num_players; i++){</b>
+<b class="fc">&nbsp;            if(players.get(i).getStatus().equals(&quot;fold&quot;)){</b>
+<b class="fc">&nbsp;                folded++;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        if(num_players - folded == 1){</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="fc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * this function finds the last player to not fold incase everyone except one folded
+&nbsp;     * @return the last standing player
+&nbsp;     */
+&nbsp;    public Player last_player_standing(){
+<b class="fc">&nbsp;        if(everyone_folded()){</b>
+<b class="fc">&nbsp;            for(Player p : players){</b>
+<b class="fc">&nbsp;                if(!p.isFold()){</b>
+<b class="fc">&nbsp;                    return p;</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;        else {
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * a getter for the round number 1-4
+&nbsp;     * @return this rounds number
+&nbsp;     */
+&nbsp;    public int getRound_num(){
+<b class="fc">&nbsp;        return this.round_num;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function determines who won the game
+&nbsp;     * @return the winning player object
+&nbsp;     */
+&nbsp;    public Player who_won(){
+<b class="fc">&nbsp;        Player winning_player = null;</b>
+<b class="fc">&nbsp;        Hand highest_hand = null;</b>
+<b class="fc">&nbsp;        int highest_value = 0;</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; players.size(); i++) {</b>
+<b class="fc">&nbsp;            Player player = players.get(i);</b>
+&nbsp;
+<b class="fc">&nbsp;            if (player.isFold()) {</b>
+<b class="nc">&nbsp;                continue; // Skip folded players</b>
+&nbsp;            }
+<b class="fc">&nbsp;            Hand hand = player.getHand();</b>
+<b class="fc">&nbsp;            if( i == 0) {</b>
+<b class="fc">&nbsp;                winning_player = player;</b>
+<b class="fc">&nbsp;                highest_hand = hand;</b>
+<b class="fc">&nbsp;                highest_value = hand.comparetoRiver(this.river);</b>
+&nbsp;            }
+&nbsp;            else{
+<b class="fc">&nbsp;                if (hand.comparetoRiver(this.river) &gt; highest_value){</b>
+<b class="fc">&nbsp;                    winning_player = player;</b>
+<b class="fc">&nbsp;                    highest_hand = hand;</b>
+<b class="fc">&nbsp;                    highest_value = hand.comparetoRiver(this.river);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return  winning_player;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String river_string(){
+<b class="fc">&nbsp;        String result = &quot;| &quot;;</b>
+<b class="fc">&nbsp;        for(Card card : river){</b>
+<b class="fc">&nbsp;            result += card + &quot; | &quot;;</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * the tostring method for a round in a human-readable way
+&nbsp;     * @return humanreadable string of this round
+&nbsp;     */
+&nbsp;    public String toString(){
+<b class="fc">&nbsp;        String result = &quot;Current Players: \n&quot;;</b>
+<b class="fc">&nbsp;        for (Player player : players) {</b>
+<b class="fc">&nbsp;            result += player + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        result += &quot;Round Info: \n&quot;;</b>
+<b class="fc">&nbsp;        result += &quot;Current Round: &quot; + round_num + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        result += &quot;Current Pot: &quot; + current_pot + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        result += &quot;Current Bet: &quot; + current_bet + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        result += &quot;Current River: \n&quot;;</b>
+<b class="fc">&nbsp;        for(Card card : river){</b>
+<b class="fc">&nbsp;            result += &quot;&quot; + card + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        result += &quot;Current Player Turn: &quot; + (current_player_turn+1) + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;        if(winning_player != null){</b>
+<b class="fc">&nbsp;            result += &quot;GAME OVER \n&quot;;</b>
+<b class="fc">&nbsp;            result += &quot;Winning Player: &quot; + winning_player + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;            result += winning_player.getHand() + &quot;\n&quot;;</b>
+<b class="fc">&nbsp;            result += &quot;Other Player Hands: \n&quot;;</b>
+<b class="fc">&nbsp;            result += player_hands_toString();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if(isTie){</b>
+<b class="nc">&nbsp;            result += &quot;GAME OVER \n TIE GAME \n Tied: &quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;            for(Player p : tied){</b>
+<b class="nc">&nbsp;                result += p + &quot;\n&quot;;</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;            result += &quot;Player Hands: \n&quot;;</b>
+<b class="nc">&nbsp;            result += player_hands_toString();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean getTie() {
+<b class="nc">&nbsp;        return this.isTie;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getLast_raise() {
+<b class="nc">&nbsp;        return this.last_raise;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getCurrent_player() {
+<b class="nc">&nbsp;        return this.current_player_turn;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public double getStarting_bet() {
+<b class="nc">&nbsp;        return this.starting_bet;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getCurrent_player_turn(){
+<b class="nc">&nbsp;        return current_player_turn;</b>
+&nbsp;    }
+&nbsp;    public void remove_player(Player p){
+<b class="nc">&nbsp;        int removed = p.getTurnOrder();</b>
+<b class="nc">&nbsp;        for(Player player : players){</b>
+<b class="nc">&nbsp;            if( p.getId() == player.getId()){</b>
+<b class="nc">&nbsp;                players.remove(p);</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        update_turn_order();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void update_turn_order(){
+<b class="nc">&nbsp;        int i = 0;</b>
+<b class="nc">&nbsp;        for(Player player : players){</b>
+<b class="nc">&nbsp;            player.setTurnOrder(i);</b>
+<b class="nc">&nbsp;            i++;</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public double getBigBlind(){
+<b class="nc">&nbsp;        return this.big_blind;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public double getSmallBlind(){
+<b class="nc">&nbsp;        return this.small_blind;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-03 20:10</div>
+</div>
+</body>
+</html>
