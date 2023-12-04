@@ -34,6 +34,7 @@
     int curr = rs.round.getCurrent_player();
     String current_player = rs.round.getPlayers().get(curr).getName();
 %>
+
 <h2>Current Turn: <%= current_player%> Current Round: <%=rs.round.getRound_num()%> Game Seed: Tutorial</h2>
 
 <div class="poker-buttons">
@@ -52,6 +53,64 @@
 
     function closePopup(popupId) {
         document.getElementById(popupId).classList.remove('active');
+    }
+</script>
+
+<div class="poker-buttons">
+    <button style="background-color: #11e5d7;color: #fff;left: 90%;position: absolute" onclick="openTutorialPopup('tutorialPopup')">Open Tutorial</button>
+</div>
+
+<div class="popup1" id="tutorialPopup">
+    <div class="tutorial">
+        <span class="close-btn1" onclick="closeTutorialPopup('tutorialPopup')">&times;</span>
+        <%
+            List<Card> river = rs.round.getRiver();
+            if(river.isEmpty()) {
+        %>
+        <h2>Welcome to FutrueTech Poker!</h2>
+        <br>
+        <p>In a game of Poker each player has their own hand, the original two cards that are dealt to you.</p>
+        <br>
+        <p>Once you have your hand you can decide whether to call/check or raise the pot.</p>
+        <br>
+        <p>Try calling now to continue the game.</p>
+        <%
+        } else if (river.size() == 3) {
+        %>
+        <h2>The Flop</h2>
+        <br>
+        <p>After the first round of betting the first three cards in the center, the flop, are revealed.</p>
+        <br>
+        <p>Players can then call/check, raise, or fold.</p>
+        <%
+        } else if (river.size() == 4) {
+        %>
+        <h2>The Turn</h2>
+        <br>
+        <p>After the second round of betting the fourth card, the turn, is revealed.</p>
+        <br>
+        <p>Players can then call/check, raise, or fold.</p>
+        <%
+        } else if (river.size() == 5) {
+        %>
+        <h2>The River</h2>
+        <br>
+        <p>After the third round of betting the fifth card, the river, is revealed.</p>
+        <br>
+        <p>Players can then call/check, raise, or fold.</p>
+        <%
+            }
+        %>
+    </div>
+</div>
+
+<script>
+    function openTutorialPopup(popupId) {
+        document.getElementById(popupId).style.display = 'flex';
+    }
+
+    function closeTutorialPopup(popupId) {
+        document.getElementById(popupId).style.display = 'none'
     }
 </script>
 
@@ -288,7 +347,6 @@
     String river3 = "images/cardbacks.png";
     String river4 = "images/cardbacks.png";
     String river5 = "images/cardbacks.png";
-    List<Card> river = rs.round.getRiver();
 
     try {
         if (river.size() == 3) {
@@ -441,7 +499,6 @@
             document.onmousemove = null;
         }
     }
-
 
     // JavaScript function to open the popup
     function openPopup() {
