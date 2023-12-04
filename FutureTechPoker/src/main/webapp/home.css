@@ -80,3 +80,43 @@ p {
         background-position: 100% 50%;
     }
 }
+
+.scrollContainer{
+    overflow: auto;
+    width: 50%;
+    height: 30%;
+    border: 3px solid #3f3f3f ;
+    display: grid;
+    align-content: baseline;
+    margin: auto;
+
+}
+
+.friendContainer{
+    width: 96%;
+    height: 40px;
+    line-height: 3em;
+    overflow: visible;
+    padding: 2%;
+    border: 2px solid #3498db;
+
+}
+
+.friendNameItem {
+    display: inline-block;
+    vertical-align:top;
+    white-space:normal;
+    float: left;
+    width: 60%;
+}
+
+.friendButtonItem {
+    display: inline-block;
+    vertical-align:top;
+    white-space:normal;
+    float: left;
+    width: 20%;
+}
+
+
+

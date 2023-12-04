@@ -24,14 +24,19 @@ public class FriendsListServlet extends HttpServlet{
         HttpSession session = request.getSession();
         User owner = (User) session.getAttribute("User");
         List<User> userList = new ArrayList<>();
-        if(owner != null) {
+        if (owner != null) {
             List<Friends> friendsList = FriendsService.getFriendsList(owner);
-            for(int i = 0; i < friendsList.size(); i++) {
+            for (int i = 0; i < friendsList.size(); i++) {
                 userList.add(UserService.findUserById(friendsList.get(i).getFriend()));
             }
         }
+        String msg = request.getParameter("msg");
         request.setAttribute("friends", userList);
-        request.getRequestDispatcher("user_friends.jsp").forward(request, response);
+        if (msg == null) {
+            request.getRequestDispatcher("user_friends.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("user_friends.jsp?msg=" + msg).forward(request, response);
+        }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doGet(request, response);

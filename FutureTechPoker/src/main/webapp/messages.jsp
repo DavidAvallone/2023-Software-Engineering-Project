@@ -19,10 +19,14 @@
 
 <html>
 <head>
-    <title></title>
+    <title>Messages with <%= otherUser.getName()%></title>
+    <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 <body>
-    <h1>Messages with <%= otherUser.getName()%></h1>
+    <div class="banner">
+        <h1>FutureTech Poker</h1>
+    </div>
+    <div class="animated-background"></div>
 <%
     List<Message> messages = (List<Message>) request.getAttribute("messages");
 %>
@@ -37,12 +41,11 @@
         }
         }
     %>
-    <form action="AddMessageServlet" method="post">
-        <input type="text" name="newMessage" id="newMessage" placeholder="New Message" required>
-        <input type="hidden" name="receiverId" value="<%= otherUser.getID() %>">
-        <button type="submit" style="text-align: center"> Send Message</button>
-    </form>
-
+        <form action="AddMessageServlet" method="post">
+            <input type="text" name="newMessage" id="newMessage" placeholder="New Message" required>
+            <input type="hidden" name="receiverId" value="<%= otherUser.getID() %>">
+            <button type="submit" style="text-align: center"> Send Message</button>
+        </form>
     <div class="table-buttons">
         <button onclick="window.location.href='FriendsListServlet'">Back</button>
     </div>
