@@ -15,6 +15,7 @@
 
 <%
     User otherUser = (User)request.getAttribute("otherUser");
+    User user = (User)session.getAttribute("User");
 %>
 
 <html>
@@ -27,25 +28,49 @@
         <h1>FutureTech Poker</h1>
     </div>
     <div class="animated-background"></div>
+    <h2>Messages with <%=otherUser.getUsername()%></h2>
 <%
     List<Message> messages = (List<Message>) request.getAttribute("messages");
 %>
+    <div class="scrollContainer">
     <%
         if(!messages.isEmpty() && messages != null){
-            for(Message message: messages){
-                User sender = UserService.findUserById(message.getSender());
+            for(int i = 0; i< messages.size(); i++){
+                User sender = UserService.findUserById(messages.get(i).getSender());
+
+
 
         %>
-            <p><%=sender.getName()%>: <%= message.getMessage()%></p>
+            <div class="messageContainer">
+                <%if(sender.getID().equals(otherUser.getID())){
+                    %>
+                    <div class="messageFriendItem">
+                        <%=messages.get(i).getMessage()%>
+                    </div>
     <%
+                        }else{
+
+    %>
+                <div class="messageUserItem">
+                    <%=messages.get(i).getMessage()%>
+                </div>
+                    <%
+                }
+                %>
+            </div>
+        <%
         }
         }
     %>
+    </div>
+
+    <div class = "centered">
         <form action="AddMessageServlet" method="post">
             <input type="text" name="newMessage" id="newMessage" placeholder="New Message" required>
             <input type="hidden" name="receiverId" value="<%= otherUser.getID() %>">
             <button type="submit" style="text-align: center"> Send Message</button>
         </form>
+        </div>
     <div class="table-buttons">
         <button onclick="window.location.href='FriendsListServlet'">Back</button>
     </div>

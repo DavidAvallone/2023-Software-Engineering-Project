@@ -117,5 +117,33 @@ p {
     width: 20%;
 }
 
+.messageContainer{
+    width: 96%;
+    height: 60px;
+    line-height: 3em;
+    overflow: visible;
+    padding: 2%;
+
+
+}
+
+.messageUserItem{
+    display: inline-block;
+    vertical-align:top;
+    white-space:normal;
+    float: left;
+    width: 40%;
+    border: 2px solid #3498db;
+}
+
+.messageFriendItem{
+    display: inline-block;
+    vertical-align:top;
+    white-space:normal;
+    float: right;
+    width: 40%;
+    border: 2px solid green;
+}
+
 
 
