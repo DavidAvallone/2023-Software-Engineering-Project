@@ -26,7 +26,7 @@
 <%
     User logged = (User) session.getAttribute("User");
     if(logged.getBanned()){
-        response.sendRedirect("home.jsp");
+        response.sendRedirect("home.jsp?msg=1");
         return;
     }
 

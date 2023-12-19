@@ -15,6 +15,18 @@
 <%
     User logged = (User) session.getAttribute("User");
 %>
+<%  String code = request.getParameter("msg");
+    String message = "";
+
+    if(code != null) {
+        switch (code) {
+            case "1":
+                message = "Unable to join: You are banned.";
+                break;
+        }
+    }
+
+%>
 <html>
 <% if(logged!=null){ %>
 
@@ -30,6 +42,11 @@
     <div class="banner">
         <h1>FutureTech Poker</h1>
     </div>
+    <% if(message.length()>0){ %>
+    <div class="centered">
+        <h2> <%= message%> </h2>
+    </div>
+    <%}%>
 
     <div class="animated-background"></div>
 
