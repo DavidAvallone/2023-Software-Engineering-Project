@@ -63,6 +63,7 @@
         }
     %>
     </div>
+    <br><br>
     <div style="width: 50%; margin: auto">
     <div class = "centered">
         <form action="AddMessageServlet" method="post">
@@ -74,14 +75,16 @@
 
         <form action="AddMessageServlet" method="post">
             <input type="hidden" name="receiverId" value="<%= otherUser.getID() %>">
-            <button type="submit" style="text-align: center; position: absolute; top: 49%; left:59%">
+            <button type="submit" style="text-align: center; position: absolute; top: 55.5%; left:59%">
                 <img src="images/refresh.png" alt="Refresh" height="20" width="20">
             </button>
         </form>
-        </div>
+    </div>
 
     <div class="table-buttons">
-        <button onclick="window.location.href='FriendsListServlet'">Back</button>
+        <div class="centered">
+            <button onclick="window.location.href='FriendsListServlet'">Back</button>
+        </div>
     </div>
 </body>
 </html>
