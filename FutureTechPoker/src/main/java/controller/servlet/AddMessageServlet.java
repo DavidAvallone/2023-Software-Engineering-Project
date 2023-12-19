@@ -29,9 +29,10 @@ public class AddMessageServlet extends HttpServlet{
         User owner = (User) session.getAttribute("User");
         int otherUserId = Integer.parseInt(request.getParameter("receiverId"));
         String newMessage = request.getParameter("newMessage");
-        Message message = new Message(owner.getID(), otherUserId, newMessage);
-        MessageService.addMessage(message);
-
+        if(newMessage != null) {
+            Message message = new Message(owner.getID(), otherUserId, newMessage);
+            MessageService.addMessage(message);
+        }
         request.getRequestDispatcher("MessageListServlet?otherUser=" + otherUserId).forward(request, response);
     }
 }
